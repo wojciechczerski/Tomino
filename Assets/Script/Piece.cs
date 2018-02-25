@@ -18,5 +18,13 @@ namespace Tomino
                 block.position.row -= 1;
             }
         }
+
+        public void MoveUp()
+        {
+            foreach (var block in blocks)
+            {
+                block.position.row += 1;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Tomino
 {
@@ -12,6 +13,31 @@ namespace Tomino
         {
             this.width = width;
             this.height = height;
+        }
+
+        public bool HasCollisions()
+        {
+            return HasBoardCollisions() || HasBlockCollisions();
+        }
+
+        public bool HasBlockCollisions()
+        {
+            var allPositions = blocks.Select(block => block.position);
+            var uniquePositions = new HashSet<Position>(allPositions);
+            return allPositions.Count() != uniquePositions.Count();
+        }
+
+        public bool HasBoardCollisions()
+        {
+            return blocks.Find(CollidesWithBoard) != null;
+        }
+
+        public bool CollidesWithBoard(Block block)
+        {
+            return block.position.row < 0 ||
+                   block.position.row >= height ||
+                   block.position.column < 0 ||
+                   block.position.column >= width;
         }
     }
 }

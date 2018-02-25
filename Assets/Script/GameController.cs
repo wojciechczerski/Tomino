@@ -9,8 +9,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        game.SetPiece(new OPiece());
-
+        game.Start();
         StartCoroutine("Fall");
     }
 
