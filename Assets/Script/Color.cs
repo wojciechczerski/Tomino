@@ -7,6 +7,7 @@ namespace Tomino
         Blue,
         Yellow,
         Purple,
-        Orange
+        Orange,
+        Brown
     }
 }

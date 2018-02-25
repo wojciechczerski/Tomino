@@ -13,7 +13,12 @@ namespace Tomino
 
         public void AddRandomPiece()
         {
-            piece = new OPiece();
+            AddPiece(AvailablePieces.Random());
+        }
+
+        public void AddPiece(Piece newPiece)
+        {
+            piece = newPiece;
             foreach (var block in piece.blocks)
             {
                 block.position.row += initialPosition.row;

@@ -57,6 +57,7 @@ public class BoardView : MonoBehaviour
             case Tomino.Color.Yellow: return UnityEngine.Color.yellow;
             case Tomino.Color.Purple: return UnityEngine.Color.cyan;
             case Tomino.Color.Orange: return UnityEngine.Color.gray;
+            case Tomino.Color.Brown: return UnityEngine.Color.magenta;
         }
         return UnityEngine.Color.black;
     }
