@@ -2,13 +2,13 @@ namespace Tomino
 {
     public class Block
     {
-        public Color color;
+        public Piece.Type type;
         public Position position;
 
-        public Block(Position position, Color color)
+        public Block(Position position, Piece.Type type)
         {
             this.position = position;
-            this.color = color;
+            this.type = type;
         }
     }
 }

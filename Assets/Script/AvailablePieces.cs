@@ -34,7 +34,7 @@ namespace Tomino
                 new Position(1, 1),
                 new Position(0, 1)
             };
-            return new Piece(positions, Color.Green);
+            return new Piece(positions, Piece.Type.O);
         }
 
         public static Piece TPiece()
@@ -45,7 +45,7 @@ namespace Tomino
                 new Position(-1, 0),
                 new Position(0, 1)
             };
-            return new Piece(positions, Color.Red);
+            return new Piece(positions, Piece.Type.T);
         }
 
         public static Piece SPiece()
@@ -56,7 +56,7 @@ namespace Tomino
                 new Position(0, 1),
                 new Position(-1, 1)
             };
-            return new Piece(positions, Color.Blue);
+            return new Piece(positions, Piece.Type.S);
         }
 
         public static Piece ZPiece()
@@ -67,7 +67,7 @@ namespace Tomino
                 new Position(0, 1),
                 new Position(1, 1)
             };
-            return new Piece(positions, Color.Yellow);
+            return new Piece(positions, Piece.Type.Z);
         }
 
         public static Piece JPiece()
@@ -78,7 +78,7 @@ namespace Tomino
                 new Position(-1, 0),
                 new Position(-1, -1)
             };
-            return new Piece(positions, Color.Orange);
+            return new Piece(positions, Piece.Type.J);
         }
 
         public static Piece LPiece()
@@ -89,7 +89,7 @@ namespace Tomino
                 new Position(-1, 0),
                 new Position(-1, 1)
             };
-            return new Piece(positions, Color.Purple);
+            return new Piece(positions, Piece.Type.L);
         }
 
         public static Piece IPiece()
@@ -100,7 +100,7 @@ namespace Tomino
                 new Position(-1, 0),
                 new Position(-2, 0)
             };
-            return new Piece(positions, Color.Brown);
+            return new Piece(positions, Piece.Type.I);
         }
     }
 }

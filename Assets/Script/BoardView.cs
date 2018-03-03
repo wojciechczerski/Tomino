@@ -47,18 +47,18 @@ public class BoardView : MonoBehaviour
         return boardWidth / gameBoard.width;
     }
 
-    UnityEngine.Color BlockColor(Block block)
+    Color BlockColor(Block block)
     {
-        switch (block.color)
+        switch (block.type)
         {
-            case Tomino.Color.Red: return UnityEngine.Color.red;
-            case Tomino.Color.Green: return UnityEngine.Color.green;
-            case Tomino.Color.Blue: return UnityEngine.Color.blue;
-            case Tomino.Color.Yellow: return UnityEngine.Color.yellow;
-            case Tomino.Color.Purple: return UnityEngine.Color.cyan;
-            case Tomino.Color.Orange: return UnityEngine.Color.gray;
-            case Tomino.Color.Brown: return UnityEngine.Color.magenta;
+            case Piece.Type.I: return Color.red;
+            case Piece.Type.J: return Color.green;
+            case Piece.Type.L: return Color.blue;
+            case Piece.Type.O: return Color.yellow;
+            case Piece.Type.S: return Color.cyan;
+            case Piece.Type.T: return Color.gray;
+            case Piece.Type.Z: return Color.magenta;
         }
-        return UnityEngine.Color.black;
+        return Color.black;
     }
 }

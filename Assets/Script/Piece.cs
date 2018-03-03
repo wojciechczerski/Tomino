@@ -4,11 +4,16 @@ namespace Tomino
 {
     public class Piece
     {
+        public enum Type
+        {
+            I, J, L, O, S, T, Z
+        }
+
         public Block[] blocks;
 
-        public Piece(Position[] blockPositions, Color color)
+        public Piece(Position[] blockPositions, Type type)
         {
-            blocks = blockPositions.Select(position => new Block(position, color)).ToArray();
+            blocks = blockPositions.Select(position => new Block(position, type)).ToArray();
         }
 
         public void MoveDown()
