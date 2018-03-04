@@ -16,6 +16,22 @@ namespace Tomino
             blocks = blockPositions.Select(position => new Block(position, type)).ToArray();
         }
 
+        public void MoveLeft()
+        {
+            foreach (var block in blocks)
+            {
+                block.position.column -= 1;
+            }
+        }
+
+        public void MoveRight()
+        {
+            foreach (var block in blocks)
+            {
+                block.position.column += 1;
+            }
+        }
+
         public void MoveDown()
         {
             foreach (var block in blocks)

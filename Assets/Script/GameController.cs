@@ -13,6 +13,32 @@ public class GameController : MonoBehaviour
         StartCoroutine("Fall");
     }
 
+    void Update()
+    {
+        var action = GetPlayerAction();
+        if (action.HasValue)
+        {
+            game.HandlePlayerAction(action.Value);
+            boardView.RenderGameBoard(game.board);
+        }
+    }
+
+    PlayerAction? GetPlayerAction()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            return PlayerAction.MoveLeft;
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            return PlayerAction.MoveRight;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     IEnumerator Fall()
     {
         while (true)

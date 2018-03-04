@@ -36,5 +36,37 @@ namespace Tomino
                 AddRandomPiece();
             }
         }
+
+        public void HandlePlayerAction(PlayerAction action)
+        {
+            switch (action)
+            {
+                case PlayerAction.MoveLeft:
+                    MovePieceLeft();
+                    break;
+
+                case PlayerAction.MoveRight:
+                    MovePieceRight();
+                    break;
+            }
+        }
+
+        public void MovePieceLeft()
+        {
+            piece.MoveLeft();
+            if (board.HasCollisions())
+            {
+                piece.MoveRight();
+            }
+        }
+
+        public void MovePieceRight()
+        {
+            piece.MoveRight();
+            if (board.HasCollisions())
+            {
+                piece.MoveLeft();
+            }
+        }
     }
 }
