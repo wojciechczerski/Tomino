@@ -2,9 +2,12 @@ namespace Tomino
 {
     public class Game
     {
+        public delegate void BoardChangedDelgate(Board board);
+
         public Board board = new Board(10, 20);
         public Position initialPosition = new Position(17, 4);
         public Piece piece;
+        public BoardChangedDelgate onBoardChanged;
 
         public void Start()
         {
@@ -25,6 +28,7 @@ namespace Tomino
                 block.position.column += initialPosition.column;
                 board.blocks.Add(block);
             }
+            NotifyDelegateThatBoardHasChanged();
         }
 
         public void Update()
@@ -34,6 +38,10 @@ namespace Tomino
             {
                 piece.MoveUp();
                 AddRandomPiece();
+            }
+            else
+            {
+                NotifyDelegateThatBoardHasChanged();
             }
         }
 
@@ -58,6 +66,10 @@ namespace Tomino
             {
                 piece.MoveRight();
             }
+            else
+            {
+                NotifyDelegateThatBoardHasChanged();
+            }
         }
 
         public void MovePieceRight()
@@ -66,6 +78,18 @@ namespace Tomino
             if (board.HasCollisions())
             {
                 piece.MoveLeft();
+            }
+            else
+            {
+                NotifyDelegateThatBoardHasChanged();
+            }
+        }
+
+        void NotifyDelegateThatBoardHasChanged()
+        {
+            if (onBoardChanged != null)
+            {
+                onBoardChanged(board);
             }
         }
     }

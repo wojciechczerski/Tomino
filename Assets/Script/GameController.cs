@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        game.onBoardChanged += boardView.RenderGameBoard;
         game.Start();
         StartCoroutine("Fall");
     }
@@ -19,7 +20,6 @@ public class GameController : MonoBehaviour
         if (action.HasValue)
         {
             game.HandlePlayerAction(action.Value);
-            boardView.RenderGameBoard(game.board);
         }
     }
 
@@ -44,8 +44,6 @@ public class GameController : MonoBehaviour
         while (true)
         {
             game.Update();
-            boardView.RenderGameBoard(game.board);
-
             yield return new WaitForSeconds(1.0f);
         }
     }
