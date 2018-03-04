@@ -33,62 +33,43 @@ namespace Tomino
 
         public void Update()
         {
-            MovePieceDown();
+            HandlePlayerAction(PlayerAction.MoveDown);
         }
 
         public void HandlePlayerAction(PlayerAction action)
         {
+            var hash = board.GetHashCode();
+            var resolver = new PieceCollisionResolver(piece, board);
+
             switch (action)
             {
                 case PlayerAction.MoveLeft:
-                    MovePieceLeft();
+                    piece.MoveLeft();
                     break;
 
                 case PlayerAction.MoveRight:
-                    MovePieceRight();
+                    piece.MoveRight();
                     break;
 
                 case PlayerAction.MoveDown:
-                    MovePieceDown();
+                    piece.MoveDown();
+                    break;
+
+                case PlayerAction.Rotate:
+                    piece.Rotate();
                     break;
             }
-        }
 
-        public void MovePieceLeft()
-        {
-            piece.MoveLeft();
             if (board.HasCollisions())
             {
-                piece.MoveRight();
+                resolver.ResolveCollisions(action == PlayerAction.Rotate);
+                if (action == PlayerAction.MoveDown)
+                {
+                    AddRandomPiece();
+                }
             }
-            else
-            {
-                NotifyDelegateThatBoardHasChanged();
-            }
-        }
 
-        public void MovePieceRight()
-        {
-            piece.MoveRight();
-            if (board.HasCollisions())
-            {
-                piece.MoveLeft();
-            }
-            else
-            {
-                NotifyDelegateThatBoardHasChanged();
-            }
-        }
-
-        public void MovePieceDown()
-        {
-            piece.MoveDown();
-            if (board.HasCollisions())
-            {
-                piece.MoveUp();
-                AddRandomPiece();
-            }
-            else
+            if (hash != board.GetHashCode())
             {
                 NotifyDelegateThatBoardHasChanged();
             }

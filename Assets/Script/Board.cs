@@ -39,5 +39,11 @@ namespace Tomino
                    block.position.column < 0 ||
                    block.position.column >= width;
         }
+
+        override public int GetHashCode()
+        {
+            var list = blocks.Select(b => b.position.row ^ b.position.column);
+            return list.GetHashCode();
+        }
     }
 }

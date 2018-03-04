@@ -37,6 +37,10 @@ public class GameController : MonoBehaviour
         {
             return PlayerAction.MoveDown;
         }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            return PlayerAction.Rotate;
+        }
         return null;
     }
 

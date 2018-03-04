@@ -34,7 +34,7 @@ namespace Tomino
                 new Position(1, 1),
                 new Position(0, 1)
             };
-            return new Piece(positions, Piece.Type.O);
+            return new NotRotatingPiece(positions, Piece.Type.O);
         }
 
         public static Piece TPiece()
