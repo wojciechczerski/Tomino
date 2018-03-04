@@ -29,14 +29,15 @@ public class GameController : MonoBehaviour
         {
             return PlayerAction.MoveLeft;
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             return PlayerAction.MoveRight;
         }
-        else
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            return null;
+            return PlayerAction.MoveDown;
         }
+        return null;
     }
 
     IEnumerator Fall()

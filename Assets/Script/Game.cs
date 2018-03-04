@@ -33,16 +33,7 @@ namespace Tomino
 
         public void Update()
         {
-            piece.MoveDown();
-            if (board.HasCollisions())
-            {
-                piece.MoveUp();
-                AddRandomPiece();
-            }
-            else
-            {
-                NotifyDelegateThatBoardHasChanged();
-            }
+            MovePieceDown();
         }
 
         public void HandlePlayerAction(PlayerAction action)
@@ -55,6 +46,10 @@ namespace Tomino
 
                 case PlayerAction.MoveRight:
                     MovePieceRight();
+                    break;
+
+                case PlayerAction.MoveDown:
+                    MovePieceDown();
                     break;
             }
         }
@@ -78,6 +73,20 @@ namespace Tomino
             if (board.HasCollisions())
             {
                 piece.MoveLeft();
+            }
+            else
+            {
+                NotifyDelegateThatBoardHasChanged();
+            }
+        }
+
+        public void MovePieceDown()
+        {
+            piece.MoveDown();
+            if (board.HasCollisions())
+            {
+                piece.MoveUp();
+                AddRandomPiece();
             }
             else
             {
