@@ -45,5 +45,39 @@ namespace Tomino
             var list = blocks.Select(b => b.position.row ^ b.position.column);
             return list.GetHashCode();
         }
+
+        public void RemoveFullRows()
+        {
+            for (int row = height - 1; row >= 0; --row)
+            {
+                var rowBlocks = GetBlocksFromRow(row);
+                if (rowBlocks.Count == width)
+                {
+                    Remove(rowBlocks);
+                    MoveDownBlocksBelowRow(row);
+                }
+            }
+        }
+
+        List<Block> GetBlocksFromRow(int row)
+        {
+            return blocks.FindAll(block => block.position.row == row);
+        }
+
+        void Remove(List<Block> blocksToRemove)
+        {
+            blocks.RemoveAll(block => blocksToRemove.Contains(block));
+        }
+
+        void MoveDownBlocksBelowRow(int row)
+        {
+            foreach (Block block in blocks)
+            {
+                if (block.position.row > row)
+                {
+                    block.position.row -= 1;
+                }
+            }
+        }
     }
 }

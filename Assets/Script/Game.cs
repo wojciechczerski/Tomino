@@ -71,7 +71,7 @@ namespace Tomino
 
                 case PlayerAction.Fall:
                     Fall();
-                    AddRandomPiece();
+                    PieceFinishedFalling();
                     break;
             }
 
@@ -80,7 +80,7 @@ namespace Tomino
                 resolver.ResolveCollisions(action == PlayerAction.Rotate);
                 if (action == PlayerAction.MoveDown)
                 {
-                    AddRandomPiece();
+                    PieceFinishedFalling();
                 }
             }
 
@@ -88,6 +88,12 @@ namespace Tomino
             {
                 NotifyDelegateThatBoardHasChanged();
             }
+        }
+
+        void PieceFinishedFalling()
+        {
+            board.RemoveFullRows();
+            AddRandomPiece();
         }
 
         void Fall()
