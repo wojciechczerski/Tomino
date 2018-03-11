@@ -44,6 +44,10 @@ public class GameController : MonoBehaviour
         {
             return PlayerAction.Rotate;
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            return PlayerAction.Fall;
+        }
         return null;
     }
 }

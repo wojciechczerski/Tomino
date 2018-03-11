@@ -68,6 +68,11 @@ namespace Tomino
                 case PlayerAction.Rotate:
                     piece.Rotate();
                     break;
+
+                case PlayerAction.Fall:
+                    Fall();
+                    AddRandomPiece();
+                    break;
             }
 
             if (board.HasCollisions())
@@ -82,6 +87,20 @@ namespace Tomino
             if (hash != board.GetHashCode())
             {
                 NotifyDelegateThatBoardHasChanged();
+            }
+        }
+
+        void Fall()
+        {
+            var didMoveDown = false;
+            while (!board.HasCollisions())
+            {
+                piece.MoveDown();
+                didMoveDown = true;
+            }
+            if (didMoveDown)
+            {
+                piece.Move(1, 0);
             }
         }
 
