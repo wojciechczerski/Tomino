@@ -11,7 +11,6 @@ public class GameController : MonoBehaviour
     {
         game.onBoardChanged += boardView.RenderGameBoard;
         game.Start();
-        StartCoroutine("Fall");
     }
 
     void Update()
@@ -20,6 +19,10 @@ public class GameController : MonoBehaviour
         if (action.HasValue)
         {
             game.HandlePlayerAction(action.Value);
+        }
+        else
+        {
+            game.Update(Time.deltaTime);
         }
     }
 
@@ -42,14 +45,5 @@ public class GameController : MonoBehaviour
             return PlayerAction.Rotate;
         }
         return null;
-    }
-
-    IEnumerator Fall()
-    {
-        while (true)
-        {
-            game.Update();
-            yield return new WaitForSeconds(1.0f);
-        }
     }
 }

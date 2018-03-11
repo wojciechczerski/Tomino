@@ -2,12 +2,16 @@ namespace Tomino
 {
     public class Game
     {
+        const float FallDelay = 1.0f;
+
         public delegate void BoardChangedDelgate(Board board);
 
         public Board board = new Board(10, 20);
         public Position initialPosition = new Position(17, 4);
         public Piece piece;
         public BoardChangedDelgate onBoardChanged;
+
+        float elapsedTime = FallDelay;
 
         public void Start()
         {
@@ -31,9 +35,14 @@ namespace Tomino
             NotifyDelegateThatBoardHasChanged();
         }
 
-        public void Update()
+        public void Update(float deltaTime)
         {
-            HandlePlayerAction(PlayerAction.MoveDown);
+            elapsedTime += deltaTime;
+            if (elapsedTime >= FallDelay)
+            {
+                HandlePlayerAction(PlayerAction.MoveDown);
+                ResetElapsedTime();
+            }
         }
 
         public void HandlePlayerAction(PlayerAction action)
@@ -53,6 +62,7 @@ namespace Tomino
 
                 case PlayerAction.MoveDown:
                     piece.MoveDown();
+                    ResetElapsedTime();
                     break;
 
                 case PlayerAction.Rotate:
@@ -73,6 +83,11 @@ namespace Tomino
             {
                 NotifyDelegateThatBoardHasChanged();
             }
+        }
+
+        void ResetElapsedTime()
+        {
+            elapsedTime = 0;
         }
 
         void NotifyDelegateThatBoardHasChanged()
