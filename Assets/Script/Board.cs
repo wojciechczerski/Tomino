@@ -46,6 +46,16 @@ namespace Tomino
             return list.GetHashCode();
         }
 
+        public void Add(Piece piece, Position initialPosition)
+        {
+            foreach (var block in piece.blocks)
+            {
+                block.position.row += initialPosition.row;
+                block.position.column += initialPosition.column;
+                blocks.Add(block);
+            }
+        }
+
         public void RemoveFullRows()
         {
             for (int row = height - 1; row >= 0; --row)

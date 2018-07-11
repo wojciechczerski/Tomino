@@ -26,12 +26,7 @@ namespace Tomino
         public void AddPiece(Piece newPiece)
         {
             piece = newPiece;
-            foreach (var block in piece.blocks)
-            {
-                block.position.row += initialPosition.row;
-                block.position.column += initialPosition.column;
-                board.blocks.Add(block);
-            }
+            board.Add(piece, initialPosition);
             NotifyDelegateThatBoardHasChanged();
         }
 
