@@ -4,12 +4,14 @@ using System.Collections.Generic;
 
 public class GameTests
 {
+    StubInput input;
     Game game;
 
     [SetUp]
     public void Initialize()
     {
-        game = new Game();
+        input = new StubInput();
+        game = new Game(input);
         game.Start();
     }
 
@@ -25,7 +27,7 @@ public class GameTests
     public void MovesPiece(PlayerAction action, int rowOffset, int columnOffset)
     {
         var positions = game.piece.GetPositions();
-        game.HandlePlayerAction(action);
+        UpdateGameWithAction(action);
 
         foreach (Block block in game.piece.blocks)
         {
@@ -67,12 +69,12 @@ public class GameTests
             var piece = testCase.Key;
             var rotationPositions = testCase.Value;
 
-            game = new Game();
+            game = new Game(input);
             game.AddPiece(piece);
 
             foreach (Position[] positions in rotationPositions)
             {
-                game.HandlePlayerAction(PlayerAction.Rotate);
+                UpdateGameWithAction(PlayerAction.Rotate);
 
                 for (int i = 0; i < piece.blocks.Length; ++i)
                 {
@@ -92,7 +94,9 @@ public class GameTests
     public void AddsNewPieceAfterCurrentPieceFallsDown()
     {
         var blocksCount = game.piece.blocks.Length;
-        game.HandlePlayerAction(PlayerAction.Fall);
+
+        UpdateGameWithAction(PlayerAction.Fall);
+
         blocksCount += game.piece.blocks.Length;
 
         Assert.AreEqual(blocksCount, game.board.blocks.Count);
@@ -117,8 +121,8 @@ public class GameTests
 
         for (int i = 0; i < 50; ++i)
         {
-            game.HandlePlayerAction(action);
-            game.HandlePlayerAction(PlayerAction.Rotate);
+            UpdateGameWithAction(action);
+            UpdateGameWithAction(PlayerAction.Rotate);
         }
 
         Assert.IsFalse(game.board.HasCollisions());
@@ -137,9 +141,15 @@ public class GameTests
         }
 
         var blocksCount = game.piece.blocks.Length;
-        game.HandlePlayerAction(PlayerAction.Fall);
+        UpdateGameWithAction(PlayerAction.Fall);
         blocksCount += game.piece.blocks.Length;
 
         Assert.AreEqual(blocksCount, game.board.blocks.Count);
+    }
+
+    private void UpdateGameWithAction(PlayerAction action)
+    {
+        input.action = action;
+        game.Update(0);
     }
 }

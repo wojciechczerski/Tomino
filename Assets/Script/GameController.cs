@@ -2,31 +2,24 @@
 using UnityEngine;
 using Tomino;
 
-public class GameController : MonoBehaviour
+public class GameController : MonoBehaviour, IPlayerInput
 {
-    public Game game = new Game();
+    public Game game;
     public BoardView boardView;
 
     void Start()
     {
         game.onBoardChanged += boardView.RenderGameBoard;
+        game = new Game(this);
         game.Start();
     }
 
     void Update()
     {
-        var action = GetPlayerAction();
-        if (action.HasValue)
-        {
-            game.HandlePlayerAction(action.Value);
-        }
-        else
-        {
-            game.Update(Time.deltaTime);
-        }
+        game.Update(Time.deltaTime);
     }
 
-    PlayerAction? GetPlayerAction()
+    public PlayerAction? GetPlayerAction()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {

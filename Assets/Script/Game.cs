@@ -11,7 +11,13 @@ namespace Tomino
         public Piece piece;
         public BoardChangedDelgate onBoardChanged;
 
+        IPlayerInput input;
         float elapsedTime = FallDelay;
+
+        public Game(IPlayerInput input)
+        {
+            this.input = input;
+        }
 
         public void Start()
         {
@@ -32,15 +38,32 @@ namespace Tomino
 
         public void Update(float deltaTime)
         {
-            elapsedTime += deltaTime;
-            if (elapsedTime >= FallDelay)
+            var action = GetInputAction();
+            if (action.HasValue)
             {
-                HandlePlayerAction(PlayerAction.MoveDown);
-                ResetElapsedTime();
+                HandlePlayerAction(action.Value);
+            }
+            else
+            {
+                elapsedTime += deltaTime;
+                if (elapsedTime >= FallDelay)
+                {
+                    HandlePlayerAction(PlayerAction.MoveDown);
+                    ResetElapsedTime();
+                }
             }
         }
 
-        public void HandlePlayerAction(PlayerAction action)
+        private PlayerAction? GetInputAction()
+        {
+            if (input != null)
+            {
+                return input.GetPlayerAction();
+            }
+            return null;
+        }
+
+        private void HandlePlayerAction(PlayerAction action)
         {
             var hash = board.GetHashCode();
             var resolver = new PieceCollisionResolver(piece, board);
