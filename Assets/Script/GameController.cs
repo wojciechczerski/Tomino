@@ -9,8 +9,8 @@ public class GameController : MonoBehaviour, IPlayerInput
 
     void Start()
     {
-        game.onBoardChanged += boardView.RenderGameBoard;
         game = new Game(this);
+        game.OnBoardChanged += boardView.RenderGameBoard;
         game.Start();
     }
 

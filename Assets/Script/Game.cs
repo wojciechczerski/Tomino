@@ -6,10 +6,11 @@ namespace Tomino
 
         public delegate void BoardChangedDelgate(Board board);
 
+        public BoardChangedDelgate OnBoardChanged { get; set; }
+
         public Board board = new Board(10, 20);
         public Position initialPosition = new Position(17, 4);
         public Piece piece;
-        public BoardChangedDelgate onBoardChanged;
 
         IPlayerInput input;
         float elapsedTime = FallDelay;
@@ -135,9 +136,9 @@ namespace Tomino
 
         void NotifyDelegateThatBoardHasChanged()
         {
-            if (onBoardChanged != null)
+            if (OnBoardChanged != null)
             {
-                onBoardChanged(board);
+                OnBoardChanged(board);
             }
         }
     }
