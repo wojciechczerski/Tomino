@@ -4,12 +4,13 @@ using Tomino;
 
 public class GameController : MonoBehaviour, IPlayerInput
 {
+    public Board board = new Board(10, 20);
     public Game game;
     public BoardView boardView;
 
     void Start()
     {
-        game = new Game(this, new RandomPieceProvider());
+        game = new Game(board, this, new RandomPieceProvider());
         game.OnBoardChanged += boardView.RenderGameBoard;
         game.Start();
     }

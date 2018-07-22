@@ -8,16 +8,20 @@ namespace Tomino
 
         public BoardChangedDelgate OnBoardChanged { get; set; }
 
-        public Board board = new Board(10, 20);
         public Position initialPosition = new Position(17, 4);
+
         public Piece piece;
 
+        Board board;
         IPlayerInput input;
         IPieceProvider pieceProvider;
         float elapsedTime = FallDelay;
 
-        public Game(IPlayerInput input, IPieceProvider pieceProvider)
+        public Game(Board board,
+                    IPlayerInput input,
+                    IPieceProvider pieceProvider)
         {
+            this.board = board;
             this.input = input;
             this.pieceProvider = pieceProvider;
         }
