@@ -5,13 +5,15 @@ using System.Collections.Generic;
 public class GameTests
 {
     StubInput input;
+    StubPieceProvider pieceProvider;
     Game game;
 
     [SetUp]
     public void Initialize()
     {
         input = new StubInput();
-        game = new Game(input);
+        pieceProvider = new StubPieceProvider();
+        game = new Game(input, pieceProvider);
         game.Start();
     }
 
@@ -69,8 +71,9 @@ public class GameTests
             var piece = testCase.Key;
             var rotationPositions = testCase.Value;
 
-            game = new Game(input);
-            game.AddPiece(piece);
+            pieceProvider.piece = piece;
+            game = new Game(input, pieceProvider);
+            game.Start();
 
             foreach (Position[] positions in rotationPositions)
             {

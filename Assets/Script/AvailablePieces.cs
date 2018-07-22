@@ -4,8 +4,6 @@ namespace Tomino
 {
     public static class AvailablePieces
     {
-        static Random random = new Random();
-
         public static Piece[] All()
         {
             return new Piece[] {
@@ -17,13 +15,6 @@ namespace Tomino
                 LPiece(),
                 IPiece()
             };
-        }
-
-        public static Piece Random()
-        {
-            var allPieces = All();
-            var index = random.Next(allPieces.Length);
-            return allPieces[index];
         }
 
         public static Piece OPiece()

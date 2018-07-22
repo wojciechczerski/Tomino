@@ -13,24 +13,26 @@ namespace Tomino
         public Piece piece;
 
         IPlayerInput input;
+        IPieceProvider pieceProvider;
         float elapsedTime = FallDelay;
 
-        public Game(IPlayerInput input)
+        public Game(IPlayerInput input, IPieceProvider pieceProvider)
         {
             this.input = input;
+            this.pieceProvider = pieceProvider;
         }
 
         public void Start()
         {
-            AddRandomPiece();
+            AddPiece();
         }
 
-        public void AddRandomPiece()
+        void AddPiece()
         {
-            AddPiece(AvailablePieces.Random());
+            AddPiece(pieceProvider.GetPiece());
         }
 
-        public void AddPiece(Piece newPiece)
+        void AddPiece(Piece newPiece)
         {
             piece = newPiece;
             board.Add(piece, initialPosition);
@@ -112,7 +114,7 @@ namespace Tomino
         void PieceFinishedFalling()
         {
             board.RemoveFullRows();
-            AddRandomPiece();
+            AddPiece();
         }
 
         void Fall()
