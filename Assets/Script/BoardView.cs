@@ -4,16 +4,15 @@ using Tomino;
 public class BoardView : MonoBehaviour
 {
     public GameObject blockPrefab;
-    Board gameBoard;
+    public Board gameBoard;
+    int renderedBoardHash = -1;
 
-    public void RenderGameBoard(Board gameBoard)
+    public void RenderGameBoard()
     {
         for (int i = transform.childCount - 1; i >= 0; --i)
         {
             Object.Destroy(transform.GetChild(i).gameObject);
         }
-
-        this.gameBoard = gameBoard;
 
         foreach (var block in gameBoard.blocks)
         {
@@ -30,6 +29,16 @@ public class BoardView : MonoBehaviour
 
             blockObject.transform.localScale = new Vector3(scale, scale);
             blockObject.transform.localPosition = BlockPosition(block.position.row, block.position.column);
+        }
+    }
+
+    void Update()
+    {
+        var hash = gameBoard.GetHashCode();
+        if (hash != renderedBoardHash)
+        {
+            RenderGameBoard();
+            renderedBoardHash = hash;
         }
     }
 

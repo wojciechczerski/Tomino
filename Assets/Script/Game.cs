@@ -4,12 +4,7 @@ namespace Tomino
     {
         const float FallDelay = 1.0f;
 
-        public delegate void BoardChangedDelgate(Board board);
-
-        public BoardChangedDelgate OnBoardChanged { get; set; }
-
         public Position initialPosition = new Position(17, 4);
-
         public Piece piece;
 
         Board board;
@@ -40,7 +35,6 @@ namespace Tomino
         {
             piece = newPiece;
             board.Add(piece, initialPosition);
-            NotifyDelegateThatBoardHasChanged();
         }
 
         public void Update(float deltaTime)
@@ -61,7 +55,7 @@ namespace Tomino
             }
         }
 
-        private PlayerAction? GetInputAction()
+        PlayerAction? GetInputAction()
         {
             if (input != null)
             {
@@ -70,9 +64,8 @@ namespace Tomino
             return null;
         }
 
-        private void HandlePlayerAction(PlayerAction action)
+        void HandlePlayerAction(PlayerAction action)
         {
-            var hash = board.GetHashCode();
             var resolver = new PieceCollisionResolver(piece, board);
 
             switch (action)
@@ -108,11 +101,6 @@ namespace Tomino
                     PieceFinishedFalling();
                 }
             }
-
-            if (hash != board.GetHashCode())
-            {
-                NotifyDelegateThatBoardHasChanged();
-            }
         }
 
         void PieceFinishedFalling()
@@ -138,14 +126,6 @@ namespace Tomino
         void ResetElapsedTime()
         {
             elapsedTime = 0;
-        }
-
-        void NotifyDelegateThatBoardHasChanged()
-        {
-            if (OnBoardChanged != null)
-            {
-                OnBoardChanged(board);
-            }
         }
     }
 }

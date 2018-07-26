@@ -10,8 +10,8 @@ public class GameController : MonoBehaviour, IPlayerInput
 
     void Start()
     {
+        boardView.gameBoard = board;
         game = new Game(board, this, new RandomPieceProvider());
-        game.OnBoardChanged += boardView.RenderGameBoard;
         game.Start();
     }
 
