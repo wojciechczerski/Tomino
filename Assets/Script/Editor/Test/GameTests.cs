@@ -55,44 +55,31 @@ public class GameTests
     }
 
     [Test]
-    public void RotatesPiece()
+    public void RotatesPice()
     {
-        var testCases = new Dictionary<Piece, Position[][]>()
+        var secondBlockPositions = new Position[]
         {
-            { AvailablePieces.IPiece(), PieceRotations.IPiece() },
-            { AvailablePieces.TPiece(), PieceRotations.TPiece() },
-            { AvailablePieces.OPiece(), PieceRotations.OPiece() },
-            { AvailablePieces.SPiece(), PieceRotations.SPiece() },
-            { AvailablePieces.ZPiece(), PieceRotations.ZPiece() },
-            { AvailablePieces.JPiece(), PieceRotations.JPiece() },
-            { AvailablePieces.LPiece(), PieceRotations.LPiece() }
+            new Position(2, 1),
+            new Position(1, 2),
+            new Position(0, 1),
+            new Position(1, 0),
+            new Position(2, 1),
         };
 
-        foreach (var testCase in testCases)
+        var blockPositions = new Position[] { new Position(0, 0), new Position(1, 0) };
+        pieceProvider.piece = new Piece(blockPositions, Piece.Type.I);
+
+        board = new Board(3, 3);
+        game = new Game(board, input, pieceProvider);
+        game.Start();
+
+        for (var i = 1; i < secondBlockPositions.Length; ++i)
         {
-            var piece = testCase.Key;
-            var rotationPositions = testCase.Value;
+            UpdateGameWithAction(PlayerAction.Rotate);
+            var secondBlock = board.blocks[1];
 
-            pieceProvider.piece = piece;
-            board = new Board(10, 20);
-            game = new Game(board, input, pieceProvider);
-            game.Start();
-
-            foreach (Position[] positions in rotationPositions)
-            {
-                UpdateGameWithAction(PlayerAction.Rotate);
-
-                for (int i = 0; i < piece.blocks.Length; ++i)
-                {
-                    var block = piece.blocks[i];
-                    var offset = game.initialPosition;
-                    var expectedRow = positions[i].row + offset.row;
-                    var expectedColumn = positions[i].column + offset.column;
-
-                    Assert.AreEqual(expectedRow, block.position.row);
-                    Assert.AreEqual(expectedColumn, block.position.column);
-                }
-            }
+            Assert.AreEqual(secondBlockPositions[i].row, secondBlock.position.row);
+            Assert.AreEqual(secondBlockPositions[i].column, secondBlock.position.column);
         }
     }
 
