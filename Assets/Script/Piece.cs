@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Collections.Generic;
+using System;
 
 namespace Tomino
 {
@@ -11,6 +12,24 @@ namespace Tomino
         }
 
         public Block[] blocks;
+
+        public int Width
+        {
+            get
+            {
+                var min = blocks.Select(block => block.position.column).Min();
+                var max = blocks.Select(block => block.position.column).Max();
+                return Math.Abs(max - min);
+            }
+        }
+
+        public int Top
+        {
+            get
+            {
+                return blocks.Select(block => block.position.row).Max();
+            }
+        }
 
         public Piece(Position[] blockPositions, Type type)
         {

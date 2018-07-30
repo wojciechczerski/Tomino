@@ -4,7 +4,6 @@ namespace Tomino
     {
         const float FallDelay = 1.0f;
 
-        public Position initialPosition = new Position(17, 4);
         public Piece piece;
 
         Board board;
@@ -33,8 +32,9 @@ namespace Tomino
 
         void AddPiece(Piece newPiece)
         {
+            MovePieceToInitialPosition(newPiece);
             piece = newPiece;
-            board.Add(piece, initialPosition);
+            board.Add(piece);
         }
 
         public void Update(float deltaTime)
@@ -126,6 +126,18 @@ namespace Tomino
         void ResetElapsedTime()
         {
             elapsedTime = 0;
+        }
+
+        void MovePieceToInitialPosition(Piece piece)
+        {
+            var offsetRow = board.Top - piece.Top;
+            var offsetCol = (board.width - piece.Width) / 2;
+
+            foreach (var block in piece.blocks)
+            {
+                block.position.row += offsetRow;
+                block.position.column += offsetCol;
+            }
         }
     }
 }

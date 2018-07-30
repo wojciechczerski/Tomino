@@ -9,6 +9,14 @@ namespace Tomino
         public int height;
         public List<Block> blocks = new List<Block>();
 
+        public int Top
+        {
+            get
+            {
+                return height - 1;
+            }
+        }
+
         public Board(int width, int height)
         {
             this.width = width;
@@ -46,14 +54,9 @@ namespace Tomino
             return list.GetHashCode();
         }
 
-        public void Add(Piece piece, Position initialPosition)
+        public void Add(Piece piece)
         {
-            foreach (var block in piece.blocks)
-            {
-                block.position.row += initialPosition.row;
-                block.position.column += initialPosition.column;
-                blocks.Add(block);
-            }
+            blocks.AddRange(piece.blocks);
         }
 
         public void RemoveFullRows()
