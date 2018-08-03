@@ -66,9 +66,6 @@ public class GameTests
             new Position(2, 1),
         };
 
-        var blockPositions = new Position[] { new Position(0, 0), new Position(1, 0) };
-        pieceProvider.piece = new Piece(blockPositions, Piece.Type.I);
-
         board = new Board(3, 3);
         game = new Game(board, input, pieceProvider);
         game.Start();
