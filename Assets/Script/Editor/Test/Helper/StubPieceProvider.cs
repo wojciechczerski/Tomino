@@ -19,4 +19,3 @@ public class StubPieceProvider : IPieceProvider
         return new Piece(blockPositions, Piece.Type.I);
     }
 }
-

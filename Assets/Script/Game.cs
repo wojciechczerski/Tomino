@@ -4,9 +4,8 @@ namespace Tomino
     {
         const float FallDelay = 1.0f;
 
-        public Piece piece;
-
         Board board;
+        Piece piece;
         IPlayerInput input;
         IPieceProvider pieceProvider;
         float elapsedTime = FallDelay;

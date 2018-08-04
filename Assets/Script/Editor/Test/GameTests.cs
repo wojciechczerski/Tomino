@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using Tomino;
-using System.Collections.Generic;
 
 public class GameTests
 {
@@ -22,7 +21,7 @@ public class GameTests
     [Test]
     public void CreatesNewPieceWhenTheGameStarts()
     {
-        Assert.IsNotNull(game.piece);
+        Assert.IsNotEmpty(board.blocks);
     }
 
     [TestCase(PlayerAction.MoveLeft, 0, -1)]
@@ -30,10 +29,11 @@ public class GameTests
     [TestCase(PlayerAction.MoveDown, -1, 0)]
     public void MovesPiece(PlayerAction action, int rowOffset, int columnOffset)
     {
-        var positions = game.piece.GetPositions();
+        var positions = board.GetBlockPositions();
+
         UpdateGameWithAction(action);
 
-        foreach (Block block in game.piece.blocks)
+        foreach (Block block in board.blocks)
         {
             var start = positions[block];
             var end = block.position;
@@ -45,17 +45,17 @@ public class GameTests
     [Test]
     public void MovesPieceDownWhenUpdating()
     {
-        var positions = game.piece.GetPositions();
+        var positions = board.GetBlockPositions();
         game.Update(10);
 
-        foreach (Block block in game.piece.blocks)
+        foreach (Block block in board.blocks)
         {
             Assert.AreEqual(block.position.row, positions[block].row - 1);
         }
     }
 
     [Test]
-    public void RotatesPice()
+    public void RotatesPiece()
     {
         var secondBlockPositions = new Position[]
         {
@@ -67,6 +67,7 @@ public class GameTests
         };
 
         board = new Board(3, 3);
+        pieceProvider = new StubPieceProvider();
         game = new Game(board, input, pieceProvider);
         game.Start();
 
@@ -83,11 +84,11 @@ public class GameTests
     [Test]
     public void AddsNewPieceAfterCurrentPieceFallsDown()
     {
-        var blocksCount = game.piece.blocks.Length;
+        var blocksCount = board.blocks.Count;
 
         UpdateGameWithAction(PlayerAction.Fall);
 
-        blocksCount += game.piece.blocks.Length;
+        blocksCount += pieceProvider.piece.blocks.Length;
 
         Assert.AreEqual(blocksCount, board.blocks.Count);
     }
@@ -130,14 +131,14 @@ public class GameTests
             }
         }
 
-        var blocksCount = game.piece.blocks.Length;
+        var blocksCount = pieceProvider.piece.blocks.Length;
         UpdateGameWithAction(PlayerAction.Fall);
-        blocksCount += game.piece.blocks.Length;
+        blocksCount += pieceProvider.piece.blocks.Length;
 
         Assert.AreEqual(blocksCount, board.blocks.Count);
     }
 
-    private void UpdateGameWithAction(PlayerAction action)
+    void UpdateGameWithAction(PlayerAction action)
     {
         input.action = action;
         game.Update(0);
