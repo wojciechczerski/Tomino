@@ -17,8 +17,8 @@ namespace Tomino
         {
             get
             {
-                var min = blocks.Select(block => block.position.column).Min();
-                var max = blocks.Select(block => block.position.column).Max();
+                var min = blocks.Select(block => block.Position.column).Min();
+                var max = blocks.Select(block => block.Position.column).Max();
                 return Math.Abs(max - min);
             }
         }
@@ -27,7 +27,7 @@ namespace Tomino
         {
             get
             {
-                return blocks.Select(block => block.position.row).Max();
+                return blocks.Select(block => block.Position.row).Max();
             }
         }
 
@@ -41,7 +41,7 @@ namespace Tomino
             var positions = new Dictionary<Block, Position>();
             foreach (Block block in blocks)
             {
-                positions[block] = block.position;
+                positions[block] = block.Position;
             }
             return positions;
         }
@@ -50,8 +50,7 @@ namespace Tomino
         {
             foreach (var block in blocks)
             {
-                block.position.column += columnOffset;
-                block.position.row += rowOffset;
+                block.MoveBy(rowOffset, columnOffset);
             }
         }
 
@@ -72,21 +71,13 @@ namespace Tomino
 
         virtual public void Rotate()
         {
-            var offset = blocks[0].position;
+            var offset = blocks[0].Position;
 
             foreach (var block in blocks)
             {
-                var position = new Position()
-                {
-                    row = block.position.row - offset.row,
-                    column = block.position.column - offset.column
-                };
-
-                block.position = new Position()
-                {
-                    row = -position.column + offset.row,
-                    column = position.row + offset.column
-                };
+                var row = block.Position.row - offset.row;
+                var column = block.Position.column - offset.column;
+                block.MoveTo(-column + offset.row, row + offset.column);
             }
         }
     }

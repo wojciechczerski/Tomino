@@ -134,8 +134,7 @@ namespace Tomino
 
             foreach (var block in piece.blocks)
             {
-                block.position.row += offsetRow;
-                block.position.column += offsetCol;
+                block.MoveBy(offsetRow, offsetCol);
             }
         }
     }

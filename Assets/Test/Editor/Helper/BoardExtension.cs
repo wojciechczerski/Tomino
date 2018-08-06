@@ -8,7 +8,7 @@ public static class BoardExtension
         var positions = new Dictionary<Block, Position>();
         foreach (Block block in board.blocks)
         {
-            positions[block] = block.position;
+            positions[block] = block.Position;
         }
         return positions;
     }

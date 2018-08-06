@@ -30,7 +30,7 @@ namespace Tomino
 
         public bool HasBlockCollisions()
         {
-            var allPositions = blocks.Select(block => block.position);
+            var allPositions = blocks.Select(block => block.Position);
             var uniquePositions = new HashSet<Position>(allPositions);
             return allPositions.Count() != uniquePositions.Count();
         }
@@ -42,15 +42,15 @@ namespace Tomino
 
         public bool CollidesWithBoard(Block block)
         {
-            return block.position.row < 0 ||
-                   block.position.row >= height ||
-                   block.position.column < 0 ||
-                   block.position.column >= width;
+            return block.Position.row < 0 ||
+                   block.Position.row >= height ||
+                   block.Position.column < 0 ||
+                   block.Position.column >= width;
         }
 
         override public int GetHashCode()
         {
-            var list = blocks.Select(b => b.position.row ^ b.position.column);
+            var list = blocks.Select(b => b.Position.row ^ b.Position.column);
             return list.GetHashCode();
         }
 
@@ -74,7 +74,7 @@ namespace Tomino
 
         List<Block> GetBlocksFromRow(int row)
         {
-            return blocks.FindAll(block => block.position.row == row);
+            return blocks.FindAll(block => block.Position.row == row);
         }
 
         void Remove(List<Block> blocksToRemove)
@@ -86,9 +86,9 @@ namespace Tomino
         {
             foreach (Block block in blocks)
             {
-                if (block.position.row > row)
+                if (block.Position.row > row)
                 {
-                    block.position.row -= 1;
+                    block.MoveBy(-1, 0);
                 }
             }
         }

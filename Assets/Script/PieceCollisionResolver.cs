@@ -47,7 +47,7 @@ namespace Tomino
         {
             foreach (Block block in piece.blocks)
             {
-                block.position = piecePosition[block];
+                block.MoveTo(piecePosition[block]);
             }
         }
     }
