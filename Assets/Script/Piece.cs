@@ -17,8 +17,8 @@ namespace Tomino
         {
             get
             {
-                var min = blocks.Select(block => block.Position.column).Min();
-                var max = blocks.Select(block => block.Position.column).Max();
+                var min = blocks.Select(block => block.Position.Column).Min();
+                var max = blocks.Select(block => block.Position.Column).Max();
                 return Math.Abs(max - min);
             }
         }
@@ -27,7 +27,7 @@ namespace Tomino
         {
             get
             {
-                return blocks.Select(block => block.Position.row).Max();
+                return blocks.Select(block => block.Position.Row).Max();
             }
         }
 
@@ -75,9 +75,9 @@ namespace Tomino
 
             foreach (var block in blocks)
             {
-                var row = block.Position.row - offset.row;
-                var column = block.Position.column - offset.column;
-                block.MoveTo(-column + offset.row, row + offset.column);
+                var row = block.Position.Row - offset.Row;
+                var column = block.Position.Column - offset.Column;
+                block.MoveTo(-column + offset.Row, row + offset.Column);
             }
         }
     }

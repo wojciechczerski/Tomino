@@ -37,8 +37,8 @@ public class GameTests
         {
             var start = positions[block];
             var end = block.Position;
-            Assert.AreEqual(end.row, start.row + rowOffset);
-            Assert.AreEqual(end.column, start.column + columnOffset);
+            Assert.AreEqual(end.Row, start.Row + rowOffset);
+            Assert.AreEqual(end.Column, start.Column + columnOffset);
         }
     }
 
@@ -50,7 +50,7 @@ public class GameTests
 
         foreach (Block block in board.blocks)
         {
-            Assert.AreEqual(block.Position.row, positions[block].row - 1);
+            Assert.AreEqual(block.Position.Row, positions[block].Row - 1);
         }
     }
 
@@ -76,8 +76,8 @@ public class GameTests
             UpdateGameWithAction(PlayerAction.Rotate);
             var secondBlock = board.blocks[1];
 
-            Assert.AreEqual(secondBlockPositions[i].row, secondBlock.Position.row);
-            Assert.AreEqual(secondBlockPositions[i].column, secondBlock.Position.column);
+            Assert.AreEqual(secondBlockPositions[i].Row, secondBlock.Position.Row);
+            Assert.AreEqual(secondBlockPositions[i].Column, secondBlock.Position.Column);
         }
     }
 

@@ -28,7 +28,7 @@ public class BoardView : MonoBehaviour
             var scale = sprite.pixelsPerUnit / sprite.rect.width * BlockSize();
 
             blockObject.transform.localScale = new Vector3(scale, scale);
-            blockObject.transform.localPosition = BlockPosition(block.Position.row, block.Position.column);
+            blockObject.transform.localPosition = BlockPosition(block.Position.Row, block.Position.Column);
         }
     }
 

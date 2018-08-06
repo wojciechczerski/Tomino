@@ -23,7 +23,7 @@ namespace Tomino
 
         public void MoveBy(int rowOffset, int columntOffset)
         {
-            MoveTo(Position.row + rowOffset, Position.column + columntOffset);
+            MoveTo(Position.Row + rowOffset, Position.Column + columntOffset);
         }
     }
 }
