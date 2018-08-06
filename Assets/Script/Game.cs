@@ -5,7 +5,7 @@ namespace Tomino
         const float FallDelay = 1.0f;
 
         Board board;
-        Piece piece;
+        Piece fallingPiece;
         IPlayerInput input;
         IPieceProvider pieceProvider;
         float elapsedTime = FallDelay;
@@ -29,11 +29,11 @@ namespace Tomino
             AddPiece(pieceProvider.GetPiece());
         }
 
-        void AddPiece(Piece newPiece)
+        void AddPiece(Piece piece)
         {
-            MovePieceToInitialPosition(newPiece);
-            piece = newPiece;
-            board.Add(piece);
+            MovePieceToInitialPosition(piece);
+            fallingPiece = piece;
+            board.Add(fallingPiece);
         }
 
         public void Update(float deltaTime)
@@ -65,25 +65,25 @@ namespace Tomino
 
         void HandlePlayerAction(PlayerAction action)
         {
-            var resolver = new PieceCollisionResolver(piece, board);
+            var resolver = new PieceCollisionResolver(fallingPiece, board);
 
             switch (action)
             {
                 case PlayerAction.MoveLeft:
-                    piece.MoveLeft();
+                    fallingPiece.MoveLeft();
                     break;
 
                 case PlayerAction.MoveRight:
-                    piece.MoveRight();
+                    fallingPiece.MoveRight();
                     break;
 
                 case PlayerAction.MoveDown:
-                    piece.MoveDown();
+                    fallingPiece.MoveDown();
                     ResetElapsedTime();
                     break;
 
                 case PlayerAction.Rotate:
-                    piece.Rotate();
+                    fallingPiece.Rotate();
                     break;
 
                 case PlayerAction.Fall:
@@ -113,12 +113,12 @@ namespace Tomino
             var didMoveDown = false;
             while (!board.HasCollisions())
             {
-                piece.MoveDown();
+                fallingPiece.MoveDown();
                 didMoveDown = true;
             }
             if (didMoveDown)
             {
-                piece.Move(1, 0);
+                fallingPiece.Move(1, 0);
             }
         }
 
