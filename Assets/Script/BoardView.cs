@@ -14,7 +14,7 @@ public class BoardView : MonoBehaviour
             Object.Destroy(transform.GetChild(i).gameObject);
         }
 
-        foreach (var block in gameBoard.blocks)
+        foreach (var block in gameBoard.Blocks)
         {
             var blockObject = Object.Instantiate(blockPrefab);
             var spriteRenderer = blockObject.GetComponent<SpriteRenderer>();

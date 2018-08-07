@@ -21,7 +21,7 @@ public class GameTests
     [Test]
     public void CreatesNewPieceWhenTheGameStarts()
     {
-        Assert.IsNotEmpty(board.blocks);
+        Assert.IsNotEmpty(board.Blocks);
     }
 
     [TestCase(PlayerAction.MoveLeft, 0, -1)]
@@ -33,7 +33,7 @@ public class GameTests
 
         UpdateGameWithAction(action);
 
-        foreach (Block block in board.blocks)
+        foreach (Block block in board.Blocks)
         {
             var start = positions[block];
             var end = block.Position;
@@ -48,7 +48,7 @@ public class GameTests
         var positions = board.GetBlockPositions();
         game.Update(10);
 
-        foreach (Block block in board.blocks)
+        foreach (Block block in board.Blocks)
         {
             Assert.AreEqual(block.Position.Row, positions[block].Row - 1);
         }
@@ -74,7 +74,7 @@ public class GameTests
         for (var i = 1; i < secondBlockPositions.Length; ++i)
         {
             UpdateGameWithAction(PlayerAction.Rotate);
-            var secondBlock = board.blocks[1];
+            var secondBlock = board.Blocks[1];
 
             Assert.AreEqual(secondBlockPositions[i].Row, secondBlock.Position.Row);
             Assert.AreEqual(secondBlockPositions[i].Column, secondBlock.Position.Column);
@@ -84,13 +84,13 @@ public class GameTests
     [Test]
     public void AddsNewPieceAfterCurrentPieceFallsDown()
     {
-        var blocksCount = board.blocks.Count;
+        var blocksCount = board.Blocks.Count;
 
         UpdateGameWithAction(PlayerAction.Fall);
 
         blocksCount += pieceProvider.piece.blocks.Length;
 
-        Assert.AreEqual(blocksCount, board.blocks.Count);
+        Assert.AreEqual(blocksCount, board.Blocks.Count);
     }
 
     [TestCase(PlayerAction.MoveLeft, false)]
@@ -105,8 +105,8 @@ public class GameTests
             {
                 var leftPosition = new Position(row, 0);
                 var rightPostion = new Position(row, board.width - 1);
-                board.blocks.Add(new Block(leftPosition, Piece.Type.I));
-                board.blocks.Add(new Block(rightPostion, Piece.Type.I));
+                board.Blocks.Add(new Block(leftPosition, Piece.Type.I));
+                board.Blocks.Add(new Block(rightPostion, Piece.Type.I));
             }
         }
 
@@ -127,7 +127,7 @@ public class GameTests
             for (int column = 0; column < board.width; ++column)
             {
                 var position = new Position(row, column);
-                board.blocks.Add(new Block(position, Piece.Type.I));
+                board.Blocks.Add(new Block(position, Piece.Type.I));
             }
         }
 
@@ -135,7 +135,7 @@ public class GameTests
         UpdateGameWithAction(PlayerAction.Fall);
         blocksCount += pieceProvider.piece.blocks.Length;
 
-        Assert.AreEqual(blocksCount, board.blocks.Count);
+        Assert.AreEqual(blocksCount, board.Blocks.Count);
     }
 
     void UpdateGameWithAction(PlayerAction action)

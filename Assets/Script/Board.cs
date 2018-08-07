@@ -7,7 +7,7 @@ namespace Tomino
     {
         public int width;
         public int height;
-        public List<Block> blocks = new List<Block>();
+        public List<Block> Blocks { get; private set; } = new List<Block>();
 
         public int Top
         {
@@ -30,14 +30,14 @@ namespace Tomino
 
         public bool HasBlockCollisions()
         {
-            var allPositions = blocks.Select(block => block.Position);
+            var allPositions = Blocks.Select(block => block.Position);
             var uniquePositions = new HashSet<Position>(allPositions);
             return allPositions.Count() != uniquePositions.Count();
         }
 
         public bool HasBoardCollisions()
         {
-            return blocks.Find(CollidesWithBoard) != null;
+            return Blocks.Find(CollidesWithBoard) != null;
         }
 
         public bool CollidesWithBoard(Block block)
@@ -50,13 +50,13 @@ namespace Tomino
 
         override public int GetHashCode()
         {
-            var list = blocks.Select(b => b.Position.Row ^ b.Position.Column);
+            var list = Blocks.Select(b => b.Position.Row ^ b.Position.Column);
             return list.GetHashCode();
         }
 
         public void Add(Piece piece)
         {
-            blocks.AddRange(piece.blocks);
+            Blocks.AddRange(piece.blocks);
         }
 
         public void RemoveFullRows()
@@ -74,17 +74,17 @@ namespace Tomino
 
         List<Block> GetBlocksFromRow(int row)
         {
-            return blocks.FindAll(block => block.Position.Row == row);
+            return Blocks.FindAll(block => block.Position.Row == row);
         }
 
         void Remove(List<Block> blocksToRemove)
         {
-            blocks.RemoveAll(block => blocksToRemove.Contains(block));
+            Blocks.RemoveAll(block => blocksToRemove.Contains(block));
         }
 
         void MoveDownBlocksBelowRow(int row)
         {
-            foreach (Block block in blocks)
+            foreach (Block block in Blocks)
             {
                 if (block.Position.Row > row)
                 {
