@@ -27,6 +27,8 @@ namespace Tomino
         public void Start()
         {
             isPlaying = true;
+            elapsedTime = 0;
+            board.RemoveAllBlocks();
             AddPiece();
         }
 

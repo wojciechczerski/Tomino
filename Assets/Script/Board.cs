@@ -72,6 +72,11 @@ namespace Tomino
             }
         }
 
+        public void RemoveAllBlocks()
+        {
+            Blocks.Clear();
+        }
+
         List<Block> GetBlocksFromRow(int row)
         {
             return Blocks.FindAll(block => block.Position.Row == row);
