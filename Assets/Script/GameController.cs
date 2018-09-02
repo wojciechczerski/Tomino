@@ -11,7 +11,13 @@ public class GameController : MonoBehaviour, IPlayerInput
     {
         boardView.gameBoard = board;
         game = new Game(board, this, new RandomPieceProvider());
+        game.FinishedEvent += OnGameFinished;
         game.Start();
+    }
+
+    void OnGameFinished()
+    {
+        Debug.Log("Game finished!");
     }
 
     void Update()

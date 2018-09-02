@@ -2,6 +2,9 @@ namespace Tomino
 {
     public class Game
     {
+        public delegate void GameEventHandler();
+        public event GameEventHandler FinishedEvent = delegate { };
+
         const float FallDelay = 1.0f;
 
         readonly Board board;
@@ -10,6 +13,7 @@ namespace Tomino
 
         Piece fallingPiece;
         float elapsedTime = FallDelay;
+        bool isPlaying;
 
         public Game(Board board,
                     IPlayerInput input,
@@ -22,6 +26,7 @@ namespace Tomino
 
         public void Start()
         {
+            isPlaying = true;
             AddPiece();
         }
 
@@ -35,10 +40,18 @@ namespace Tomino
             MovePieceToInitialPosition(piece);
             fallingPiece = piece;
             board.Add(fallingPiece);
+
+            if (board.HasCollisions())
+            {
+                isPlaying = false;
+                FinishedEvent();
+            }
         }
 
         public void Update(float deltaTime)
         {
+            if (!isPlaying) return;
+
             var action = GetInputAction();
             if (action.HasValue)
             {

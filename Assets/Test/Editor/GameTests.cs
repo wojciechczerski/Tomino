@@ -138,6 +138,17 @@ public class GameTests
         Assert.AreEqual(blocksCount, board.Blocks.Count);
     }
 
+    [Test]
+    public void FiresAnEventWhenTheGameFinishes()
+    {
+        var spy = new GameEventSpy();
+        game.FinishedEvent += spy.OnGameFinished;
+
+        UpdateGameWithAction(PlayerAction.Fall);
+
+        Assert.IsTrue(spy.gameFinishedCalled);
+    }
+
     void UpdateGameWithAction(PlayerAction action)
     {
         input.action = action;
