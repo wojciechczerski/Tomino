@@ -6,9 +6,11 @@ public class GameController : MonoBehaviour, IPlayerInput
     public Board board = new Board(10, 20);
     public Game game;
     public BoardView boardView;
+    public GameFinishedView gameFinishedView;
 
     void Start()
     {
+        gameFinishedView.Hide();
         boardView.gameBoard = board;
         game = new Game(board, this, new RandomPieceProvider());
         game.FinishedEvent += OnGameFinished;
@@ -17,7 +19,7 @@ public class GameController : MonoBehaviour, IPlayerInput
 
     void OnGameFinished()
     {
-        Debug.Log("Game finished!");
+        gameFinishedView.Show();
     }
 
     void Update()
