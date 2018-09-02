@@ -23,13 +23,7 @@ namespace Tomino
             }
         }
 
-        public int Top
-        {
-            get
-            {
-                return blocks.Select(block => block.Position.Row).Max();
-            }
-        }
+        public int Top => blocks.Select(block => block.Position.Row).Max();
 
         public Piece(Position[] blockPositions, Type type)
         {
@@ -54,20 +48,11 @@ namespace Tomino
             }
         }
 
-        public void MoveLeft()
-        {
-            Move(0, -1);
-        }
+        public void MoveLeft() => Move(0, -1);
 
-        public void MoveRight()
-        {
-            Move(0, 1);
-        }
+        public void MoveRight() => Move(0, 1);
 
-        public void MoveDown()
-        {
-            Move(-1, 0);
-        }
+        public void MoveDown() => Move(-1, 0);
 
         virtual public void Rotate()
         {

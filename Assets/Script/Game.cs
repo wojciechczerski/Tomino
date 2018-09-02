@@ -4,10 +4,11 @@ namespace Tomino
     {
         const float FallDelay = 1.0f;
 
-        Board board;
+        readonly Board board;
+        readonly IPlayerInput input;
+        readonly IPieceProvider pieceProvider;
+
         Piece fallingPiece;
-        IPlayerInput input;
-        IPieceProvider pieceProvider;
         float elapsedTime = FallDelay;
 
         public Game(Board board,
@@ -56,11 +57,7 @@ namespace Tomino
 
         PlayerAction? GetInputAction()
         {
-            if (input != null)
-            {
-                return input.GetPlayerAction();
-            }
-            return null;
+            return input?.GetPlayerAction();
         }
 
         void HandlePlayerAction(PlayerAction action)

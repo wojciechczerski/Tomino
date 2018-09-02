@@ -4,9 +4,9 @@ namespace Tomino
 {
     public class PieceCollisionResolver
     {
-        Piece piece;
-        Board board;
-        Dictionary<Block, Position> piecePosition;
+        readonly Piece piece;
+        readonly Board board;
+        readonly Dictionary<Block, Position> piecePosition;
 
         public PieceCollisionResolver(Piece piece, Board board)
         {

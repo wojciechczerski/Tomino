@@ -63,7 +63,7 @@ public class GameTests
             new Position(1, 2),
             new Position(0, 1),
             new Position(1, 0),
-            new Position(2, 1),
+            new Position(2, 1)
         };
 
         board = new Board(3, 3);

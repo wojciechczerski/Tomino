@@ -2,7 +2,7 @@
 
 public class StubInput : IPlayerInput
 {
-    public PlayerAction? action = null;
+    public PlayerAction? action;
 
     public PlayerAction? GetPlayerAction()
     {

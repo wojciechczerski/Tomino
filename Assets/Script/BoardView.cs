@@ -67,7 +67,7 @@ public class BoardView : MonoBehaviour
             case Piece.Type.S: return Color.cyan;
             case Piece.Type.T: return Color.gray;
             case Piece.Type.Z: return Color.magenta;
+            default: return Color.black;
         }
-        return Color.black;
     }
 }

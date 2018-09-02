@@ -4,7 +4,7 @@ namespace Tomino
 {
     public class RandomPieceProvider : IPieceProvider
     {
-        Random random = new Random();
+        readonly Random random = new Random();
 
         public Piece GetPiece()
         {

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using Tomino;
 
 public class GameController : MonoBehaviour, IPlayerInput
