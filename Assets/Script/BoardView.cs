@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Tomino;
+using System.Collections.Generic;
 
 public class BoardView : MonoBehaviour
 {
@@ -7,22 +8,24 @@ public class BoardView : MonoBehaviour
     public Board gameBoard;
     int renderedBoardHash = -1;
 
+    Stack<GameObject> destroyedObjects = new Stack<GameObject>();
+
     public void RenderGameBoard()
     {
         for (int i = transform.childCount - 1; i >= 0; --i)
         {
-            Object.Destroy(transform.GetChild(i).gameObject);
+            DestroyBlock(transform.GetChild(i).gameObject);
         }
 
         foreach (var block in gameBoard.Blocks)
         {
-            var blockObject = Object.Instantiate(blockPrefab);
+            var blockObject = CreateBlock();
             var spriteRenderer = blockObject.GetComponent<SpriteRenderer>();
             var sprite = spriteRenderer.sprite;
 
             spriteRenderer.color = BlockColor(block);
 
-            blockObject.transform.SetParent(transform);
+            blockObject.transform.parent = transform;
             blockObject.transform.localPosition = Vector3.zero;
 
             var scale = sprite.pixelsPerUnit / sprite.rect.width * BlockSize();
@@ -30,6 +33,25 @@ public class BoardView : MonoBehaviour
             blockObject.transform.localScale = new Vector3(scale, scale);
             blockObject.transform.localPosition = BlockPosition(block.Position.Row, block.Position.Column);
         }
+    }
+
+    GameObject CreateBlock()
+    {
+        if (destroyedObjects.Count == 0)
+        {
+            return Object.Instantiate(blockPrefab);
+        }
+
+        var block = destroyedObjects.Pop();
+        block.SetActive(true);
+        return block;
+    }
+
+    void DestroyBlock(GameObject block)
+    {
+        block.SetActive(false);
+        block.transform.parent = null;
+        destroyedObjects.Push(block);
     }
 
     void Update()
