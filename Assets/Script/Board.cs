@@ -5,8 +5,8 @@ namespace Tomino
 {
     public class Board
     {
-        public int width;
-        public int height;
+        public readonly int width;
+        public readonly int height;
         public List<Block> Blocks { get; private set; } = new List<Block>();
 
         public int Top
@@ -50,8 +50,14 @@ namespace Tomino
 
         override public int GetHashCode()
         {
-            var list = Blocks.Select(b => b.Position.Row ^ b.Position.Column);
-            return list.GetHashCode();
+            return Blocks.Aggregate(0, (hash, block) =>
+            {
+                var row = block.Position.Row;
+                var column = block.Position.Column;
+                var offset = width * height * (int)block.Type;
+                var blockHash = offset + row * width + column;
+                return hash + blockHash;
+            });
         }
 
         public void Add(Piece piece)
