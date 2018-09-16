@@ -12,7 +12,7 @@ public class BoardView : MonoBehaviour
 
     public void RenderGameBoard()
     {
-        for (int i = transform.childCount - 1; i >= 0; --i)
+        for (int i = transform.childCount - 1; i > 0; --i)
         {
             DestroyBlock(transform.GetChild(i).gameObject);
         }
