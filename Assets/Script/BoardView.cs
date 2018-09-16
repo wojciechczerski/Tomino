@@ -58,7 +58,7 @@ public class BoardView : MonoBehaviour
 
     Color BlockColor(Block block)
     {
-        switch (block.type)
+        switch (block.Type)
         {
             case Piece.Type.I: return Color.red;
             case Piece.Type.J: return Color.green;
