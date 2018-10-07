@@ -291,6 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f1dc1dddbdd414eafec23b16043305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentCamera: {fileID: 1139062297}
   boardView: {fileID: 1593429130}
   gameFinishedView: {fileID: 1353625251}
 --- !u!4 &654111114
@@ -825,7 +826,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 1946527347529550, guid: 262ceda6c78e44f29bdcadd59e8c7cc5,
     type: 2}
-  background: {fileID: 937969344}
 --- !u!1 &1772162760
 GameObject:
   m_ObjectHideFlags: 0

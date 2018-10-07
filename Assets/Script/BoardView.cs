@@ -72,7 +72,7 @@ public class BoardView : MonoBehaviour
         return position + offset;
     }
 
-    float BlockSize()
+    public float BlockSize()
     {
         var boardWidth = GetComponent<RectTransform>().rect.size.x;
         return boardWidth / gameBoard.width;

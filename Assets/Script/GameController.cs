@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using Tomino;
 
-public class GameController : MonoBehaviour, IPlayerInput
+public class GameController : MonoBehaviour
 {
+    public Camera currentCamera;
     public Board board = new Board(10, 20);
     public Game game;
     public BoardView boardView;
     public GameFinishedView gameFinishedView;
+    public TouchInput touchInput = new TouchInput();
 
     void Start()
     {
@@ -14,9 +16,11 @@ public class GameController : MonoBehaviour, IPlayerInput
         gameFinishedView.PlayAgainEvent += OnPlayAgain;
 
         boardView.gameBoard = board;
+        touchInput.blockSize = BlockSizeInPixels();
 
-        game = new Game(board, this, new RandomPieceProvider());
+        game = new Game(board, touchInput, new RandomPieceProvider());
         game.FinishedEvent += OnGameFinished;
+        game.PieceFinishedFallingEvent += touchInput.CancelCurrentTouch;
         game.Start();
     }
 
@@ -33,31 +37,13 @@ public class GameController : MonoBehaviour, IPlayerInput
 
     void Update()
     {
+        touchInput.Update();
         game.Update(Time.deltaTime);
     }
 
-    public PlayerAction? GetPlayerAction()
+    float BlockSizeInPixels()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            return PlayerAction.MoveLeft;
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            return PlayerAction.MoveRight;
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            return PlayerAction.MoveDown;
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            return PlayerAction.Rotate;
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            return PlayerAction.Fall;
-        }
-        return null;
+        var viewportHeight = currentCamera.orthographicSize * 2;
+        return currentCamera.pixelHeight / viewportHeight * boardView.BlockSize();
     }
 }

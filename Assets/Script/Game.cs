@@ -4,6 +4,7 @@ namespace Tomino
     {
         public delegate void GameEventHandler();
         public event GameEventHandler FinishedEvent = delegate { };
+        public event GameEventHandler PieceFinishedFallingEvent = delegate { };
 
         const float FallDelay = 1.0f;
 
@@ -116,6 +117,7 @@ namespace Tomino
 
         void PieceFinishedFalling()
         {
+            PieceFinishedFallingEvent();
             board.RemoveFullRows();
             AddPiece();
         }
