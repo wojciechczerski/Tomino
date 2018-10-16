@@ -6,12 +6,17 @@ namespace Tomino
     {
         readonly Piece piece;
         readonly Board board;
-        readonly Dictionary<Block, Position> piecePosition;
+        Dictionary<Block, Position> piecePosition;
 
         public PieceCollisionResolver(Piece piece, Board board)
         {
             this.piece = piece;
             this.board = board;
+            StorePiecePositions();
+        }
+
+        public void StorePiecePositions()
+        {
             piecePosition = piece.GetPositions();
         }
 
