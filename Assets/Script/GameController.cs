@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
     public Board board = new Board(10, 20);
     public Game game;
     public BoardView boardView;
+    public ScoreView scoreView;
     public GameFinishedView gameFinishedView;
     public TouchInput touchInput = new TouchInput();
 
@@ -22,6 +23,8 @@ public class GameController : MonoBehaviour
         game.FinishedEvent += OnGameFinished;
         game.PieceFinishedFallingEvent += touchInput.CancelCurrentTouch;
         game.Start();
+
+        scoreView.game = game;
     }
 
     void OnGameFinished()

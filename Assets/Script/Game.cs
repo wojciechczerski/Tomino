@@ -5,6 +5,7 @@ namespace Tomino
         public delegate void GameEventHandler();
         public event GameEventHandler FinishedEvent = delegate { };
         public event GameEventHandler PieceFinishedFallingEvent = delegate { };
+        public int Score { get; private set; }
 
         const float FallDelay = 1.0f;
 
@@ -29,6 +30,7 @@ namespace Tomino
         {
             isPlaying = true;
             elapsedTime = 0;
+            Score = 0;
             board.RemoveAllBlocks();
             AddPiece();
         }
@@ -118,7 +120,7 @@ namespace Tomino
         void PieceFinishedFalling()
         {
             PieceFinishedFallingEvent();
-            board.RemoveFullRows();
+            Score += board.RemoveFullRows();
             AddPiece();
         }
 

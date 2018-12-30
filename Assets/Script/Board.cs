@@ -65,8 +65,9 @@ namespace Tomino
             Blocks.AddRange(piece.blocks);
         }
 
-        public void RemoveFullRows()
+        public int RemoveFullRows()
         {
+            int rowsRemoved = 0;
             for (int row = height - 1; row >= 0; --row)
             {
                 var rowBlocks = GetBlocksFromRow(row);
@@ -74,8 +75,10 @@ namespace Tomino
                 {
                     Remove(rowBlocks);
                     MoveDownBlocksBelowRow(row);
+                    rowsRemoved += 1;
                 }
             }
+            return rowsRemoved;
         }
 
         public void RemoveAllBlocks()
