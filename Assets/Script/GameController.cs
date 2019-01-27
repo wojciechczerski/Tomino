@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
     public BoardView boardView;
     public ScoreView scoreView;
     public GameFinishedView gameFinishedView;
-    public TouchInput touchInput = new TouchInput();
+    public UniversalInput input = new UniversalInput();
 
     void Start()
     {
@@ -17,11 +17,18 @@ public class GameController : MonoBehaviour
         gameFinishedView.PlayAgainEvent += OnPlayAgain;
 
         boardView.gameBoard = board;
-        touchInput.blockSize = BlockSizeInPixels();
 
-        game = new Game(board, touchInput, new RandomPieceProvider());
+        var touchInput = new TouchInput
+        {
+            blockSize = BlockSizeInPixels()
+        };
+
+        input.Register(new KeyboardInput());
+        input.Register(touchInput);
+
+        game = new Game(board, input, new RandomPieceProvider());
         game.FinishedEvent += OnGameFinished;
-        game.PieceFinishedFallingEvent += touchInput.CancelCurrentTouch;
+        game.PieceFinishedFallingEvent += input.Cancel;
         game.Start();
 
         scoreView.game = game;
@@ -40,7 +47,7 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        touchInput.Update();
+        input.Update();
         game.Update(Time.deltaTime);
     }
 

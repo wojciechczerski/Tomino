@@ -61,7 +61,7 @@ public class TouchInput : IPlayerInput
         return playerAction;
     }
 
-    public void CancelCurrentTouch()
+    public void Cancel()
     {
         cancelCurrentTouch |= Input.touchCount > 0;
     }

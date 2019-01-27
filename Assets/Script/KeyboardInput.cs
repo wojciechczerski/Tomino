@@ -34,7 +34,7 @@ public class KeyboardInput : IPlayerInput
 
         if (Input.GetKeyUp(pressedKey))
         {
-            StopKeyRepeat();
+            Cancel();
         }
         else
         {
@@ -44,7 +44,9 @@ public class KeyboardInput : IPlayerInput
         return null;
     }
 
-    public void StopKeyRepeat()
+    public void Update() { }
+
+    public void Cancel()
     {
         pressedKey = KeyCode.None;
     }
