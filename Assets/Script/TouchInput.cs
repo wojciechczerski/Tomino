@@ -3,7 +3,7 @@ using Tomino;
 
 public class TouchInput : IPlayerInput
 {
-    public float blockSize;
+    float blockSize;
     Vector2 initialPosition = Vector2.zero;
     Vector2 processedOffset = Vector2.zero;
     PlayerAction? playerAction;
@@ -13,6 +13,11 @@ public class TouchInput : IPlayerInput
     float tapMaxOffset = 30.0f;
     float swipeMaxDuration = 0.3f;
     bool cancelCurrentTouch;
+
+    public TouchInput(float blockSize)
+    {
+        this.blockSize = blockSize;
+    }
 
     public void Update()
     {

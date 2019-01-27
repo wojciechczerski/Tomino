@@ -18,13 +18,8 @@ public class GameController : MonoBehaviour
 
         boardView.gameBoard = board;
 
-        var touchInput = new TouchInput
-        {
-            blockSize = BlockSizeInPixels()
-        };
-
         input.Register(new KeyboardInput());
-        input.Register(touchInput);
+        input.Register(new TouchInput(BlockSizeInPixels()));
 
         game = new Game(board, input, new RandomPieceProvider());
         game.FinishedEvent += OnGameFinished;
