@@ -1,57 +1,55 @@
 ﻿using UnityEngine;
 using Tomino;
-using System.Collections.Generic;
 
 public class BoardView : MonoBehaviour
 {
     public GameObject blockPrefab;
-    public Board gameBoard;
+    Board gameBoard;
     int renderedBoardHash = -1;
+    GameObject[] blocks;
 
-    Stack<GameObject> destroyedObjects = new Stack<GameObject>();
+    public void SetBoard(Board board)
+    {
+        gameBoard = board;
+        CreateBlocksPool(board.width * board.height);
+    }
 
     public void RenderGameBoard()
     {
-        for (int i = transform.childCount - 1; i > 0; --i)
+        for (int i = 0; i < blocks.Length; ++i)
         {
-            DestroyBlock(transform.GetChild(i).gameObject);
+            blocks[i].SetActive(false);
         }
 
+        int blockIndex = 0;
         foreach (var block in gameBoard.Blocks)
         {
-            var blockObject = CreateBlock();
+            var blockObject = blocks[blockIndex];
+            blockObject.SetActive(true);
             var spriteRenderer = blockObject.GetComponent<SpriteRenderer>();
             var sprite = spriteRenderer.sprite;
 
             spriteRenderer.color = BlockColor(block);
 
-            blockObject.transform.parent = transform;
-            blockObject.transform.localPosition = Vector3.zero;
-
             var scale = sprite.pixelsPerUnit / sprite.rect.width * BlockSize();
 
             blockObject.transform.localScale = new Vector3(scale, scale);
             blockObject.transform.localPosition = BlockPosition(block.Position.Row, block.Position.Column);
+
+            blockIndex++;
         }
     }
 
-    GameObject CreateBlock()
+    void CreateBlocksPool(int poolSize)
     {
-        if (destroyedObjects.Count == 0)
+        blocks = new GameObject[poolSize];
+        for (int i = 0; i < poolSize; ++i)
         {
-            return Object.Instantiate(blockPrefab);
+            var newBlock = Instantiate(blockPrefab);
+            newBlock.transform.parent = transform;
+            newBlock.SetActive(false);
+            blocks[i] = newBlock;
         }
-
-        var block = destroyedObjects.Pop();
-        block.SetActive(true);
-        return block;
-    }
-
-    void DestroyBlock(GameObject block)
-    {
-        block.SetActive(false);
-        block.transform.parent = null;
-        destroyedObjects.Push(block);
     }
 
     void Update()

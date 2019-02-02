@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
         gameFinishedView.Hide();
         gameFinishedView.PlayAgainEvent += OnPlayAgain;
 
-        boardView.gameBoard = board;
+        boardView.SetBoard(board);
 
         input.Register(new KeyboardInput());
         input.Register(new TouchInput(BlockSizeInPixels()));
