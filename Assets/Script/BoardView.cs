@@ -6,7 +6,7 @@ public class BoardView : MonoBehaviour
     public GameObject blockPrefab;
     Board gameBoard;
     int renderedBoardHash = -1;
-    GameObject[] blocks;
+    BlockView[] blocks;
 
     public void SetBoard(Board board)
     {
@@ -18,23 +18,18 @@ public class BoardView : MonoBehaviour
     {
         for (int i = 0; i < blocks.Length; ++i)
         {
-            blocks[i].SetActive(false);
+            blocks[i].gameObject.SetActive(false);
         }
 
         int blockIndex = 0;
         foreach (var block in gameBoard.Blocks)
         {
-            var blockObject = blocks[blockIndex];
-            blockObject.SetActive(true);
-            var spriteRenderer = blockObject.GetComponent<SpriteRenderer>();
-            var sprite = spriteRenderer.sprite;
+            var blockView = blocks[blockIndex];
+            blockView.gameObject.SetActive(true);
 
-            spriteRenderer.color = BlockColor(block);
-
-            var scale = sprite.pixelsPerUnit / sprite.rect.width * BlockSize();
-
-            blockObject.transform.localScale = new Vector3(scale, scale);
-            blockObject.transform.localPosition = BlockPosition(block.Position.Row, block.Position.Column);
+            blockView.SetColor(BlockColor(block));
+            blockView.SetSize(BlockSize());
+            blockView.SetPosition(BlockPosition(block.Position.Row, block.Position.Column));
 
             blockIndex++;
         }
@@ -42,13 +37,13 @@ public class BoardView : MonoBehaviour
 
     void CreateBlocksPool(int poolSize)
     {
-        blocks = new GameObject[poolSize];
+        blocks = new BlockView[poolSize];
         for (int i = 0; i < poolSize; ++i)
         {
             var newBlock = Instantiate(blockPrefab);
             newBlock.transform.parent = transform;
             newBlock.SetActive(false);
-            blocks[i] = newBlock;
+            blocks[i] = newBlock.GetComponent<BlockView>();
         }
     }
 
