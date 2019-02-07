@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using Tomino;
+using System.Collections.Generic;
+using System;
 
 public class BoardView : MonoBehaviour
 {
@@ -7,6 +9,7 @@ public class BoardView : MonoBehaviour
     Board gameBoard;
     int renderedBoardHash = -1;
     BlockView[] blocks;
+    Dictionary<Piece.Type, Color> blockColor = new Dictionary<Piece.Type, Color>();
 
     public void SetBoard(Board board)
     {
@@ -27,7 +30,7 @@ public class BoardView : MonoBehaviour
             var blockView = blocks[blockIndex];
             blockView.gameObject.SetActive(true);
 
-            blockView.SetColor(BlockColor(block));
+            blockView.SetColor(blockColor[block.Type]);
             blockView.SetSize(BlockSize());
             blockView.SetPosition(BlockPosition(block.Position.Row, block.Position.Column));
 
@@ -45,6 +48,22 @@ public class BoardView : MonoBehaviour
             newBlock.SetActive(false);
             blocks[i] = newBlock.GetComponent<BlockView>();
         }
+    }
+
+    void CreateBlockColorMapping()
+    {
+        int index = 0;
+        foreach (Piece.Type type in Enum.GetValues(typeof(Piece.Type)))
+        {
+            var color = Color.black;
+            ColorUtility.TryParseHtmlString(Constant.ColorPalette.Blocks[index++], out color);
+            blockColor.Add(type, color);
+        }
+    }
+
+    void Awake()
+    {
+        CreateBlockColorMapping();
     }
 
     void Update()
@@ -69,20 +88,5 @@ public class BoardView : MonoBehaviour
     {
         var boardWidth = GetComponent<RectTransform>().rect.size.x;
         return boardWidth / gameBoard.width;
-    }
-
-    Color BlockColor(Block block)
-    {
-        switch (block.Type)
-        {
-            case Piece.Type.I: return Color.red;
-            case Piece.Type.J: return Color.green;
-            case Piece.Type.L: return Color.blue;
-            case Piece.Type.O: return Color.yellow;
-            case Piece.Type.S: return Color.cyan;
-            case Piece.Type.T: return Color.gray;
-            case Piece.Type.Z: return Color.magenta;
-            default: return Color.black;
-        }
     }
 }
