@@ -96,6 +96,7 @@ namespace Tomino
                 return;
             }
 
+            Dictionary<Block, Position> piecePosition = piece.GetPositions();
             var offset = piece.blocks[0].Position;
 
             foreach (var block in piece.blocks)
@@ -103,6 +104,38 @@ namespace Tomino
                 var row = block.Position.Row - offset.Row;
                 var column = block.Position.Column - offset.Column;
                 block.MoveTo(-column + offset.Row, row + offset.Column);
+            }
+
+            if (HasCollisions() && !ResolveCollisionsAfterRotation(piece))
+            {
+                RestoreSavedPiecePosition(piece, piecePosition);
+            }
+        }
+
+        bool ResolveCollisionsAfterRotation(Piece piece)
+        {
+            var columnOffsets = new int[] { -1, -2, 1, 2 };
+            foreach (int offset in columnOffsets)
+            {
+                Move(piece, 0, offset);
+
+                if (HasCollisions())
+                {
+                    Move(piece, 0, -offset);
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        void RestoreSavedPiecePosition(Piece piece, Dictionary<Block, Position> piecePosition)
+        {
+            foreach (Block block in piece.blocks)
+            {
+                block.MoveTo(piecePosition[block]);
             }
         }
 

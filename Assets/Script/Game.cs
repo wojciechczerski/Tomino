@@ -80,8 +80,6 @@ namespace Tomino
 
         void HandlePlayerAction(PlayerAction action)
         {
-            var resolver = new PieceCollisionResolver(fallingPiece, board);
-
             switch (action)
             {
                 case PlayerAction.MoveLeft:
@@ -109,11 +107,6 @@ namespace Tomino
                     ResetElapsedTime();
                     PieceFinishedFalling();
                     break;
-            }
-
-            if (board.HasCollisions())
-            {
-                resolver.ResolveCollisions(action == PlayerAction.Rotate);
             }
         }
 
