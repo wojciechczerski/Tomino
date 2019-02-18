@@ -65,6 +65,20 @@ namespace Tomino
             Blocks.AddRange(piece.blocks);
         }
 
+        public void MoveLeft(Piece piece) => Move(piece, 0, -1);
+
+        public void MoveRight(Piece piece) => Move(piece, 0, 1);
+
+        public void MoveDown(Piece piece) => Move(piece, -1, 0);
+
+        public void Move(Piece piece, int rowOffset, int columnOffset)
+        {
+            foreach (var block in piece.blocks)
+            {
+                block.MoveBy(rowOffset, columnOffset);
+            }
+        }
+
         public int RemoveFullRows()
         {
             int rowsRemoved = 0;

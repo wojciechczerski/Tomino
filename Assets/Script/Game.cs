@@ -85,15 +85,15 @@ namespace Tomino
             switch (action)
             {
                 case PlayerAction.MoveLeft:
-                    fallingPiece.MoveLeft();
+                    board.MoveLeft(fallingPiece);
                     break;
 
                 case PlayerAction.MoveRight:
-                    fallingPiece.MoveRight();
+                    board.MoveRight(fallingPiece);
                     break;
 
                 case PlayerAction.MoveDown:
-                    fallingPiece.MoveDown();
+                    board.MoveDown(fallingPiece);
                     ResetElapsedTime();
                     break;
 
@@ -129,7 +129,7 @@ namespace Tomino
             while (!board.HasCollisions())
             {
                 collisionResolver.StorePiecePositions();
-                fallingPiece.MoveDown();
+                board.MoveDown(fallingPiece);
             }
         }
 

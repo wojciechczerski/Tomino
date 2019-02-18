@@ -40,20 +40,6 @@ namespace Tomino
             return positions;
         }
 
-        public void Move(int rowOffset, int columnOffset)
-        {
-            foreach (var block in blocks)
-            {
-                block.MoveBy(rowOffset, columnOffset);
-            }
-        }
-
-        public void MoveLeft() => Move(0, -1);
-
-        public void MoveRight() => Move(0, 1);
-
-        public void MoveDown() => Move(-1, 0);
-
         virtual public void Rotate()
         {
             var offset = blocks[0].Position;

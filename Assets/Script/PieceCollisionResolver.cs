@@ -34,11 +34,11 @@ namespace Tomino
         {
             foreach (int offset in columnOffsets)
             {
-                piece.Move(0, offset);
+                board.Move(piece, 0, offset);
 
                 if (board.HasCollisions())
                 {
-                    piece.Move(0, -offset);
+                    board.Move(piece, 0, -offset);
                 }
                 else
                 {
