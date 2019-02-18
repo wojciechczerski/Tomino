@@ -12,6 +12,7 @@ namespace Tomino
         }
 
         public Block[] blocks;
+        public readonly bool canRotate;
 
         public int Width
         {
@@ -25,9 +26,10 @@ namespace Tomino
 
         public int Top => blocks.Select(block => block.Position.Row).Max();
 
-        public Piece(Position[] blockPositions, Type type)
+        public Piece(Position[] blockPositions, Type type, bool canRotate = true)
         {
             blocks = blockPositions.Select(position => new Block(position, type)).ToArray();
+            this.canRotate = canRotate;
         }
 
         public Dictionary<Block, Position> GetPositions()
@@ -38,18 +40,6 @@ namespace Tomino
                 positions[block] = block.Position;
             }
             return positions;
-        }
-
-        virtual public void Rotate()
-        {
-            var offset = blocks[0].Position;
-
-            foreach (var block in blocks)
-            {
-                var row = block.Position.Row - offset.Row;
-                var column = block.Position.Column - offset.Column;
-                block.MoveTo(-column + offset.Row, row + offset.Column);
-            }
         }
     }
 }

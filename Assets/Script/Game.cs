@@ -98,7 +98,7 @@ namespace Tomino
                     break;
 
                 case PlayerAction.Rotate:
-                    fallingPiece.Rotate();
+                    board.Rotate(fallingPiece);
                     break;
 
                 case PlayerAction.Fall:

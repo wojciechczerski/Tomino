@@ -79,6 +79,23 @@ namespace Tomino
             }
         }
 
+        public void Rotate(Piece piece)
+        {
+            if (!piece.canRotate)
+            {
+                return;
+            }
+
+            var offset = piece.blocks[0].Position;
+
+            foreach (var block in piece.blocks)
+            {
+                var row = block.Position.Row - offset.Row;
+                var column = block.Position.Column - offset.Column;
+                block.MoveTo(-column + offset.Row, row + offset.Column);
+            }
+        }
+
         public int RemoveFullRows()
         {
             int rowsRemoved = 0;

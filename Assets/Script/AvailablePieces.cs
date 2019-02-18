@@ -25,7 +25,7 @@ namespace Tomino
                 new Position(1, 1),
                 new Position(0, 1)
             };
-            return new NotRotatingPiece(positions, Piece.Type.O);
+            return new Piece(positions, Piece.Type.O, false);
         }
 
         public static Piece TPiece()
