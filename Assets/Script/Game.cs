@@ -93,8 +93,11 @@ namespace Tomino
                     break;
 
                 case PlayerAction.MoveDown:
-                    board.MoveDown(fallingPiece);
                     ResetElapsedTime();
+                    if (!board.MoveDown(fallingPiece))
+                    {
+                        PieceFinishedFalling();
+                    }
                     break;
 
                 case PlayerAction.Rotate:
@@ -102,18 +105,15 @@ namespace Tomino
                     break;
 
                 case PlayerAction.Fall:
-                    Fall(resolver);
+                    board.Fall(fallingPiece);
                     ResetElapsedTime();
+                    PieceFinishedFalling();
                     break;
             }
 
             if (board.HasCollisions())
             {
                 resolver.ResolveCollisions(action == PlayerAction.Rotate);
-                if (action == PlayerAction.MoveDown || action == PlayerAction.Fall)
-                {
-                    PieceFinishedFalling();
-                }
             }
         }
 
@@ -122,15 +122,6 @@ namespace Tomino
             PieceFinishedFallingEvent();
             Score += board.RemoveFullRows();
             AddPiece();
-        }
-
-        void Fall(PieceCollisionResolver collisionResolver)
-        {
-            while (!board.HasCollisions())
-            {
-                collisionResolver.StorePiecePositions();
-                board.MoveDown(fallingPiece);
-            }
         }
 
         void ResetElapsedTime()

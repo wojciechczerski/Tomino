@@ -69,14 +69,24 @@ namespace Tomino
 
         public void MoveRight(Piece piece) => Move(piece, 0, 1);
 
-        public void MoveDown(Piece piece) => Move(piece, -1, 0);
+        public bool MoveDown(Piece piece) => Move(piece, -1, 0);
 
-        public void Move(Piece piece, int rowOffset, int columnOffset)
+        public bool Move(Piece piece, int rowOffset, int columnOffset)
         {
             foreach (var block in piece.blocks)
             {
                 block.MoveBy(rowOffset, columnOffset);
             }
+
+            if (HasCollisions())
+            {
+                foreach (var block in piece.blocks)
+                {
+                    block.MoveBy(-rowOffset, -columnOffset);
+                }
+                return false;
+            }
+            return true;
         }
 
         public void Rotate(Piece piece)
@@ -94,6 +104,11 @@ namespace Tomino
                 var column = block.Position.Column - offset.Column;
                 block.MoveTo(-column + offset.Row, row + offset.Column);
             }
+        }
+
+        public void Fall(Piece piece)
+        {
+            while (MoveDown(piece)) { }
         }
 
         public int RemoveFullRows()
