@@ -7,20 +7,14 @@ namespace Tomino
     {
         public readonly int width;
         public readonly int height;
+        public readonly int top;
         public List<Block> Blocks { get; private set; } = new List<Block>();
-
-        public int Top
-        {
-            get
-            {
-                return height - 1;
-            }
-        }
 
         public Board(int width, int height)
         {
             this.width = width;
             this.height = height;
+            top = height - 1;
         }
 
         public bool HasCollisions()
@@ -62,7 +56,7 @@ namespace Tomino
 
         public void Add(Piece piece)
         {
-            var offsetRow = Top - piece.Top;
+            var offsetRow = top - piece.Top;
             var offsetCol = (width - piece.Width) / 2;
 
             foreach (var block in piece.blocks)
