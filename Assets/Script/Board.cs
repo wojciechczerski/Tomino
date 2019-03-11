@@ -62,6 +62,14 @@ namespace Tomino
 
         public void Add(Piece piece)
         {
+            var offsetRow = Top - piece.Top;
+            var offsetCol = (width - piece.Width) / 2;
+
+            foreach (var block in piece.blocks)
+            {
+                block.MoveBy(offsetRow, offsetCol);
+            }
+
             Blocks.AddRange(piece.blocks);
         }
 

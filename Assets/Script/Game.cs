@@ -42,7 +42,6 @@ namespace Tomino
 
         void AddPiece(Piece piece)
         {
-            MovePieceToInitialPosition(piece);
             fallingPiece = piece;
             board.Add(fallingPiece);
 
@@ -120,17 +119,6 @@ namespace Tomino
         void ResetElapsedTime()
         {
             elapsedTime = 0;
-        }
-
-        void MovePieceToInitialPosition(Piece piece)
-        {
-            var offsetRow = board.Top - piece.Top;
-            var offsetCol = (board.width - piece.Width) / 2;
-
-            foreach (var block in piece.blocks)
-            {
-                block.MoveBy(offsetRow, offsetCol);
-            }
         }
     }
 }
