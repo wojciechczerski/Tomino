@@ -6,3 +6,4 @@ obj
 *.csproj
 *.sln
 *.userprefs
+*.log
