@@ -2,6 +2,7 @@ Build
 Library
 Temp
 .vs
+.vscode
 obj
 *.csproj
 *.sln
