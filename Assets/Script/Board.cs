@@ -12,10 +12,13 @@ namespace Tomino
 
         public Piece piece { get; private set; }
 
-        public Board(int width, int height)
+        readonly IPieceProvider pieceProvider;
+
+        public Board(int width, int height, IPieceProvider pieceProvider)
         {
             this.width = width;
             this.height = height;
+            this.pieceProvider = pieceProvider;
             top = height - 1;
         }
 
@@ -56,9 +59,10 @@ namespace Tomino
             });
         }
 
-        public void AddPiece(Piece piece)
+        public void AddPiece()
         {
-            this.piece = piece;
+            piece = pieceProvider.GetPiece();
+
             var offsetRow = top - piece.Top;
             var offsetCol = (width - piece.Width) / 2;
 

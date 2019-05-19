@@ -11,18 +11,14 @@ namespace Tomino
 
         readonly Board board;
         readonly IPlayerInput input;
-        readonly IPieceProvider pieceProvider;
 
         float elapsedTime = FallDelay;
         bool isPlaying;
 
-        public Game(Board board,
-                    IPlayerInput input,
-                    IPieceProvider pieceProvider)
+        public Game(Board board, IPlayerInput input)
         {
             this.board = board;
             this.input = input;
-            this.pieceProvider = pieceProvider;
         }
 
         public void Start()
@@ -36,13 +32,7 @@ namespace Tomino
 
         void AddPiece()
         {
-            AddPiece(pieceProvider.GetPiece());
-        }
-
-        void AddPiece(Piece piece)
-        {
-            board.AddPiece(piece);
-
+            board.AddPiece();
             if (board.HasCollisions())
             {
                 isPlaying = false;

@@ -13,8 +13,8 @@ public class GameTests
     {
         input = new StubInput();
         pieceProvider = new StubPieceProvider();
-        board = new Board(10, 20);
-        game = new Game(board, input, pieceProvider);
+        board = new Board(10, 20, pieceProvider);
+        game = new Game(board, input);
         game.Start();
     }
 
@@ -66,9 +66,9 @@ public class GameTests
             new Position(2, 1)
         };
 
-        board = new Board(3, 3);
         pieceProvider = new StubPieceProvider();
-        game = new Game(board, input, pieceProvider);
+        board = new Board(3, 3, pieceProvider);
+        game = new Game(board, input);
         game.Start();
 
         for (var i = 1; i < secondBlockPositions.Length; ++i)

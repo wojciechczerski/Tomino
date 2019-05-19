@@ -4,7 +4,7 @@ using Tomino;
 public class GameController : MonoBehaviour
 {
     public Camera currentCamera;
-    public Board board = new Board(10, 20);
+    public Board board = new Board(10, 20, new RandomPieceProvider());
     public Game game;
     public BoardView boardView;
     public ScoreView scoreView;
@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
         input.Register(new KeyboardInput());
         input.Register(new TouchInput(BlockSizeInPixels()));
 
-        game = new Game(board, input, new RandomPieceProvider());
+        game = new Game(board, input);
         game.FinishedEvent += OnGameFinished;
         game.PieceFinishedFallingEvent += input.Cancel;
         game.Start();

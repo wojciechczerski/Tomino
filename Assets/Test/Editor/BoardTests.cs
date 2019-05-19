@@ -11,10 +11,10 @@ public class BoardTests
 
         Assert.AreEqual(first.GetHashCode(), second.GetHashCode());
 
-        first.AddPiece(CreatePiece());
+        first.AddPiece();
         Assert.AreNotEqual(first.GetHashCode(), second.GetHashCode());
 
-        second.AddPiece(CreatePiece());
+        second.AddPiece();
         Assert.AreEqual(first.GetHashCode(), second.GetHashCode());
 
         first.RemoveAllBlocks();
@@ -24,11 +24,5 @@ public class BoardTests
         Assert.AreEqual(first.GetHashCode(), second.GetHashCode());
     }
 
-    Board CreateEmptyBoard() => new Board(3, 3);
-
-    Piece CreatePiece()
-    {
-        var positions = new Position[] { new Position(1, 1) };
-        return new Piece(positions, Piece.Type.I);
-    }
+    Board CreateEmptyBoard() => new Board(3, 3, new StubPieceProvider());
 }
