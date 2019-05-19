@@ -13,7 +13,6 @@ namespace Tomino
         readonly IPlayerInput input;
         readonly IPieceProvider pieceProvider;
 
-        Piece fallingPiece;
         float elapsedTime = FallDelay;
         bool isPlaying;
 
@@ -42,8 +41,7 @@ namespace Tomino
 
         void AddPiece(Piece piece)
         {
-            fallingPiece = piece;
-            board.Add(fallingPiece);
+            board.AddPiece(piece);
 
             if (board.HasCollisions())
             {
@@ -82,27 +80,27 @@ namespace Tomino
             switch (action)
             {
                 case PlayerAction.MoveLeft:
-                    board.MoveLeft(fallingPiece);
+                    board.MovePieceLeft();
                     break;
 
                 case PlayerAction.MoveRight:
-                    board.MoveRight(fallingPiece);
+                    board.MovePieceRight();
                     break;
 
                 case PlayerAction.MoveDown:
                     ResetElapsedTime();
-                    if (!board.MoveDown(fallingPiece))
+                    if (!board.MovePieceDown())
                     {
                         PieceFinishedFalling();
                     }
                     break;
 
                 case PlayerAction.Rotate:
-                    board.Rotate(fallingPiece);
+                    board.RotatePiece();
                     break;
 
                 case PlayerAction.Fall:
-                    board.Fall(fallingPiece);
+                    board.FallPiece();
                     ResetElapsedTime();
                     PieceFinishedFalling();
                     break;

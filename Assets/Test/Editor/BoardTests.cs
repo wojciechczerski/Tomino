@@ -11,10 +11,10 @@ public class BoardTests
 
         Assert.AreEqual(first.GetHashCode(), second.GetHashCode());
 
-        first.Add(CreatePiece());
+        first.AddPiece(CreatePiece());
         Assert.AreNotEqual(first.GetHashCode(), second.GetHashCode());
 
-        second.Add(CreatePiece());
+        second.AddPiece(CreatePiece());
         Assert.AreEqual(first.GetHashCode(), second.GetHashCode());
 
         first.RemoveAllBlocks();

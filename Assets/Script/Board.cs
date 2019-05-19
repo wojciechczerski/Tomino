@@ -10,6 +10,8 @@ namespace Tomino
         public readonly int top;
         public List<Block> Blocks { get; private set; } = new List<Block>();
 
+        public Piece piece { get; private set; }
+
         public Board(int width, int height)
         {
             this.width = width;
@@ -54,8 +56,9 @@ namespace Tomino
             });
         }
 
-        public void Add(Piece piece)
+        public void AddPiece(Piece piece)
         {
+            this.piece = piece;
             var offsetRow = top - piece.Top;
             var offsetCol = (width - piece.Width) / 2;
 
@@ -67,13 +70,13 @@ namespace Tomino
             Blocks.AddRange(piece.blocks);
         }
 
-        public void MoveLeft(Piece piece) => Move(piece, 0, -1);
+        public void MovePieceLeft() => MovePiece(0, -1);
 
-        public void MoveRight(Piece piece) => Move(piece, 0, 1);
+        public void MovePieceRight() => MovePiece(0, 1);
 
-        public bool MoveDown(Piece piece) => Move(piece, -1, 0);
+        public bool MovePieceDown() => MovePiece(-1, 0);
 
-        public bool Move(Piece piece, int rowOffset, int columnOffset)
+        public bool MovePiece(int rowOffset, int columnOffset)
         {
             foreach (var block in piece.blocks)
             {
@@ -91,7 +94,7 @@ namespace Tomino
             return true;
         }
 
-        public void Rotate(Piece piece)
+        public void RotatePiece()
         {
             if (!piece.canRotate)
             {
@@ -108,22 +111,22 @@ namespace Tomino
                 block.MoveTo(-column + offset.Row, row + offset.Column);
             }
 
-            if (HasCollisions() && !ResolveCollisionsAfterRotation(piece))
+            if (HasCollisions() && !ResolveCollisionsAfterRotation())
             {
-                RestoreSavedPiecePosition(piece, piecePosition);
+                RestoreSavedPiecePosition(piecePosition);
             }
         }
 
-        bool ResolveCollisionsAfterRotation(Piece piece)
+        bool ResolveCollisionsAfterRotation()
         {
             var columnOffsets = new int[] { -1, -2, 1, 2 };
             foreach (int offset in columnOffsets)
             {
-                Move(piece, 0, offset);
+                MovePiece(0, offset);
 
                 if (HasCollisions())
                 {
-                    Move(piece, 0, -offset);
+                    MovePiece(0, -offset);
                 }
                 else
                 {
@@ -133,7 +136,7 @@ namespace Tomino
             return false;
         }
 
-        void RestoreSavedPiecePosition(Piece piece, Dictionary<Block, Position> piecePosition)
+        void RestoreSavedPiecePosition(Dictionary<Block, Position> piecePosition)
         {
             foreach (Block block in piece.blocks)
             {
@@ -141,9 +144,9 @@ namespace Tomino
             }
         }
 
-        public void Fall(Piece piece)
+        public void FallPiece()
         {
-            while (MoveDown(piece)) { }
+            while (MovePieceDown()) { }
         }
 
         public int RemoveFullRows()
