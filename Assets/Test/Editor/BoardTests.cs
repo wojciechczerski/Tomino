@@ -24,5 +24,19 @@ public class BoardTests
         Assert.AreEqual(first.GetHashCode(), second.GetHashCode());
     }
 
+    [Test]
+    public void ComputesPieceShadow()
+    {
+        var pieceProvider = new StubPieceProvider();
+        pieceProvider.piece = new Piece(new Position[] { new Position(0, 0) }, Piece.Type.I);
+
+        var board = new Board(3, 3, pieceProvider);
+        board.AddPiece();
+        var shadow = board.GetPieceShadow();
+
+        Assert.AreEqual(shadow.Length, 1);
+        Assert.AreEqual(shadow[0], new Position(0, 1));
+    }
+
     Board CreateEmptyBoard() => new Board(3, 3, new StubPieceProvider());
 }

@@ -74,6 +74,15 @@ namespace Tomino
             Blocks.AddRange(piece.blocks);
         }
 
+        public Position[] GetPieceShadow()
+        {
+            var positions = piece.GetPositions();
+            FallPiece();
+            var shadowPositions = piece.GetPositions().Values.ToArray();
+            RestoreSavedPiecePosition(positions);
+            return shadowPositions;
+        }
+
         public void MovePieceLeft() => MovePiece(0, -1);
 
         public void MovePieceRight() => MovePiece(0, 1);

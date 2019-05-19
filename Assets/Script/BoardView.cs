@@ -6,6 +6,10 @@ using System;
 public class BoardView : MonoBehaviour
 {
     public GameObject blockPrefab;
+    public Sprite blockSprite;
+    public Sprite borderBlockSprite;
+    public Color borderBlockColor;
+
     Board gameBoard;
     int renderedBoardHash = -1;
     BlockView[] blocks;
@@ -14,7 +18,7 @@ public class BoardView : MonoBehaviour
     public void SetBoard(Board board)
     {
         gameBoard = board;
-        CreateBlocksPool(board.width * board.height);
+        CreateBlocksPool(board.width * board.height + 10);
     }
 
     public void RenderGameBoard()
@@ -30,9 +34,23 @@ public class BoardView : MonoBehaviour
             var blockView = blocks[blockIndex];
             blockView.gameObject.SetActive(true);
 
+            blockView.SetSprite(blockSprite);
             blockView.SetColor(blockColor[block.Type]);
             blockView.SetSize(BlockSize());
             blockView.SetPosition(BlockPosition(block.Position.Row, block.Position.Column));
+
+            blockIndex++;
+        }
+
+        foreach (var position in gameBoard.GetPieceShadow())
+        {
+            var blockView = blocks[blockIndex];
+            blockView.gameObject.SetActive(true);
+
+            blockView.SetSprite(borderBlockSprite);
+            blockView.SetColor(borderBlockColor);
+            blockView.SetSize(BlockSize());
+            blockView.SetPosition(BlockPosition(position.Row, position.Column));
 
             blockIndex++;
         }

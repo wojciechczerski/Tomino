@@ -14,6 +14,11 @@ public class BlockView : MonoBehaviour
         spriteRenderer.color = color;
     }
 
+    public void SetSprite(Sprite sprite)
+    {
+        spriteRenderer.sprite = sprite;
+    }
+
     public void SetPosition(Vector3 position)
     {
         transform.localPosition = position;
