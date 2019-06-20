@@ -38,5 +38,15 @@ public class BoardTests
         Assert.AreEqual(shadow[0], new Position(0, 1));
     }
 
+    public void ComputesNextGeneratedPiece()
+    {
+        var board = new Board(20, 20, new BalancedRandomPieceProvider());
+        var nextPiece = board.nextPiece;
+
+        board.AddPiece();
+
+        Assert.AreEqual(board.piece.GetType(), nextPiece.GetType());
+    }
+
     Board CreateEmptyBoard() => new Board(3, 3, new StubPieceProvider());
 }

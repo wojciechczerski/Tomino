@@ -12,6 +12,8 @@ namespace Tomino
 
         public Piece piece { get; private set; }
 
+        public Piece nextPiece => pieceProvider.GetNextPiece();
+
         readonly IPieceProvider pieceProvider;
 
         public Board(int width, int height, IPieceProvider pieceProvider)

@@ -4,10 +4,9 @@ public class StubPieceProvider : IPieceProvider
 {
     public Piece piece = StubPiece();
 
-    public Piece GetPiece()
-    {
-        return piece;
-    }
+    public Piece GetPiece() => piece;
+
+    public Piece GetNextPiece() => GetPiece();
 
     static Piece StubPiece()
     {

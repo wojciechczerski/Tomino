@@ -9,10 +9,9 @@ namespace Tomino
         private List<int> pool = new List<int>();
         private const int numDuplicates = 4;
 
-        public Piece GetPiece()
-        {
-            return AvailablePieces.All()[GetPopulatedPool().TakeFirst()];
-        }
+        public Piece GetPiece() => AvailablePieces.All()[GetPopulatedPool().TakeFirst()];
+
+        public Piece GetNextPiece() => AvailablePieces.All()[GetPopulatedPool()[0]];
 
         private List<int> GetPopulatedPool()
         {
