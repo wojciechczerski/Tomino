@@ -13,7 +13,6 @@ public class BoardView : MonoBehaviour
     Board gameBoard;
     int renderedBoardHash = -1;
     BlockView[] blocks;
-    Dictionary<PieceType, Color> blockColor = new Dictionary<PieceType, Color>();
 
     public void SetBoard(Board board)
     {
@@ -35,7 +34,7 @@ public class BoardView : MonoBehaviour
             blockView.gameObject.SetActive(true);
 
             blockView.SetSprite(blockSprite);
-            blockView.SetColor(blockColor[block.Type]);
+            blockView.SetColor(block.Type.GetColor());
             blockView.SetSize(BlockSize());
             blockView.SetPosition(BlockPosition(block.Position.Row, block.Position.Column));
 
@@ -66,22 +65,6 @@ public class BoardView : MonoBehaviour
             newBlock.SetActive(false);
             blocks[i] = newBlock.GetComponent<BlockView>();
         }
-    }
-
-    void CreateBlockColorMapping()
-    {
-        int index = 0;
-        foreach (PieceType type in Enum.GetValues(typeof(PieceType)))
-        {
-            var color = Color.black;
-            ColorUtility.TryParseHtmlString(Constant.ColorPalette.Blocks[index++], out color);
-            blockColor.Add(type, color);
-        }
-    }
-
-    void Awake()
-    {
-        CreateBlockColorMapping();
     }
 
     void Update()
