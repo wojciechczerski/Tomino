@@ -8,6 +8,7 @@ namespace Tomino
     {
         public Block[] blocks;
         public readonly bool canRotate;
+        public PieceType Type { get; private set; }
 
         public int Width
         {
@@ -24,6 +25,7 @@ namespace Tomino
         public Piece(Position[] blockPositions, PieceType type, bool canRotate = true)
         {
             blocks = blockPositions.Select(position => new Block(position, type)).ToArray();
+            Type = type;
             this.canRotate = canRotate;
         }
 

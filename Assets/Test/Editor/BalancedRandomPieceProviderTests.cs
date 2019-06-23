@@ -14,7 +14,7 @@ public class BalancedRandomPieceProviderTests
 
         for (int i = 0; i < sampleSize; i++)
         {
-            var pieceType = provider.GetPiece().blocks[0].Type;
+            var pieceType = provider.GetPiece().Type;
 
             if (pieceCount.ContainsKey(pieceType))
             {
