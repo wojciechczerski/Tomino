@@ -13,7 +13,7 @@ public class BoardView : MonoBehaviour
     Board gameBoard;
     int renderedBoardHash = -1;
     BlockView[] blocks;
-    Dictionary<Piece.Type, Color> blockColor = new Dictionary<Piece.Type, Color>();
+    Dictionary<PieceType, Color> blockColor = new Dictionary<PieceType, Color>();
 
     public void SetBoard(Board board)
     {
@@ -71,7 +71,7 @@ public class BoardView : MonoBehaviour
     void CreateBlockColorMapping()
     {
         int index = 0;
-        foreach (Piece.Type type in Enum.GetValues(typeof(Piece.Type)))
+        foreach (PieceType type in Enum.GetValues(typeof(PieceType)))
         {
             var color = Color.black;
             ColorUtility.TryParseHtmlString(Constant.ColorPalette.Blocks[index++], out color);

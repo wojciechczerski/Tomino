@@ -28,7 +28,7 @@ public class BoardTests
     public void ComputesPieceShadow()
     {
         var pieceProvider = new StubPieceProvider();
-        pieceProvider.piece = new Piece(new Position[] { new Position(0, 0) }, Piece.Type.I);
+        pieceProvider.piece = new Piece(new Position[] { new Position(0, 0) }, PieceType.I);
 
         var board = new Board(3, 3, pieceProvider);
         board.AddPiece();

@@ -2,10 +2,10 @@ namespace Tomino
 {
     public class Block
     {
-        public Piece.Type Type { get; private set; }
+        public PieceType Type { get; private set; }
         public Position Position { get; private set; }
 
-        public Block(Position position, Piece.Type type)
+        public Block(Position position, PieceType type)
         {
             Position = position;
             this.Type = type;

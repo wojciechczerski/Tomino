@@ -10,7 +10,7 @@ public class BalancedRandomPieceProviderTests
     {
         var sampleSize = 1000;
         var provider = new BalancedRandomPieceProvider();
-        var pieceCount = new Dictionary<Piece.Type, int>();
+        var pieceCount = new Dictionary<PieceType, int>();
 
         for (int i = 0; i < sampleSize; i++)
         {

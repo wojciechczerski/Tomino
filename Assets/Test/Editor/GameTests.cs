@@ -105,8 +105,8 @@ public class GameTests
             {
                 var leftPosition = new Position(row, 0);
                 var rightPostion = new Position(row, board.width - 1);
-                board.Blocks.Add(new Block(leftPosition, Piece.Type.I));
-                board.Blocks.Add(new Block(rightPostion, Piece.Type.I));
+                board.Blocks.Add(new Block(leftPosition, PieceType.I));
+                board.Blocks.Add(new Block(rightPostion, PieceType.I));
             }
         }
 
@@ -127,7 +127,7 @@ public class GameTests
             for (int column = 0; column < board.width; ++column)
             {
                 var position = new Position(row, column);
-                board.Blocks.Add(new Block(position, Piece.Type.I));
+                board.Blocks.Add(new Block(position, PieceType.I));
             }
         }
 

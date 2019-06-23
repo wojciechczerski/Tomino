@@ -6,11 +6,6 @@ namespace Tomino
 {
     public class Piece
     {
-        public enum Type
-        {
-            I, J, L, O, S, T, Z
-        }
-
         public Block[] blocks;
         public readonly bool canRotate;
 
@@ -26,7 +21,7 @@ namespace Tomino
 
         public int Top => blocks.Select(block => block.Position.Row).Max();
 
-        public Piece(Position[] blockPositions, Type type, bool canRotate = true)
+        public Piece(Position[] blockPositions, PieceType type, bool canRotate = true)
         {
             blocks = blockPositions.Select(position => new Block(position, type)).ToArray();
             this.canRotate = canRotate;
