@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
     public Board board = new Board(10, 20, new BalancedRandomPieceProvider());
     public Game game;
     public BoardView boardView;
+    public PieceView nextPieceView;
     public ScoreView scoreView;
     public GameFinishedView gameFinishedView;
     public UniversalInput input = new UniversalInput();
@@ -17,6 +18,7 @@ public class GameController : MonoBehaviour
         gameFinishedView.PlayAgainEvent += OnPlayAgain;
 
         boardView.SetBoard(board);
+        nextPieceView.SetBoard(board);
 
         input.Register(new KeyboardInput());
         input.Register(new TouchInput(BlockSizeInPixels()));
