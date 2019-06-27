@@ -12,59 +12,37 @@ public class BoardView : MonoBehaviour
 
     Board gameBoard;
     int renderedBoardHash = -1;
-    BlockView[] blocks;
+    GameObjectPool<BlockView> blockViewPool;
 
     public void SetBoard(Board board)
     {
         gameBoard = board;
-        CreateBlocksPool(board.width * board.height + 10);
+        int size = board.width * board.height + 10;
+        blockViewPool = new GameObjectPool<BlockView>(blockPrefab, size, gameObject);
     }
 
     public void RenderGameBoard()
     {
-        for (int i = 0; i < blocks.Length; ++i)
-        {
-            blocks[i].gameObject.SetActive(false);
-        }
+        blockViewPool.DeactivateAll();
 
-        int blockIndex = 0;
         foreach (var block in gameBoard.Blocks)
         {
-            var blockView = blocks[blockIndex];
-            blockView.gameObject.SetActive(true);
-
-            blockView.SetSprite(blockSprite);
-            blockView.SetColor(block.Type.GetColor());
-            blockView.SetSize(BlockSize());
-            blockView.SetPosition(BlockPosition(block.Position.Row, block.Position.Column));
-
-            blockIndex++;
+            RenderBlock(blockSprite, block.Type.GetColor(), block.Position);
         }
 
         foreach (var position in gameBoard.GetPieceShadow())
         {
-            var blockView = blocks[blockIndex];
-            blockView.gameObject.SetActive(true);
-
-            blockView.SetSprite(borderBlockSprite);
-            blockView.SetColor(borderBlockColor);
-            blockView.SetSize(BlockSize());
-            blockView.SetPosition(BlockPosition(position.Row, position.Column));
-
-            blockIndex++;
+            RenderBlock(borderBlockSprite, borderBlockColor, position);
         }
     }
 
-    void CreateBlocksPool(int poolSize)
+    void RenderBlock(Sprite sprite, Color color, Position position)
     {
-        blocks = new BlockView[poolSize];
-        for (int i = 0; i < poolSize; ++i)
-        {
-            var newBlock = Instantiate(blockPrefab);
-            newBlock.transform.parent = transform;
-            newBlock.SetActive(false);
-            blocks[i] = newBlock.GetComponent<BlockView>();
-        }
+        var view = blockViewPool.GetAndActivate();
+        view.SetSprite(sprite);
+        view.SetColor(color);
+        view.SetSize(BlockSize());
+        view.SetPosition(BlockPosition(position.Row, position.Column));
     }
 
     void Update()
