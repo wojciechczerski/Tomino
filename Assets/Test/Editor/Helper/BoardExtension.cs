@@ -12,5 +12,17 @@ public static class BoardExtension
         }
         return positions;
     }
+
+    public static void AddFullRows(this Board board, int count)
+    {
+        for (int row = 0; row < count; ++row)
+        {
+            for (int column = 0; column < board.width; ++column)
+            {
+                var position = new Position(row, column);
+                board.Blocks.Add(new Block(position, PieceType.I));
+            }
+        }
+    }
 }
 

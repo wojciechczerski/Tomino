@@ -122,15 +122,7 @@ public class GameTests
     [Test]
     public void RemovesFullRows()
     {
-        for (int row = 0; row < board.height / 2; ++row)
-        {
-            for (int column = 0; column < board.width; ++column)
-            {
-                var position = new Position(row, column);
-                board.Blocks.Add(new Block(position, PieceType.I));
-            }
-        }
-
+        board.AddFullRows(board.height / 2);
         var blocksCount = pieceProvider.piece.blocks.Length;
         UpdateGameWithAction(PlayerAction.Fall);
         blocksCount += pieceProvider.piece.blocks.Length;
@@ -147,6 +139,18 @@ public class GameTests
         UpdateGameWithAction(PlayerAction.Fall);
 
         Assert.IsTrue(spy.gameFinishedCalled);
+    }
+
+    [TestCase(1, 100)]
+    [TestCase(2, 300)]
+    [TestCase(3, 500)]
+    [TestCase(4, 800)]
+    public void UpdatesScoreWhenRowsAreCleared(int fullRowsCount, int score)
+    {
+        board.AddFullRows(fullRowsCount);
+        game.WaitUntilPieceFallsAutomatically();
+
+        Assert.AreEqual(score, game.Score.Value);
     }
 
     void UpdateGameWithAction(PlayerAction action)
