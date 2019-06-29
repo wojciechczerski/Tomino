@@ -153,6 +153,15 @@ public class GameTests
         Assert.AreEqual(score, game.Score.Value);
     }
 
+    [Test]
+    public void UpdatesScoreWhenPieceFalls()
+    {
+        int distance = board.FallDistance();
+        UpdateGameWithAction(PlayerAction.Fall);
+
+        Assert.AreEqual(distance * 2, game.Score.Value);
+    }
+
     void UpdateGameWithAction(PlayerAction action)
     {
         input.action = action;

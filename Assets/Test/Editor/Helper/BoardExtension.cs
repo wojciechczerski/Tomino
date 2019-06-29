@@ -24,5 +24,10 @@ public static class BoardExtension
             }
         }
     }
+
+    public static int FallDistance(this Board board)
+    {
+        return board.piece.GetPositions().Values.Map(p => p.Row).Min();
+    }
 }
 

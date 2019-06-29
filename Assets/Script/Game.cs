@@ -93,7 +93,7 @@ namespace Tomino
                     break;
 
                 case PlayerAction.Fall:
-                    board.FallPiece();
+                    Score.PieceFinishedFalling(board.FallPiece());
                     ResetElapsedTime();
                     PieceFinishedFalling();
                     break;

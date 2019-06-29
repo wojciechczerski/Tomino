@@ -159,9 +159,14 @@ namespace Tomino
             }
         }
 
-        public void FallPiece()
+        public int FallPiece()
         {
-            while (MovePieceDown()) { }
+            int rowsCount = 0;
+            while (MovePieceDown())
+            {
+                rowsCount++;
+            }
+            return rowsCount;
         }
 
         public int RemoveFullRows()

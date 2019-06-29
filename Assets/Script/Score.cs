@@ -17,5 +17,7 @@ namespace Tomino
             scoreForClearedRows.TryGetValue(count, out valueIncrease);
             Value += valueIncrease;
         }
+
+        public void PieceFinishedFalling(int rowsCount) => Value += rowsCount * 2;
     }
 }
