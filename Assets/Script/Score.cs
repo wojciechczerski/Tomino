@@ -19,5 +19,7 @@ namespace Tomino
         }
 
         public void PieceFinishedFalling(int rowsCount) => Value += rowsCount * 2;
+
+        public void PieceMovedDown() => Value++;
     }
 }

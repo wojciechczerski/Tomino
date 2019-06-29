@@ -82,7 +82,11 @@ namespace Tomino
 
                 case PlayerAction.MoveDown:
                     ResetElapsedTime();
-                    if (!board.MovePieceDown())
+                    if (board.MovePieceDown())
+                    {
+                        Score.PieceMovedDown();
+                    }
+                    else
                     {
                         PieceFinishedFalling();
                     }
