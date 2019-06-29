@@ -44,25 +44,28 @@ namespace Tomino
         {
             if (!isPlaying) return;
 
-            var action = GetInputAction();
+            var action = input?.GetPlayerAction();
             if (action.HasValue)
             {
                 HandlePlayerAction(action.Value);
             }
             else
             {
-                elapsedTime += deltaTime;
-                if (elapsedTime >= FallDelay)
-                {
-                    HandlePlayerAction(PlayerAction.MoveDown);
-                    ResetElapsedTime();
-                }
+                HandleAutomaticPieceFalling(deltaTime);
             }
         }
 
-        PlayerAction? GetInputAction()
+        void HandleAutomaticPieceFalling(float deltaTime)
         {
-            return input?.GetPlayerAction();
+            elapsedTime += deltaTime;
+            if (elapsedTime >= FallDelay)
+            {
+                if (!board.MovePieceDown())
+                {
+                    PieceFinishedFalling();
+                }
+                ResetElapsedTime();
+            }
         }
 
         void HandlePlayerAction(PlayerAction action)
