@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Tomino
 {
@@ -31,9 +30,9 @@ namespace Tomino
 
         public bool HasBlockCollisions()
         {
-            var allPositions = Blocks.Select(block => block.Position);
+            var allPositions = Blocks.Map(block => block.Position);
             var uniquePositions = new HashSet<Position>(allPositions);
-            return allPositions.Count() != uniquePositions.Count();
+            return allPositions.Length != uniquePositions.Count;
         }
 
         public bool HasBoardCollisions()
@@ -51,14 +50,16 @@ namespace Tomino
 
         override public int GetHashCode()
         {
-            return Blocks.Aggregate(0, (hash, block) =>
+            int hash = 0;
+            foreach (var block in Blocks)
             {
                 var row = block.Position.Row;
                 var column = block.Position.Column;
                 var offset = width * height * (int)block.Type;
                 var blockHash = offset + row * width + column;
-                return hash + blockHash;
-            });
+                hash += blockHash;
+            }
+            return hash;
         }
 
         public void AddPiece()
@@ -80,7 +81,7 @@ namespace Tomino
         {
             var positions = piece.GetPositions();
             FallPiece();
-            var shadowPositions = piece.GetPositions().Values.ToArray();
+            var shadowPositions = piece.GetPositions().Values.Map(p => p);
             RestoreSavedPiecePosition(positions);
             return shadowPositions;
         }
