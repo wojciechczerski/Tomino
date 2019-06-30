@@ -39,5 +39,30 @@ namespace Tomino
             collection.Iterate((element, index) => result[index] = map(element));
             return result;
         }
+
+        public static T Min<T>(this ICollection<T> colleciton) where T : IComparable
+        {
+            return colleciton.CompareAll((a, b) => a.CompareTo(b) < 0);
+        }
+
+        public static T Max<T>(this ICollection<T> colleciton) where T : IComparable
+        {
+            return colleciton.CompareAll((a, b) => a.CompareTo(b) > 0);
+        }
+
+        static T CompareAll<T>(this ICollection<T> colleciton, Func<T, T, bool> compare) where T : IComparable
+        {
+            T result = default(T);
+            var hasValue = false;
+            foreach (var element in colleciton)
+            {
+                if (!hasValue || compare(element, result))
+                {
+                    result = element;
+                    hasValue = true;
+                }
+            }
+            return result;
+        }
     }
 }
