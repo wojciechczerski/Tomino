@@ -20,7 +20,12 @@ public static class BoardExtension
             for (int column = 0; column < board.width; ++column)
             {
                 var position = new Position(row, column);
-                board.Blocks.Add(new Block(position, PieceType.I));
+                var allPositions = new List<Position>(board.Blocks.Map(b => b.Position));
+
+                if (!allPositions.Contains(position))
+                {
+                    board.Blocks.Add(new Block(position, PieceType.I));
+                }
             }
         }
     }

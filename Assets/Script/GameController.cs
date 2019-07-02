@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     public BoardView boardView;
     public PieceView nextPieceView;
     public ScoreView scoreView;
+    public LevelView levelView;
     public GameFinishedView gameFinishedView;
     public UniversalInput input = new UniversalInput();
 
@@ -29,6 +30,7 @@ public class GameController : MonoBehaviour
         game.Start();
 
         scoreView.game = game;
+        levelView.game = game;
     }
 
     void OnGameFinished()

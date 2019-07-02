@@ -2,7 +2,7 @@
 {
     public static class Text
     {
-        public static readonly string Score = "Score {0}";
+        public static readonly string Score = "Score\n{0}";
     }
 
     public static class Input

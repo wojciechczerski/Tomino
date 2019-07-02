@@ -66,7 +66,7 @@ public class GameTests
             new Position(2, 1)
         };
 
-        pieceProvider = new StubPieceProvider();
+        pieceProvider = new StubPieceProvider(StubPieceType.TwoBlocks);
         board = new Board(3, 3, pieceProvider);
         game = new Game(board, input);
         game.Start();
@@ -88,7 +88,7 @@ public class GameTests
 
         UpdateGameWithAction(PlayerAction.Fall);
 
-        blocksCount += pieceProvider.piece.blocks.Length;
+        blocksCount += pieceProvider.GetPiece().blocks.Length;
 
         Assert.AreEqual(blocksCount, board.Blocks.Count);
     }
@@ -123,9 +123,9 @@ public class GameTests
     public void RemovesFullRows()
     {
         board.AddFullRows(board.height / 2);
-        var blocksCount = pieceProvider.piece.blocks.Length;
+        var blocksCount = pieceProvider.GetPiece().blocks.Length;
         UpdateGameWithAction(PlayerAction.Fall);
-        blocksCount += pieceProvider.piece.blocks.Length;
+        blocksCount += pieceProvider.GetPiece().blocks.Length;
 
         Assert.AreEqual(blocksCount, board.Blocks.Count);
     }
@@ -136,7 +136,10 @@ public class GameTests
         var spy = new GameEventSpy();
         game.FinishedEvent += spy.OnGameFinished;
 
-        UpdateGameWithAction(PlayerAction.Fall);
+        for (int i = 0; i < board.FallDistance() + 1; ++i)
+        {
+            UpdateGameWithAction(PlayerAction.Fall);
+        }
 
         Assert.IsTrue(spy.gameFinishedCalled);
     }
@@ -168,6 +171,21 @@ public class GameTests
         UpdateGameWithAction(PlayerAction.Fall);
 
         Assert.AreEqual(distance * 2, game.Score.Value);
+    }
+
+    [TestCase(5, 1)]
+    [TestCase(10, 2)]
+    [TestCase(15, 2)]
+    [TestCase(20, 3)]
+    public void UpdatesLevelAfterClearingRows(int numRowsCleared, int expectedLevel)
+    {
+        for (int i = 0; i < numRowsCleared; ++i)
+        {
+            board.AddFullRows(1);
+            UpdateGameWithAction(PlayerAction.Fall);
+        }
+
+        Assert.AreEqual(expectedLevel, game.Level.Number);
     }
 
     void UpdateGameWithAction(PlayerAction action)
