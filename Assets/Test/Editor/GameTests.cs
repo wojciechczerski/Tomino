@@ -188,6 +188,17 @@ public class GameTests
         Assert.AreEqual(expectedLevel, game.Level.Number);
     }
 
+    [Test]
+    public void IncreasesPieceFallingSpeedAfterAdvancingToTheNextLevel()
+    {
+        var initialFallDelay = game.Level.FallDelay;
+
+        board.AddFullRows(10);
+        UpdateGameWithAction(PlayerAction.Fall);
+
+        Assert.Less(game.Level.FallDelay, initialFallDelay);
+    }
+
     void UpdateGameWithAction(PlayerAction action)
     {
         input.action = action;

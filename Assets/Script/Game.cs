@@ -8,12 +8,10 @@ namespace Tomino
         public Score Score { get; private set; }
         public Level Level { get; private set; }
 
-        const float FallDelay = 1.0f;
-
         readonly Board board;
         readonly IPlayerInput input;
 
-        float elapsedTime = FallDelay;
+        float elapsedTime;
         bool isPlaying;
 
         public Game(Board board, IPlayerInput input)
@@ -60,7 +58,7 @@ namespace Tomino
         void HandleAutomaticPieceFalling(float deltaTime)
         {
             elapsedTime += deltaTime;
-            if (elapsedTime >= FallDelay)
+            if (elapsedTime >= Level.FallDelay)
             {
                 if (!board.MovePieceDown())
                 {
