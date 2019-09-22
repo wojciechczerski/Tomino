@@ -9,6 +9,8 @@ public class ScoreView : MonoBehaviour
 
     void Update()
     {
-        scoreText.text = string.Format(Constant.Text.Score, game.Score.Value);
+        var padLength = Constant.ScoreFormat.Length;
+        var padCharacter = Constant.ScoreFormat.PadCharacter;
+        scoreText.text = game.Score.Value.ToString().PadLeft(padLength, padCharacter);
     }
 }
