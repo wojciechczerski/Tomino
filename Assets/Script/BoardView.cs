@@ -12,6 +12,7 @@ public class BoardView : MonoBehaviour
 
     Board gameBoard;
     int renderedBoardHash = -1;
+    bool forceRender = false;
     GameObjectPool<BlockView> blockViewPool;
     RectTransform rectTransform;
 
@@ -54,11 +55,17 @@ public class BoardView : MonoBehaviour
     void Update()
     {
         var hash = gameBoard.GetHashCode();
-        if (hash != renderedBoardHash)
+        if (forceRender || hash != renderedBoardHash)
         {
             RenderGameBoard();
             renderedBoardHash = hash;
+            forceRender = false;
         }
+    }
+
+    void OnRectTransformDimensionsChange()
+    {
+        forceRender = true;
     }
 
     Vector3 BlockPosition(int row, int column)

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Tomino;
 
 public class PieceView : MonoBehaviour
@@ -11,6 +11,7 @@ public class PieceView : MonoBehaviour
     GameObjectPool<BlockView> blockViewPool;
     private PieceType? renderedPieceType;
     private int blockPoolSize = 10;
+    private bool forceRender = false;
 
     public void SetBoard(Board board)
     {
@@ -20,11 +21,16 @@ public class PieceView : MonoBehaviour
 
     void Update()
     {
-        if (renderedPieceType == null || board.nextPiece.Type != renderedPieceType)
+        if (renderedPieceType == null || forceRender || board.nextPiece.Type != renderedPieceType)
         {
             RenderPiece(board.nextPiece);
             renderedPieceType = board.nextPiece.Type;
+            forceRender = false;
         }
+    }
+    void OnRectTransformDimensionsChange()
+    {
+        forceRender = true;
     }
 
     void RenderPiece(Piece piece)
