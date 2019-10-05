@@ -13,6 +13,7 @@ public class BoardView : MonoBehaviour
     Board gameBoard;
     int renderedBoardHash = -1;
     GameObjectPool<BlockView> blockViewPool;
+    RectTransform rectTransform;
 
     public void SetBoard(Board board)
     {
@@ -45,6 +46,11 @@ public class BoardView : MonoBehaviour
         view.SetPosition(BlockPosition(position.Row, position.Column));
     }
 
+    void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
+
     void Update()
     {
         var hash = gameBoard.GetHashCode();
@@ -60,12 +66,19 @@ public class BoardView : MonoBehaviour
         var size = BlockSize();
         var position = new Vector3(column * size, row * size);
         var offset = new Vector3(size / 2, size / 2, 0);
-        return position + offset;
+        return position + offset - PivotOffset();
     }
 
     public float BlockSize()
     {
-        var boardWidth = GetComponent<RectTransform>().rect.size.x;
+        var boardWidth = rectTransform.rect.size.x;
         return boardWidth / gameBoard.width;
+    }
+
+    public Vector3 PivotOffset()
+    {
+        var pivot = rectTransform.pivot;
+        var boardSize = rectTransform.rect.size;
+        return new Vector3(boardSize.x * pivot.x, boardSize.y * pivot.y);
     }
 }
