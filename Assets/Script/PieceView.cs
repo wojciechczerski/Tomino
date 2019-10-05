@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Tomino;
 
 public class PieceView : MonoBehaviour
@@ -70,6 +70,8 @@ public class PieceView : MonoBehaviour
     public float BlockSize(Piece piece)
     {
         var width = container.rect.size.x;
-        return width / piece.blocks.Length;
+        var height = container.rect.size.y;
+        var numBlocks = piece.blocks.Length;
+        return Mathf.Min(width / numBlocks, height / numBlocks);
     }
 }
