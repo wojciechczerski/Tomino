@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public LevelView levelView;
     public GameFinishedView gameFinishedView;
     public UniversalInput input = new UniversalInput();
+    public TouchInput touchInput = new TouchInput();
 
     void Start()
     {
@@ -22,7 +23,7 @@ public class GameController : MonoBehaviour
         nextPieceView.SetBoard(board);
 
         input.Register(new KeyboardInput());
-        input.Register(new TouchInput(BlockSizeInPixels()));
+        input.Register(touchInput);
 
         game = new Game(board, input);
         game.FinishedEvent += OnGameFinished;
@@ -46,13 +47,8 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        touchInput.blockSize = boardView.BlockSize();
         input.Update();
         game.Update(Time.deltaTime);
-    }
-
-    float BlockSizeInPixels()
-    {
-        var viewportHeight = currentCamera.orthographicSize * 2;
-        return currentCamera.pixelHeight / viewportHeight * boardView.BlockSize();
     }
 }
