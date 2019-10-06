@@ -9,11 +9,6 @@ public class BlockView : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void SetColor(Color color)
-    {
-        spriteRenderer.color = color;
-    }
-
     public void SetSprite(Sprite sprite)
     {
         spriteRenderer.sprite = sprite;

@@ -6,9 +6,8 @@ using System;
 public class BoardView : MonoBehaviour
 {
     public GameObject blockPrefab;
-    public Sprite blockSprite;
-    public Sprite borderBlockSprite;
-    public Color borderBlockColor;
+    public Sprite[] blockSprites;
+    public Sprite shadowBlockSprite;
 
     Board gameBoard;
     int renderedBoardHash = -1;
@@ -29,20 +28,19 @@ public class BoardView : MonoBehaviour
 
         foreach (var block in gameBoard.Blocks)
         {
-            RenderBlock(blockSprite, block.Type.GetColor(), block.Position);
+            RenderBlock(BlockSprite(block.Type), block.Position);
         }
 
         foreach (var position in gameBoard.GetPieceShadow())
         {
-            RenderBlock(borderBlockSprite, borderBlockColor, position);
+            RenderBlock(shadowBlockSprite, position);
         }
     }
 
-    void RenderBlock(Sprite sprite, Color color, Position position)
+    void RenderBlock(Sprite sprite, Position position)
     {
         var view = blockViewPool.GetAndActivate();
         view.SetSprite(sprite);
-        view.SetColor(color);
         view.SetSize(BlockSize());
         view.SetPosition(BlockPosition(position.Row, position.Column));
     }
@@ -80,6 +78,11 @@ public class BoardView : MonoBehaviour
     {
         var boardWidth = rectTransform.rect.size.x;
         return boardWidth / gameBoard.width;
+    }
+
+    public Sprite BlockSprite(PieceType type)
+    {
+        return blockSprites[(int)type];
     }
 
     public Vector3 PivotOffset()

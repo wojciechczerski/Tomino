@@ -4,7 +4,7 @@ using Tomino;
 public class PieceView : MonoBehaviour
 {
     public GameObject blockPrefab;
-    public Sprite blockSprite;
+    public Sprite[] blockSprites;
     public RectTransform container;
 
     private Board board;
@@ -42,8 +42,7 @@ public class PieceView : MonoBehaviour
         foreach (var block in piece.blocks)
         {
             var blockView = blockViewPool.GetAndActivate();
-            blockView.SetSprite(blockSprite);
-            blockView.SetColor(block.Type.GetColor());
+            blockView.SetSprite(BlockSprite(block.Type));
             blockView.SetSize(blockSize);
             blockView.SetPosition(BlockPosition(block.Position, blockSize));
         }
@@ -79,5 +78,10 @@ public class PieceView : MonoBehaviour
         var height = container.rect.size.y;
         var numBlocks = piece.blocks.Length;
         return Mathf.Min(width / numBlocks, height / numBlocks);
+    }
+
+    public Sprite BlockSprite(PieceType type)
+    {
+        return blockSprites[(int)type];
     }
 }
