@@ -5,6 +5,11 @@ using System;
 
 public class BoardView : MonoBehaviour
 {
+    enum Layer
+    {
+        Blocks, PieceShadow
+    }
+
     public GameObject blockPrefab;
     public Sprite[] blockSprites;
     public Sprite shadowBlockSprite;
@@ -25,24 +30,32 @@ public class BoardView : MonoBehaviour
     public void RenderGameBoard()
     {
         blockViewPool.DeactivateAll();
+        RenderPieceShadow();
+        RenderBlocks();
+    }
 
+    void RenderBlocks()
+    {
         foreach (var block in gameBoard.Blocks)
         {
-            RenderBlock(BlockSprite(block.Type), block.Position);
-        }
-
-        foreach (var position in gameBoard.GetPieceShadow())
-        {
-            RenderBlock(shadowBlockSprite, position);
+            RenderBlock(BlockSprite(block.Type), block.Position, Layer.Blocks);
         }
     }
 
-    void RenderBlock(Sprite sprite, Position position)
+    void RenderPieceShadow()
+    {
+        foreach (var position in gameBoard.GetPieceShadow())
+        {
+            RenderBlock(shadowBlockSprite, position, Layer.PieceShadow);
+        }
+    }
+
+    void RenderBlock(Sprite sprite, Position position, Layer layer)
     {
         var view = blockViewPool.GetAndActivate();
         view.SetSprite(sprite);
         view.SetSize(BlockSize());
-        view.SetPosition(BlockPosition(position.Row, position.Column));
+        view.SetPosition(BlockPosition(position.Row, position.Column, layer));
     }
 
     void Awake()
@@ -66,10 +79,10 @@ public class BoardView : MonoBehaviour
         forceRender = true;
     }
 
-    Vector3 BlockPosition(int row, int column)
+    Vector3 BlockPosition(int row, int column, Layer layer)
     {
         var size = BlockSize();
-        var position = new Vector3(column * size, row * size);
+        var position = new Vector3(column * size, row * size, (float)layer);
         var offset = new Vector3(size / 2, size / 2, 0);
         return position + offset - PivotOffset();
     }
