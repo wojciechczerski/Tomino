@@ -24,6 +24,25 @@ public class GameTests
         Assert.IsNotEmpty(board.Blocks);
     }
 
+    [Test]
+    public void IgnoresInputWhenGameIsPaused()
+    {
+        var callbackCalled = false;
+        game.PieceFinishedFallingEvent += delegate
+        {
+            callbackCalled = true;
+        };
+
+        game.Pause();
+        UpdateGameWithAction(PlayerAction.Fall);
+
+        Assert.IsFalse(callbackCalled);
+
+        game.Resume();
+        UpdateGameWithAction(PlayerAction.Fall);
+        Assert.IsTrue(callbackCalled);
+    }
+
     [TestCase(PlayerAction.MoveLeft, 0, -1)]
     [TestCase(PlayerAction.MoveRight, 0, 1)]
     [TestCase(PlayerAction.MoveDown, -1, 0)]

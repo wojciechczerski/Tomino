@@ -33,6 +33,15 @@ public class GameController : MonoBehaviour
         levelView.game = game;
     }
 
+    public void OnPauseButtonTap()
+    {
+        game.Pause();
+        alertView.SetTitle(Constant.Text.GamePaused);
+        alertView.AddButton(Constant.Text.Resume, game.Resume);
+        alertView.AddButton(Constant.Text.NewGame, game.Start);
+        alertView.Show();
+    }
+
     void OnGameFinished()
     {
         alertView.SetTitle(Constant.Text.GameFinished);

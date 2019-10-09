@@ -30,6 +30,10 @@ namespace Tomino
             AddPiece();
         }
 
+        public void Resume() => isPlaying = true;
+
+        public void Pause() => isPlaying = false;
+
         void AddPiece()
         {
             board.AddPiece();
