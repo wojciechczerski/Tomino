@@ -36,14 +36,8 @@ public class GameController : MonoBehaviour
     void OnGameFinished()
     {
         alertView.SetTitle(Constant.Text.GameFinished);
-        alertView.AddButton(Constant.Text.PlayAgain, OnPlayAgain);
+        alertView.AddButton(Constant.Text.PlayAgain, game.Start);
         alertView.Show();
-    }
-
-    void OnPlayAgain()
-    {
-        game.Start();
-        alertView.Hide();
     }
 
     void Update()

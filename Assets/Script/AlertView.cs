@@ -22,6 +22,7 @@ public class AlertView : MonoBehaviour
         var textComponent = buttonGameObject.GetComponentInChildren<Text>();
 
         buttonComponent.onClick.AddListener(action);
+        buttonComponent.onClick.AddListener(Hide);
         textComponent.text = text;
 
         rectTransformComponent.SetParent(buttonsContainer, false);
