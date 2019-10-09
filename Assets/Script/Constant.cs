@@ -2,7 +2,8 @@
 {
     public static class Text
     {
-        public static readonly string Score = "Score\n{0}";
+        public static readonly string GameFinished = "GAME FINISHED";
+        public static readonly string PlayAgain = "PLAY AGAIN";
     }
 
     public static class ScoreFormat

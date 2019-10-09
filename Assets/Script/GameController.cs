@@ -10,14 +10,13 @@ public class GameController : MonoBehaviour
     public PieceView nextPieceView;
     public ScoreView scoreView;
     public LevelView levelView;
-    public GameFinishedView gameFinishedView;
+    public AlertView alertView;
     public UniversalInput input = new UniversalInput();
     public TouchInput touchInput = new TouchInput();
 
     void Start()
     {
-        gameFinishedView.Hide();
-        gameFinishedView.PlayAgainEvent += OnPlayAgain;
+        alertView.Hide();
 
         boardView.SetBoard(board);
         nextPieceView.SetBoard(board);
@@ -36,13 +35,15 @@ public class GameController : MonoBehaviour
 
     void OnGameFinished()
     {
-        gameFinishedView.Show();
+        alertView.SetTitle(Constant.Text.GameFinished);
+        alertView.AddButton(Constant.Text.PlayAgain, OnPlayAgain);
+        alertView.Show();
     }
 
     void OnPlayAgain()
     {
         game.Start();
-        gameFinishedView.Hide();
+        alertView.Hide();
     }
 
     void Update()

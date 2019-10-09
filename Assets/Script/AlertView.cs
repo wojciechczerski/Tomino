@@ -1,0 +1,40 @@
+﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+
+public class AlertView : MonoBehaviour
+{
+    public Text titleText;
+    public RectTransform buttonsContainer;
+    public HorizontalOrVerticalLayoutGroup buttonsContainerLayout;
+    public GameObject buttonPrefab;
+
+    public void SetTitle(string text)
+    {
+        titleText.text = text;
+    }
+
+    public void AddButton(string text, UnityAction action)
+    {
+        var buttonGameObject = Instantiate(buttonPrefab);
+        var rectTransformComponent = buttonGameObject.GetComponent<RectTransform>();
+        var buttonComponent = buttonGameObject.GetComponent<Button>();
+        var textComponent = buttonGameObject.GetComponentInChildren<Text>();
+
+        buttonComponent.onClick.AddListener(action);
+        textComponent.text = text;
+
+        rectTransformComponent.SetParent(buttonsContainer, false);
+    }
+
+    public void Show() => gameObject.SetActive(true);
+
+    public void Hide()
+    {
+        for (var i = buttonsContainer.childCount - 1; i >= 0; i--)
+        {
+            Destroy(buttonsContainer.GetChild(i).gameObject);
+        }
+        gameObject.SetActive(false);
+    }
+}
