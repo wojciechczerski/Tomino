@@ -6,7 +6,6 @@ public class AlertView : MonoBehaviour
 {
     public Text titleText;
     public RectTransform buttonsContainer;
-    public HorizontalOrVerticalLayoutGroup buttonsContainerLayout;
     public GameObject buttonPrefab;
 
     public void SetTitle(string text)
