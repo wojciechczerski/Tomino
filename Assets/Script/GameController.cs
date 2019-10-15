@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     public AlertView alertView;
     public UniversalInput input = new UniversalInput();
     public TouchInput touchInput = new TouchInput();
+    public AudioPlayer audioPlayer;
 
     void Start()
     {
@@ -27,6 +28,9 @@ public class GameController : MonoBehaviour
         game = new Game(board, input);
         game.FinishedEvent += OnGameFinished;
         game.PieceFinishedFallingEvent += input.Cancel;
+        game.PieceFinishedFallingEvent += audioPlayer.PlayPieceDropClip;
+        game.PieceRotatedEvent += audioPlayer.PlayPieceRotateClip;
+        game.PieceMovedEvent += audioPlayer.PlayPieceMoveClip;
         game.Start();
 
         scoreView.game = game;

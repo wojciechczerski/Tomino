@@ -4,6 +4,8 @@ namespace Tomino
     {
         public delegate void GameEventHandler();
         public event GameEventHandler FinishedEvent = delegate { };
+        public event GameEventHandler PieceMovedEvent = delegate { };
+        public event GameEventHandler PieceRotatedEvent = delegate { };
         public event GameEventHandler PieceFinishedFallingEvent = delegate { };
         public Score Score { get; private set; }
         public Level Level { get; private set; }
@@ -74,20 +76,22 @@ namespace Tomino
 
         void HandlePlayerAction(PlayerAction action)
         {
+            var pieceMoved = false;
             switch (action)
             {
                 case PlayerAction.MoveLeft:
-                    board.MovePieceLeft();
+                    pieceMoved = board.MovePieceLeft();
                     break;
 
                 case PlayerAction.MoveRight:
-                    board.MovePieceRight();
+                    pieceMoved = board.MovePieceRight();
                     break;
 
                 case PlayerAction.MoveDown:
                     ResetElapsedTime();
                     if (board.MovePieceDown())
                     {
+                        pieceMoved = true;
                         Score.PieceMovedDown();
                     }
                     else
@@ -97,7 +101,8 @@ namespace Tomino
                     break;
 
                 case PlayerAction.Rotate:
-                    board.RotatePiece();
+                    var didRotate = board.RotatePiece();
+                    if (didRotate) PieceRotatedEvent();
                     break;
 
                 case PlayerAction.Fall:
@@ -105,6 +110,10 @@ namespace Tomino
                     ResetElapsedTime();
                     PieceFinishedFalling();
                     break;
+            }
+            if (pieceMoved)
+            {
+                PieceMovedEvent();
             }
         }
 

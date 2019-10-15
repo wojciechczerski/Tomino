@@ -86,9 +86,9 @@ namespace Tomino
             return shadowPositions;
         }
 
-        public void MovePieceLeft() => MovePiece(0, -1);
+        public bool MovePieceLeft() => MovePiece(0, -1);
 
-        public void MovePieceRight() => MovePiece(0, 1);
+        public bool MovePieceRight() => MovePiece(0, 1);
 
         public bool MovePieceDown() => MovePiece(-1, 0);
 
@@ -110,11 +110,11 @@ namespace Tomino
             return true;
         }
 
-        public void RotatePiece()
+        public bool RotatePiece()
         {
             if (!piece.canRotate)
             {
-                return;
+                return false;
             }
 
             Dictionary<Block, Position> piecePosition = piece.GetPositions();
@@ -130,7 +130,9 @@ namespace Tomino
             if (HasCollisions() && !ResolveCollisionsAfterRotation())
             {
                 RestoreSavedPiecePosition(piecePosition);
+                return false;
             }
+            return true;
         }
 
         bool ResolveCollisionsAfterRotation()
