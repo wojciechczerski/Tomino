@@ -3,6 +3,8 @@ namespace Tomino
     public class Game
     {
         public delegate void GameEventHandler();
+        public event GameEventHandler ResumedEvent = delegate { };
+        public event GameEventHandler PausedEvent = delegate { };
         public event GameEventHandler FinishedEvent = delegate { };
         public event GameEventHandler PieceMovedEvent = delegate { };
         public event GameEventHandler PieceRotatedEvent = delegate { };
@@ -25,6 +27,7 @@ namespace Tomino
         public void Start()
         {
             isPlaying = true;
+            ResumedEvent();
             elapsedTime = 0;
             Score = new Score();
             Level = new Level();
@@ -32,9 +35,17 @@ namespace Tomino
             AddPiece();
         }
 
-        public void Resume() => isPlaying = true;
+        public void Resume()
+        {
+            isPlaying = true;
+            ResumedEvent();
+        }
 
-        public void Pause() => isPlaying = false;
+        public void Pause()
+        {
+            isPlaying = false;
+            PausedEvent();
+        }
 
         void AddPiece()
         {
@@ -42,6 +53,7 @@ namespace Tomino
             if (board.HasCollisions())
             {
                 isPlaying = false;
+                PausedEvent();
                 FinishedEvent();
             }
         }

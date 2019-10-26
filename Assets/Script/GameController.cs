@@ -26,6 +26,8 @@ public class GameController : MonoBehaviour
         input.Register(touchInput);
 
         game = new Game(board, input);
+        game.ResumedEvent += input.Enable;
+        game.PausedEvent += input.Disable;
         game.FinishedEvent += OnGameFinished;
         game.PieceFinishedFallingEvent += input.Cancel;
         game.PieceFinishedFallingEvent += audioPlayer.PlayPieceDropClip;

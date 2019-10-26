@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class UniversalInput : IPlayerInput
 {
     List<IPlayerInput> inputs = new List<IPlayerInput>();
+    bool isActive = true;
 
     public void Register(IPlayerInput input)
     {
@@ -12,8 +13,15 @@ public class UniversalInput : IPlayerInput
 
     public void Update()
     {
-        inputs.ForEach(input => input.Update());
+        if (isActive)
+        {
+            inputs.ForEach(input => input.Update());
+        }
     }
+
+    public void Disable() => isActive = false;
+
+    public void Enable() => isActive = true;
 
     public void Cancel()
     {
