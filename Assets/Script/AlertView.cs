@@ -13,14 +13,16 @@ public class AlertView : MonoBehaviour
         titleText.text = text;
     }
 
-    public void AddButton(string text, UnityAction action)
+    public void AddButton(string text, UnityAction onClickAction, UnityAction pointerDownAction)
     {
         var buttonGameObject = Instantiate(buttonPrefab);
         var rectTransformComponent = buttonGameObject.GetComponent<RectTransform>();
         var buttonComponent = buttonGameObject.GetComponent<Button>();
         var textComponent = buttonGameObject.GetComponentInChildren<Text>();
+        var pointerHandlerComponent = buttonGameObject.GetComponent<PointerHandler>();
 
-        buttonComponent.onClick.AddListener(action);
+        pointerHandlerComponent.onPointerDown.AddListener(pointerDownAction);
+        buttonComponent.onClick.AddListener(onClickAction);
         buttonComponent.onClick.AddListener(Hide);
         textComponent.text = text;
 

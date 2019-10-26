@@ -41,15 +41,15 @@ public class GameController : MonoBehaviour
     {
         game.Pause();
         alertView.SetTitle(Constant.Text.GamePaused);
-        alertView.AddButton(Constant.Text.Resume, game.Resume);
-        alertView.AddButton(Constant.Text.NewGame, game.Start);
+        alertView.AddButton(Constant.Text.Resume, game.Resume, audioPlayer.PlayResumeClip);
+        alertView.AddButton(Constant.Text.NewGame, game.Start, audioPlayer.PlayNewGameClip);
         alertView.Show();
     }
 
     void OnGameFinished()
     {
         alertView.SetTitle(Constant.Text.GameFinished);
-        alertView.AddButton(Constant.Text.PlayAgain, game.Start);
+        alertView.AddButton(Constant.Text.PlayAgain, game.Start, audioPlayer.PlayNewGameClip);
         alertView.Show();
     }
 
