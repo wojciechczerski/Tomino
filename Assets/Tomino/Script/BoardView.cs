@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using Tomino;
-using System.Collections.Generic;
-using System;
 
 public class BoardView : MonoBehaviour
 {
