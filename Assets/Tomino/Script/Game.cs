@@ -22,6 +22,7 @@ namespace Tomino
         {
             this.board = board;
             this.input = input;
+            PieceFinishedFallingEvent += input.Cancel;
         }
 
         public void Start()

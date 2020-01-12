@@ -27,7 +27,6 @@ public class GameController : MonoBehaviour
 
         game = new Game(board, input);
         game.FinishedEvent += OnGameFinished;
-        game.PieceFinishedFallingEvent += input.Cancel;
         game.PieceFinishedFallingEvent += audioPlayer.PlayPieceDropClip;
         game.PieceRotatedEvent += audioPlayer.PlayPieceRotateClip;
         game.PieceMovedEvent += audioPlayer.PlayPieceMoveClip;
