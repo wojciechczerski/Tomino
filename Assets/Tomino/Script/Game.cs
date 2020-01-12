@@ -1,15 +1,50 @@
 namespace Tomino
 {
+    /// <summary>
+    /// Controls the game logic by handling user input and updating the board state.
+    /// </summary>
     public class Game
     {
         public delegate void GameEventHandler();
+
+        /// <summary>
+        /// The event triggered when the game is resumed.
+        /// </summary>
         public event GameEventHandler ResumedEvent = delegate { };
+
+        /// <summary>
+        /// The event triggered when the game is paused.
+        /// </summary>
         public event GameEventHandler PausedEvent = delegate { };
+
+        /// <summary>
+        /// The event triggered when the game is finished.
+        /// </summary>
         public event GameEventHandler FinishedEvent = delegate { };
+
+        /// <summary>
+        /// The event triggered when the piece is moved.
+        /// </summary>
         public event GameEventHandler PieceMovedEvent = delegate { };
+
+        /// <summary>
+        /// The event triggered when the piece is rotated.
+        /// </summary>
         public event GameEventHandler PieceRotatedEvent = delegate { };
+
+        /// <summary>
+        /// The event triggered when the piece finishes falliing.
+        /// </summary>
         public event GameEventHandler PieceFinishedFallingEvent = delegate { };
+
+        /// <summary>
+        /// The current score.
+        /// </summary>
         public Score Score { get; private set; }
+
+        /// <summary>
+        /// The current level.
+        /// </summary>
         public Level Level { get; private set; }
 
         readonly Board board;
@@ -18,6 +53,11 @@ namespace Tomino
         float elapsedTime;
         bool isPlaying;
 
+        /// <summary>
+        /// Creates a game with specified board and input.
+        /// </summary>
+        /// <param name="board">The board on which the blocks will be placed.</param>
+        /// <param name="input">The input used for pooling player events.</param>
         public Game(Board board, IPlayerInput input)
         {
             this.board = board;
@@ -25,6 +65,9 @@ namespace Tomino
             PieceFinishedFallingEvent += input.Cancel;
         }
 
+        /// <summary>
+        /// Starts the game.
+        /// </summary>
         public void Start()
         {
             isPlaying = true;
@@ -36,12 +79,18 @@ namespace Tomino
             AddPiece();
         }
 
+        /// <summary>
+        /// Resumes paused game.
+        /// </summary>
         public void Resume()
         {
             isPlaying = true;
             ResumedEvent();
         }
 
+        /// <summary>
+        /// Pauses started game.
+        /// </summary>
         public void Pause()
         {
             isPlaying = false;
@@ -59,6 +108,10 @@ namespace Tomino
             }
         }
 
+        /// <summary>
+        /// Updates the game by processing user input.
+        /// </summary>
+        /// <param name="deltaTime"></param>
         public void Update(float deltaTime)
         {
             if (!isPlaying) return;
