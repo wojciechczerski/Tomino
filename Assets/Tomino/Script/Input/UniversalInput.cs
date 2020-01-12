@@ -4,29 +4,12 @@ using System.Collections.Generic;
 public class UniversalInput : IPlayerInput
 {
     List<IPlayerInput> inputs = new List<IPlayerInput>();
-    bool isActive = true;
 
-    public void Register(IPlayerInput input)
-    {
-        inputs.Add(input);
-    }
+    public void Register(IPlayerInput input) => inputs.Add(input);
 
-    public void Update()
-    {
-        if (isActive)
-        {
-            inputs.ForEach(input => input.Update());
-        }
-    }
+    public void Update() => inputs.ForEach(input => input.Update());
 
-    public void Disable() => isActive = false;
-
-    public void Enable() => isActive = true;
-
-    public void Cancel()
-    {
-        inputs.ForEach(input => input.Cancel());
-    }
+    public void Cancel() => inputs.ForEach(input => input.Cancel());
 
     public PlayerAction? GetPlayerAction()
     {
@@ -41,4 +24,3 @@ public class UniversalInput : IPlayerInput
         return null;
     }
 }
-
