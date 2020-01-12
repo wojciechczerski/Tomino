@@ -58,7 +58,6 @@ public class GameController : MonoBehaviour
     void Update()
     {
         touchInput.blockSize = boardView.BlockSize();
-        input.Update();
         game.Update(Time.deltaTime);
     }
 }

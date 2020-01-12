@@ -62,6 +62,8 @@ namespace Tomino
         {
             if (!isPlaying) return;
 
+            input.Update();
+
             var action = input?.GetPlayerAction();
             if (action.HasValue)
             {
