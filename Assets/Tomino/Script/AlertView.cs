@@ -8,10 +8,9 @@ public class AlertView : MonoBehaviour
     public RectTransform buttonsContainer;
     public GameObject buttonPrefab;
 
-    public void SetTitle(string text)
-    {
-        titleText.text = text;
-    }
+    void Awake() => Hide();
+
+    public void SetTitle(string text) => titleText.text = text;
 
     public void AddButton(string text, UnityAction onClickAction, UnityAction pointerDownAction)
     {

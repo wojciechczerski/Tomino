@@ -14,8 +14,6 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        alertView.Hide();
-
         Board board = new Board(10, 20);
 
         boardView.SetBoard(board);
