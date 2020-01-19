@@ -4,7 +4,6 @@ using Tomino;
 public class GameController : MonoBehaviour
 {
     public Camera currentCamera;
-    public Board board = new Board(10, 20);
     public Game game;
     public BoardView boardView;
     public PieceView nextPieceView;
@@ -16,6 +15,8 @@ public class GameController : MonoBehaviour
     void Start()
     {
         alertView.Hide();
+
+        Board board = new Board(10, 20);
 
         boardView.SetBoard(board);
         nextPieceView.SetBoard(board);
