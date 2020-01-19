@@ -11,6 +11,7 @@ public class BoardView : MonoBehaviour
     public GameObject blockPrefab;
     public Sprite[] blockSprites;
     public Sprite shadowBlockSprite;
+    public TouchInput touchInput = new TouchInput();
 
     Board gameBoard;
     int renderedBoardHash = -1;
@@ -63,6 +64,8 @@ public class BoardView : MonoBehaviour
 
     void Update()
     {
+        touchInput.blockSize = BlockSize();
+
         var hash = gameBoard.GetHashCode();
         if (forceRender || hash != renderedBoardHash)
         {

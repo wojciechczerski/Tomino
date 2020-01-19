@@ -5,7 +5,10 @@ public class UniversalInput : IPlayerInput
 {
     List<IPlayerInput> inputs = new List<IPlayerInput>();
 
-    public void Register(IPlayerInput input) => inputs.Add(input);
+    public UniversalInput(params IPlayerInput[] inputs)
+    {
+        this.inputs = new List<IPlayerInput>(inputs);
+    }
 
     public void Update() => inputs.ForEach(input => input.Update());
 

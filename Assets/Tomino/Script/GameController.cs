@@ -11,8 +11,6 @@ public class GameController : MonoBehaviour
     public ScoreView scoreView;
     public LevelView levelView;
     public AlertView alertView;
-    public UniversalInput input = new UniversalInput();
-    public TouchInput touchInput = new TouchInput();
     public AudioPlayer audioPlayer;
 
     void Start()
@@ -22,10 +20,7 @@ public class GameController : MonoBehaviour
         boardView.SetBoard(board);
         nextPieceView.SetBoard(board);
 
-        input.Register(new KeyboardInput());
-        input.Register(touchInput);
-
-        game = new Game(board, input);
+        game = new Game(board, new UniversalInput(new KeyboardInput(), boardView.touchInput));
         game.FinishedEvent += OnGameFinished;
         game.PieceFinishedFallingEvent += audioPlayer.PlayPieceDropClip;
         game.PieceRotatedEvent += audioPlayer.PlayPieceRotateClip;
@@ -54,7 +49,6 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        touchInput.blockSize = boardView.BlockSize();
         game.Update(Time.deltaTime);
     }
 }
