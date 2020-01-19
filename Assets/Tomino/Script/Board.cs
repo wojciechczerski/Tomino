@@ -43,6 +43,15 @@ namespace Tomino
         readonly IPieceProvider pieceProvider;
 
         /// <summary>
+        /// Initializes board with specified size and a `BalancedPieceProvider`.
+        /// </summary>
+        /// <param name="width">The width of the board.</param>
+        /// <param name="height">The height of the board.</param>
+        public Board(int width, int height) : this(width, height, new BalancedRandomPieceProvider())
+        {
+        }
+
+        /// <summary>
         /// Initializes board with specified size and piece provider.
         /// </summary>
         /// <param name="width">The width of the board.</param>

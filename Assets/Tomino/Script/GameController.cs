@@ -4,7 +4,7 @@ using Tomino;
 public class GameController : MonoBehaviour
 {
     public Camera currentCamera;
-    public Board board = new Board(10, 20, new BalancedRandomPieceProvider());
+    public Board board = new Board(10, 20);
     public Game game;
     public BoardView boardView;
     public PieceView nextPieceView;
