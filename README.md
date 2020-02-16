@@ -4,11 +4,12 @@ This project explores mobile development environment available in the Unity engi
 
 ## Features
 
-- Basic Tetris game mechanics
+- Complete game mechanics
 - Custom UI
-- Unit tests for the game logic
+- Unit tests
 - Touch and keyboard input
 - Mobile design
+- Sound effects and music
 
 ## Screenshots
 
