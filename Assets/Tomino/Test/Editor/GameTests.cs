@@ -101,6 +101,22 @@ public class GameTests
     }
 
     [Test]
+    public void HandlesDirectlyConfiguredPlayerInput()
+    {
+        var positions = board.GetBlockPositions();
+        game.SetNextAction(PlayerAction.MoveRight);
+        game.Update(10);
+
+        foreach (Block block in board.Blocks)
+        {
+            var start = positions[block];
+            var end = block.Position;
+            Assert.AreEqual(end.Row, start.Row);
+            Assert.AreEqual(end.Column, start.Column + 1);
+        }
+    }
+
+    [Test]
     public void AddsNewPieceAfterCurrentPieceFallsDown()
     {
         var blocksCount = board.Blocks.Count;

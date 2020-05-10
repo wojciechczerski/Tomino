@@ -50,6 +50,7 @@ namespace Tomino
         readonly Board board;
         readonly IPlayerInput input;
 
+        PlayerAction? nextAction = null;
         float elapsedTime;
         bool isPlaying;
 
@@ -97,6 +98,15 @@ namespace Tomino
             PausedEvent();
         }
 
+        /// <summary>
+        /// Sets the player action that the game should process in the next update.
+        /// </summary>
+        /// <param name="action">The next player action to process.</param>
+        public void SetNextAction(PlayerAction action)
+        {
+            nextAction = action;
+        }
+
         void AddPiece()
         {
             board.AddPiece();
@@ -122,6 +132,11 @@ namespace Tomino
             if (action.HasValue)
             {
                 HandlePlayerAction(action.Value);
+            }
+            else if (nextAction.HasValue)
+            {
+                HandlePlayerAction(nextAction.Value);
+                nextAction = null;
             }
             else
             {
