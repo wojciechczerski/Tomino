@@ -39,6 +39,31 @@ public class GameController : MonoBehaviour
         alertView.Show();
     }
 
+    public void OnMoveLeftButtonTap()
+    {
+        game.SetNextAction(PlayerAction.MoveLeft);
+    }
+
+    public void OnMoveRightButtonTap()
+    {
+        game.SetNextAction(PlayerAction.MoveRight);
+    }
+
+    public void OnMoveDownButtonTap()
+    {
+        game.SetNextAction(PlayerAction.MoveDown);
+    }
+
+    public void OnFallButtonTap()
+    {
+        game.SetNextAction(PlayerAction.Fall);
+    }
+
+    public void OnRotateButtonTap()
+    {
+        game.SetNextAction(PlayerAction.Rotate);
+    }
+
     void OnGameFinished()
     {
         alertView.SetTitle(Constant.Text.GameFinished);
