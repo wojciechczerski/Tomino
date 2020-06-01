@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public ScoreView scoreView;
     public LevelView levelView;
     public AlertView alertView;
+    public SettingsView settingsView;
     public AudioPlayer audioPlayer;
 
     void Start()
@@ -19,7 +20,7 @@ public class GameController : MonoBehaviour
         boardView.SetBoard(board);
         nextPieceView.SetBoard(board);
 
-        game = new Game(board, new UniversalInput(new KeyboardInput(), boardView.touchInput));
+        game = new Game(board, new UniversalInput(new KeyboardInput()));
         game.FinishedEvent += OnGameFinished;
         game.PieceFinishedFallingEvent += audioPlayer.PlayPieceDropClip;
         game.PieceRotatedEvent += audioPlayer.PlayPieceRotateClip;
@@ -33,10 +34,7 @@ public class GameController : MonoBehaviour
     public void OnPauseButtonTap()
     {
         game.Pause();
-        alertView.SetTitle(Constant.Text.GamePaused);
-        alertView.AddButton(Constant.Text.Resume, game.Resume, audioPlayer.PlayResumeClip);
-        alertView.AddButton(Constant.Text.NewGame, game.Start, audioPlayer.PlayNewGameClip);
-        alertView.Show();
+        ShowPauseView();
     }
 
     public void OnMoveLeftButtonTap()
@@ -74,5 +72,19 @@ public class GameController : MonoBehaviour
     void Update()
     {
         game.Update(Time.deltaTime);
+    }
+
+    void ShowPauseView()
+    {
+        alertView.SetTitle(Constant.Text.GamePaused);
+        alertView.AddButton(Constant.Text.Resume, game.Resume, audioPlayer.PlayResumeClip);
+        alertView.AddButton(Constant.Text.NewGame, game.Start, audioPlayer.PlayNewGameClip);
+        alertView.AddButton(Constant.Text.Settings, ShowSettingsView, audioPlayer.PlayResumeClip);
+        alertView.Show();
+    }
+
+    void ShowSettingsView()
+    {
+        settingsView.Show(ShowPauseView);
     }
 }

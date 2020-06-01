@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 public class AudioPlayer : MonoBehaviour
 {
@@ -17,6 +16,8 @@ public class AudioPlayer : MonoBehaviour
     public void PlayPieceMoveClip() => audioSource.PlayOneShot(pieceMoveClip);
     public void PlayPieceRotateClip() => audioSource.PlayOneShot(pieceRotateClip);
     public void PlayPieceDropClip() => audioSource.PlayOneShot(pieceDropClip);
+    public void PlayToggleOnClip() => audioSource.PlayOneShot(resumeClip);
+    public void PlayToggleOffClip() => audioSource.PlayOneShot(pauseClip);
 
     private void Awake()
     {
