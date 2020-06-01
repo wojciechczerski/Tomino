@@ -12,6 +12,16 @@ public class GameController : MonoBehaviour
     public AlertView alertView;
     public SettingsView settingsView;
     public AudioPlayer audioPlayer;
+    public GameObject screenButtons;
+    public AudioSource musicAudioSource;
+
+    private UniversalInput universalInput;
+
+    private void Awake()
+    {
+        HandlePlayerSettings();
+        Settings.ChangedEvent += HandlePlayerSettings;
+    }
 
     void Start()
     {
@@ -20,7 +30,9 @@ public class GameController : MonoBehaviour
         boardView.SetBoard(board);
         nextPieceView.SetBoard(board);
 
-        game = new Game(board, new UniversalInput(new KeyboardInput()));
+        universalInput = new UniversalInput(new KeyboardInput(), boardView.touchInput);
+
+        game = new Game(board, universalInput);
         game.FinishedEvent += OnGameFinished;
         game.PieceFinishedFallingEvent += audioPlayer.PlayPieceDropClip;
         game.PieceRotatedEvent += audioPlayer.PlayPieceRotateClip;
@@ -86,5 +98,12 @@ public class GameController : MonoBehaviour
     void ShowSettingsView()
     {
         settingsView.Show(ShowPauseView);
+    }
+
+    void HandlePlayerSettings()
+    {
+        screenButtons.SetActive(Settings.ScreenButonsEnabled);
+        boardView.touchInput.Enabled = !Settings.ScreenButonsEnabled;
+        musicAudioSource.gameObject.SetActive(Settings.MusicEnabled);
     }
 }

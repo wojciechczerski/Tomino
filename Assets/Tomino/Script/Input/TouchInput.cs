@@ -4,15 +4,27 @@ using Tomino;
 public class TouchInput : IPlayerInput
 {
     public float blockSize;
+    public bool Enabled
+    {
+        get => enabled;
+        set
+        {
+            enabled = value;
+            cancelCurrentTouch = false;
+            playerAction = null;
+        }
+    }
+
     Vector2 initialPosition = Vector2.zero;
     Vector2 processedOffset = Vector2.zero;
     PlayerAction? playerAction;
     bool moveDownDetected;
     float touchBeginTime;
-    float tapMaxDuration = 0.25f;
-    float tapMaxOffset = 30.0f;
-    float swipeMaxDuration = 0.3f;
+    readonly float tapMaxDuration = 0.25f;
+    readonly float tapMaxOffset = 30.0f;
+    readonly float swipeMaxDuration = 0.3f;
     bool cancelCurrentTouch;
+    private bool enabled = true;
 
     public void Update()
     {
@@ -58,7 +70,7 @@ public class TouchInput : IPlayerInput
 
     public PlayerAction? GetPlayerAction()
     {
-        return playerAction;
+        return Enabled ? playerAction : null;
     }
 
     public void Cancel()

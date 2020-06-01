@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Tomino;
 
 public class SettingsView : MonoBehaviour
 {
@@ -16,15 +17,19 @@ public class SettingsView : MonoBehaviour
     {
         titleText.text = Constant.Text.Settings;
 
+        musicToggle.isOn = Settings.MusicEnabled;
         musicToggle.GetComponentInChildren<Text>().text = Constant.Text.Music;
         musicToggle.onValueChanged.AddListener((enabled) =>
         {
+            Settings.MusicEnabled = enabled;
             PlayToggleAudioClip(enabled);
         });
 
+        screenButtonsToggle.isOn = Settings.ScreenButonsEnabled;
         screenButtonsToggle.GetComponentInChildren<Text>().text = Constant.Text.ScreenButtons;
         screenButtonsToggle.onValueChanged.AddListener((enabled) =>
         {
+            Settings.ScreenButonsEnabled = enabled;
             PlayToggleAudioClip(enabled);
         });
 

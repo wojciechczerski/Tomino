@@ -1668,6 +1668,8 @@ MonoBehaviour:
   alertView: {fileID: 1353625251}
   settingsView: {fileID: 1886488834}
   audioPlayer: {fileID: 1797789527}
+  screenButtons: {fileID: 484841232}
+  musicAudioSource: {fileID: 348305436}
 --- !u!4 &654111114
 Transform:
   m_ObjectHideFlags: 0
