@@ -2,9 +2,9 @@
 
 public class BlockView : MonoBehaviour
 {
-    SpriteRenderer spriteRenderer;
+    private SpriteRenderer spriteRenderer;
 
-    void Awake()
+    internal void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }

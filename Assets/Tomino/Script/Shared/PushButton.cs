@@ -11,7 +11,7 @@ public class PushButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     /// <summary>
     /// The event triggered after user pushes the button.
     /// </summary>
-    public UnityEvent OnPush = new UnityEvent();
+    public UnityEvent OnPush = new();
 
     /// <summary>
     /// The delay in seconds required to register the 'Push and hold' event. 
@@ -21,7 +21,7 @@ public class PushButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     /// <summary>
     /// The event triggered after the user pushes and holds the button.
     /// </summary>
-    public UnityEvent OnPushAndHold = new UnityEvent();
+    public UnityEvent OnPushAndHold = new();
 
     /// <summary>
     /// If set to true, the 'Push and hold' event will repeatedly fire with
@@ -37,7 +37,7 @@ public class PushButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         OnPush.Invoke();
-        StartCoroutine(PushAndHold());
+        _ = StartCoroutine(PushAndHold());
     }
 
     public void OnPointerUp(PointerEventData eventData)

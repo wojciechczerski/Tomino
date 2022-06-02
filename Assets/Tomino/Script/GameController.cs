@@ -17,15 +17,15 @@ public class GameController : MonoBehaviour
 
     private UniversalInput universalInput;
 
-    private void Awake()
+    internal void Awake()
     {
         HandlePlayerSettings();
         Settings.ChangedEvent += HandlePlayerSettings;
     }
 
-    void Start()
+    internal void Start()
     {
-        Board board = new Board(10, 20);
+        Board board = new(10, 20);
 
         boardView.SetBoard(board);
         nextPieceView.SetBoard(board);
@@ -74,19 +74,19 @@ public class GameController : MonoBehaviour
         game.SetNextAction(PlayerAction.Rotate);
     }
 
-    void OnGameFinished()
+    private void OnGameFinished()
     {
         alertView.SetTitle(Constant.Text.GameFinished);
         alertView.AddButton(Constant.Text.PlayAgain, game.Start, audioPlayer.PlayNewGameClip);
         alertView.Show();
     }
 
-    void Update()
+    internal void Update()
     {
         game.Update(Time.deltaTime);
     }
 
-    void ShowPauseView()
+    private void ShowPauseView()
     {
         alertView.SetTitle(Constant.Text.GamePaused);
         alertView.AddButton(Constant.Text.Resume, game.Resume, audioPlayer.PlayResumeClip);
@@ -95,12 +95,12 @@ public class GameController : MonoBehaviour
         alertView.Show();
     }
 
-    void ShowSettingsView()
+    private void ShowSettingsView()
     {
         settingsView.Show(ShowPauseView);
     }
 
-    void HandlePlayerSettings()
+    private void HandlePlayerSettings()
     {
         screenButtons.SetActive(Settings.ScreenButonsEnabled);
         boardView.touchInput.Enabled = !Settings.ScreenButonsEnabled;

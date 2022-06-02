@@ -1,4 +1,3 @@
-using System;
 using Tomino;
 
 public static class GameExtension
@@ -6,11 +5,14 @@ public static class GameExtension
     public static void WaitUntilPieceFallsAutomatically(this Game game)
     {
         var pieceFinishedFalling = false;
-        Game.GameEventHandler eventHandler = delegate { pieceFinishedFalling = true; };
+        void eventHandler() { pieceFinishedFalling = true; }
 
         game.PieceFinishedFallingEvent += eventHandler;
 
-        while (!pieceFinishedFalling) game.Update(1.0f);
+        while (!pieceFinishedFalling)
+        {
+            game.Update(1.0f);
+        }
 
         game.PieceFinishedFallingEvent -= eventHandler;
     }

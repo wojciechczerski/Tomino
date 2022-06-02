@@ -15,15 +15,17 @@ public class TouchInput : IPlayerInput
         }
     }
 
-    Vector2 initialPosition = Vector2.zero;
-    Vector2 processedOffset = Vector2.zero;
-    PlayerAction? playerAction;
-    bool moveDownDetected;
-    float touchBeginTime;
-    readonly float tapMaxDuration = 0.25f;
-    readonly float tapMaxOffset = 30.0f;
-    readonly float swipeMaxDuration = 0.3f;
-    bool cancelCurrentTouch;
+    private Vector2 initialPosition = Vector2.zero;
+    private Vector2 processedOffset = Vector2.zero;
+    private PlayerAction? playerAction;
+    private bool moveDownDetected;
+    private float touchBeginTime;
+
+    private readonly float tapMaxDuration = 0.25f;
+    private readonly float tapMaxOffset = 30.0f;
+    private readonly float swipeMaxDuration = 0.3f;
+
+    private bool cancelCurrentTouch;
     private bool enabled = true;
 
     public void Update()
@@ -78,7 +80,7 @@ public class TouchInput : IPlayerInput
         cancelCurrentTouch |= Input.touchCount > 0;
     }
 
-    void TouchBegan(Touch touch)
+    private void TouchBegan(Touch touch)
     {
         initialPosition = touch.position;
         processedOffset = Vector2.zero;
@@ -86,7 +88,7 @@ public class TouchInput : IPlayerInput
         touchBeginTime = Time.time;
     }
 
-    void HandleMove(Touch touch, Vector2 offset)
+    private void HandleMove(Touch touch, Vector2 offset)
     {
         if (Mathf.Abs(offset.x) >= blockSize)
         {
@@ -100,20 +102,20 @@ public class TouchInput : IPlayerInput
         }
     }
 
-    void HandleHorizontalMove(Touch touch, float offset)
+    private void HandleHorizontalMove(Touch touch, float offset)
     {
         processedOffset.x += Mathf.Sign(offset) * blockSize;
         processedOffset.y = (touch.position - initialPosition).y;
     }
 
-    void HandleVerticalMove(Touch touch)
+    private void HandleVerticalMove(Touch touch)
     {
         moveDownDetected = true;
         processedOffset.y -= blockSize;
         processedOffset.x = (touch.position - initialPosition).x;
     }
 
-    PlayerAction ActionForHorizontalMoveOffset(float offset)
+    private PlayerAction ActionForHorizontalMoveOffset(float offset)
     {
         return offset > 0 ? PlayerAction.MoveRight : PlayerAction.MoveLeft;
     }

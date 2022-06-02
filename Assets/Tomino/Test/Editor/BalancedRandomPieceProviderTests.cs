@@ -26,7 +26,7 @@ public class BalancedRandomPieceProviderTests
             }
         }
 
-        var averageCount = (float)sampleSize / (float)AvailablePieces.All().Length;
+        var averageCount = sampleSize / (float)AvailablePieces.All().Length;
         foreach (float count in pieceCount.Values)
         {
             var difference = (count - averageCount) / averageCount;

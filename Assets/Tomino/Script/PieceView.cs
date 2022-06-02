@@ -8,9 +8,9 @@ public class PieceView : MonoBehaviour
     public RectTransform container;
 
     private Board board;
-    GameObjectPool<BlockView> blockViewPool;
+    private GameObjectPool<BlockView> blockViewPool;
     private PieceType? renderedPieceType;
-    private int blockPoolSize = 10;
+    private readonly int blockPoolSize = 10;
     private bool forceRender = false;
 
     public void SetBoard(Board board)
@@ -19,21 +19,22 @@ public class PieceView : MonoBehaviour
         blockViewPool = new GameObjectPool<BlockView>(blockPrefab, blockPoolSize, gameObject);
     }
 
-    void Update()
+    internal void Update()
     {
-        if (renderedPieceType == null || forceRender || board.nextPiece.Type != renderedPieceType)
+        if (renderedPieceType == null || forceRender || board.NextPiece.Type != renderedPieceType)
         {
-            RenderPiece(board.nextPiece);
-            renderedPieceType = board.nextPiece.Type;
+            RenderPiece(board.NextPiece);
+            renderedPieceType = board.NextPiece.Type;
             forceRender = false;
         }
     }
-    void OnRectTransformDimensionsChange()
+
+    internal void OnRectTransformDimensionsChange()
     {
         forceRender = true;
     }
 
-    void RenderPiece(Piece piece)
+    private void RenderPiece(Piece piece)
     {
         blockViewPool.DeactivateAll();
 
@@ -67,7 +68,7 @@ public class PieceView : MonoBehaviour
         }
     }
 
-    Vector3 BlockPosition(Position position, float blockSize)
+    private Vector3 BlockPosition(Position position, float blockSize)
     {
         return new Vector3(position.Column * blockSize, position.Row * blockSize);
     }

@@ -8,9 +8,15 @@ public class AlertView : MonoBehaviour
     public RectTransform buttonsContainer;
     public GameObject buttonPrefab;
 
-    void Awake() => Hide();
+    internal void Awake()
+    {
+        Hide();
+    }
 
-    public void SetTitle(string text) => titleText.text = text;
+    public void SetTitle(string text)
+    {
+        titleText.text = text;
+    }
 
     public void AddButton(string text, UnityAction onClickAction, UnityAction pointerDownAction)
     {
@@ -28,7 +34,10 @@ public class AlertView : MonoBehaviour
         rectTransformComponent.SetParent(buttonsContainer, false);
     }
 
-    public void Show() => gameObject.SetActive(true);
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
 
     public void Hide()
     {

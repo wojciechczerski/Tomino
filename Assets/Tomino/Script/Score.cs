@@ -6,20 +6,28 @@ namespace Tomino
     {
         public int Value { get; private set; }
 
-        private Dictionary<int, int> scoreForClearedRows = new Dictionary<int, int>()
+        private readonly Dictionary<int, int> scoreForClearedRows = new()
         {
-            {1, 100}, {2, 300}, {3, 500}, {4, 800}
+            { 1, 100 },
+            { 2, 300 },
+            { 3, 500 },
+            { 4, 800 }
         };
 
         public void RowsCleared(int count)
         {
-            int valueIncrease = 0;
-            scoreForClearedRows.TryGetValue(count, out valueIncrease);
+            _ = scoreForClearedRows.TryGetValue(count, out int valueIncrease);
             Value += valueIncrease;
         }
 
-        public void PieceFinishedFalling(int rowsCount) => Value += rowsCount * 2;
+        public void PieceFinishedFalling(int rowsCount)
+        {
+            Value += rowsCount * 2;
+        }
 
-        public void PieceMovedDown() => Value++;
+        public void PieceMovedDown()
+        {
+            Value++;
+        }
     }
 }

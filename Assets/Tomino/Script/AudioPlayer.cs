@@ -10,16 +10,47 @@ public class AudioPlayer : MonoBehaviour
     public AudioClip pieceDropClip;
     private AudioSource audioSource;
 
-    public void PlayPauseClip() => audioSource.PlayOneShot(pauseClip);
-    public void PlayResumeClip() => audioSource.PlayOneShot(resumeClip);
-    public void PlayNewGameClip() => audioSource.PlayOneShot(newGameClip);
-    public void PlayPieceMoveClip() => audioSource.PlayOneShot(pieceMoveClip);
-    public void PlayPieceRotateClip() => audioSource.PlayOneShot(pieceRotateClip);
-    public void PlayPieceDropClip() => audioSource.PlayOneShot(pieceDropClip);
-    public void PlayToggleOnClip() => audioSource.PlayOneShot(resumeClip);
-    public void PlayToggleOffClip() => audioSource.PlayOneShot(pauseClip);
+    public void PlayPauseClip()
+    {
+        audioSource.PlayOneShot(pauseClip);
+    }
 
-    private void Awake()
+    public void PlayResumeClip()
+    {
+        audioSource.PlayOneShot(resumeClip);
+    }
+
+    public void PlayNewGameClip()
+    {
+        audioSource.PlayOneShot(newGameClip);
+    }
+
+    public void PlayPieceMoveClip()
+    {
+        audioSource.PlayOneShot(pieceMoveClip);
+    }
+
+    public void PlayPieceRotateClip()
+    {
+        audioSource.PlayOneShot(pieceRotateClip);
+    }
+
+    public void PlayPieceDropClip()
+    {
+        audioSource.PlayOneShot(pieceDropClip);
+    }
+
+    public void PlayToggleOnClip()
+    {
+        audioSource.PlayOneShot(resumeClip);
+    }
+
+    public void PlayToggleOffClip()
+    {
+        audioSource.PlayOneShot(pauseClip);
+    }
+
+    internal void Awake()
     {
         audioSource = GetComponent<AudioSource>();
     }

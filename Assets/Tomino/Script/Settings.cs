@@ -12,10 +12,7 @@ namespace Tomino
 
         public static bool MusicEnabled
         {
-            get
-            {
-                return PlayerPrefs.GetInt(musicEnabledKey, 1).BoolValue();
-            }
+            get => PlayerPrefs.GetInt(musicEnabledKey, 1).BoolValue();
 
             set
             {
@@ -27,10 +24,7 @@ namespace Tomino
 
         public static bool ScreenButonsEnabled
         {
-            get
-            {
-                return PlayerPrefs.GetInt(screenButtonsEnabledKey, 0).BoolValue();
-            }
+            get => PlayerPrefs.GetInt(screenButtonsEnabledKey, 0).BoolValue();
 
             set
             {

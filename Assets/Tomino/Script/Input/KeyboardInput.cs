@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public class KeyboardInput : IPlayerInput
 {
-    KeyCode pressedKey = KeyCode.None;
-    float nextRepeatedKeyTime;
+    private KeyCode pressedKey = KeyCode.None;
+    private float nextRepeatedKeyTime;
 
-    Dictionary<KeyCode, PlayerAction> actionForKey = new Dictionary<KeyCode, PlayerAction>
+    private readonly Dictionary<KeyCode, PlayerAction> actionForKey = new()
     {
         {KeyCode.LeftArrow, PlayerAction.MoveLeft},
         {KeyCode.RightArrow, PlayerAction.MoveRight},
@@ -16,7 +16,7 @@ public class KeyboardInput : IPlayerInput
         {KeyCode.Space, PlayerAction.Fall},
     };
 
-    readonly List<KeyCode> repeatingKeys = new List<KeyCode>()
+    private readonly List<KeyCode> repeatingKeys = new()
     {
         KeyCode.LeftArrow,
         KeyCode.RightArrow,
@@ -51,7 +51,7 @@ public class KeyboardInput : IPlayerInput
         pressedKey = KeyCode.None;
     }
 
-    void StartKeyRepeatIfPossible(KeyCode key)
+    private void StartKeyRepeatIfPossible(KeyCode key)
     {
         if (repeatingKeys.Contains(key))
         {
@@ -60,7 +60,7 @@ public class KeyboardInput : IPlayerInput
         }
     }
 
-    KeyCode GetActionKeyDown()
+    private KeyCode GetActionKeyDown()
     {
         foreach (var key in actionForKey.Keys)
         {
@@ -72,7 +72,7 @@ public class KeyboardInput : IPlayerInput
         return KeyCode.None;
     }
 
-    PlayerAction? GetActionForRepeatedKey()
+    private PlayerAction? GetActionForRepeatedKey()
     {
         if (pressedKey != KeyCode.None && Time.time >= nextRepeatedKeyTime)
         {

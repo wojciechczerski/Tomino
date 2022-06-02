@@ -3,10 +3,10 @@ using Tomino;
 
 public class GameTests
 {
-    StubInput input;
-    StubPieceProvider pieceProvider;
-    Board board;
-    Game game;
+    private StubInput input;
+    private StubPieceProvider pieceProvider;
+    private Board board;
+    private Game game;
 
     [SetUp]
     public void Initialize()
@@ -194,7 +194,10 @@ public class GameTests
     public void UpdatesScoreWhenPieceMovesDown()
     {
         int distance = board.FallDistance();
-        for (int i = 0; i < distance; ++i) UpdateGameWithAction(PlayerAction.MoveDown);
+        for (int i = 0; i < distance; ++i)
+        {
+            UpdateGameWithAction(PlayerAction.MoveDown);
+        }
 
         Assert.AreEqual(distance, game.Score.Value);
     }
@@ -234,7 +237,7 @@ public class GameTests
         Assert.Less(game.Level.FallDelay, initialFallDelay);
     }
 
-    void UpdateGameWithAction(PlayerAction action)
+    private void UpdateGameWithAction(PlayerAction action)
     {
         input.action = action;
         game.Update(0);

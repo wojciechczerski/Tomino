@@ -47,12 +47,12 @@ namespace Tomino
         /// </summary>
         public Level Level { get; private set; }
 
-        readonly Board board;
-        readonly IPlayerInput input;
+        private readonly Board board;
+        private readonly IPlayerInput input;
 
-        PlayerAction? nextAction = null;
-        float elapsedTime;
-        bool isPlaying;
+        private PlayerAction? nextAction = null;
+        private float elapsedTime;
+        private bool isPlaying;
 
         /// <summary>
         /// Creates a game with specified board and input.
@@ -107,7 +107,7 @@ namespace Tomino
             nextAction = action;
         }
 
-        void AddPiece()
+        private void AddPiece()
         {
             board.AddPiece();
             if (board.HasCollisions())
@@ -124,7 +124,10 @@ namespace Tomino
         /// <param name="deltaTime"></param>
         public void Update(float deltaTime)
         {
-            if (!isPlaying) return;
+            if (!isPlaying)
+            {
+                return;
+            }
 
             input.Update();
 
@@ -144,7 +147,7 @@ namespace Tomino
             }
         }
 
-        void HandleAutomaticPieceFalling(float deltaTime)
+        private void HandleAutomaticPieceFalling(float deltaTime)
         {
             elapsedTime += deltaTime;
             if (elapsedTime >= Level.FallDelay)
@@ -157,7 +160,7 @@ namespace Tomino
             }
         }
 
-        void HandlePlayerAction(PlayerAction action)
+        private void HandlePlayerAction(PlayerAction action)
         {
             var pieceMoved = false;
             switch (action)
@@ -185,13 +188,20 @@ namespace Tomino
 
                 case PlayerAction.Rotate:
                     var didRotate = board.RotatePiece();
-                    if (didRotate) PieceRotatedEvent();
+                    if (didRotate)
+                    {
+                        PieceRotatedEvent();
+                    }
+
                     break;
 
                 case PlayerAction.Fall:
                     Score.PieceFinishedFalling(board.FallPiece());
                     ResetElapsedTime();
                     PieceFinishedFalling();
+                    break;
+
+                default:
                     break;
             }
             if (pieceMoved)
@@ -200,7 +210,7 @@ namespace Tomino
             }
         }
 
-        void PieceFinishedFalling()
+        private void PieceFinishedFalling()
         {
             PieceFinishedFallingEvent();
             int rowsCount = board.RemoveFullRows();
@@ -209,7 +219,7 @@ namespace Tomino
             AddPiece();
         }
 
-        void ResetElapsedTime()
+        private void ResetElapsedTime()
         {
             elapsedTime = 0;
         }

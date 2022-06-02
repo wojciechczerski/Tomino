@@ -5,13 +5,19 @@ namespace Tomino
 {
     public class BalancedRandomPieceProvider : IPieceProvider
     {
-        private Random random = new Random();
-        private List<int> pool = new List<int>();
+        private readonly Random random = new();
+        private readonly List<int> pool = new();
         private const int numDuplicates = 4;
 
-        public Piece GetPiece() => AvailablePieces.All()[GetPopulatedPool().TakeFirst()];
+        public Piece GetPiece()
+        {
+            return AvailablePieces.All()[GetPopulatedPool().TakeFirst()];
+        }
 
-        public Piece GetNextPiece() => AvailablePieces.All()[GetPopulatedPool()[0]];
+        public Piece GetNextPiece()
+        {
+            return AvailablePieces.All()[GetPopulatedPool()[0]];
+        }
 
         private List<int> GetPopulatedPool()
         {

@@ -3,7 +3,7 @@ using Tomino;
 
 public class BoardView : MonoBehaviour
 {
-    enum Layer
+    private enum Layer
     {
         Blocks, PieceShadow
     }
@@ -11,18 +11,18 @@ public class BoardView : MonoBehaviour
     public GameObject blockPrefab;
     public Sprite[] blockSprites;
     public Sprite shadowBlockSprite;
-    public TouchInput touchInput = new TouchInput();
+    public TouchInput touchInput = new();
 
-    Board gameBoard;
-    int renderedBoardHash = -1;
-    bool forceRender = false;
-    GameObjectPool<BlockView> blockViewPool;
-    RectTransform rectTransform;
+    private Board gameBoard;
+    private int renderedBoardHash = -1;
+    private bool forceRender = false;
+    private GameObjectPool<BlockView> blockViewPool;
+    private RectTransform rectTransform;
 
     public void SetBoard(Board board)
     {
         gameBoard = board;
-        int size = board.width * board.height + 10;
+        int size = (board.width * board.height) + 10;
         blockViewPool = new GameObjectPool<BlockView>(blockPrefab, size, gameObject);
     }
 
@@ -33,7 +33,7 @@ public class BoardView : MonoBehaviour
         RenderBlocks();
     }
 
-    void RenderBlocks()
+    private void RenderBlocks()
     {
         foreach (var block in gameBoard.Blocks)
         {
@@ -41,7 +41,7 @@ public class BoardView : MonoBehaviour
         }
     }
 
-    void RenderPieceShadow()
+    private void RenderPieceShadow()
     {
         foreach (var position in gameBoard.GetPieceShadow())
         {
@@ -49,7 +49,7 @@ public class BoardView : MonoBehaviour
         }
     }
 
-    void RenderBlock(Sprite sprite, Position position, Layer layer)
+    private void RenderBlock(Sprite sprite, Position position, Layer layer)
     {
         var view = blockViewPool.GetAndActivate();
         view.SetSprite(sprite);
@@ -57,12 +57,12 @@ public class BoardView : MonoBehaviour
         view.SetPosition(BlockPosition(position.Row, position.Column, layer));
     }
 
-    void Awake()
+    internal void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
     }
 
-    void Update()
+    internal void Update()
     {
         touchInput.blockSize = BlockSize();
 
@@ -75,12 +75,12 @@ public class BoardView : MonoBehaviour
         }
     }
 
-    void OnRectTransformDimensionsChange()
+    internal void OnRectTransformDimensionsChange()
     {
         forceRender = true;
     }
 
-    Vector3 BlockPosition(int row, int column, Layer layer)
+    private Vector3 BlockPosition(int row, int column, Layer layer)
     {
         var size = BlockSize();
         var position = new Vector3(column * size, row * size, (float)layer);

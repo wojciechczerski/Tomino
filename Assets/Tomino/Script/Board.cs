@@ -32,15 +32,15 @@ namespace Tomino
         /// The current falling piece.
         /// </summary>
         /// <value></value>
-        public Piece piece { get; private set; }
+        public Piece Piece { get; private set; }
 
         /// <summary>
         /// The piece that will be added to the board when the current piece finishes falling.
         /// </summary>
         /// <returns></returns>
-        public Piece nextPiece => pieceProvider.GetNextPiece();
+        public Piece NextPiece => pieceProvider.GetNextPiece();
 
-        readonly IPieceProvider pieceProvider;
+        private readonly IPieceProvider pieceProvider;
 
         /// <summary>
         /// Initializes board with specified size and a `BalancedPieceProvider`.
@@ -74,19 +74,19 @@ namespace Tomino
             return HasBoardCollisions() || HasBlockCollisions();
         }
 
-        bool HasBlockCollisions()
+        private bool HasBlockCollisions()
         {
             var allPositions = Blocks.Map(block => block.Position);
             var uniquePositions = new HashSet<Position>(allPositions);
             return allPositions.Length != uniquePositions.Count;
         }
 
-        bool HasBoardCollisions()
+        private bool HasBoardCollisions()
         {
             return Blocks.Find(CollidesWithBoard) != null;
         }
 
-        bool CollidesWithBoard(Block block)
+        private bool CollidesWithBoard(Block block)
         {
             return block.Position.Row < 0 ||
                    block.Position.Row >= height ||
@@ -94,7 +94,7 @@ namespace Tomino
                    block.Position.Column >= width;
         }
 
-        override public int GetHashCode()
+        public override int GetHashCode()
         {
             int hash = 0;
             foreach (var block in Blocks)
@@ -102,7 +102,7 @@ namespace Tomino
                 var row = block.Position.Row;
                 var column = block.Position.Column;
                 var offset = width * height * (int)block.Type;
-                var blockHash = offset + row * width + column;
+                var blockHash = offset + (row * width) + column;
                 hash += blockHash;
             }
             return hash;
@@ -113,17 +113,17 @@ namespace Tomino
         /// </summary>
         public void AddPiece()
         {
-            piece = pieceProvider.GetPiece();
+            Piece = pieceProvider.GetPiece();
 
-            var offsetRow = top - piece.Top;
-            var offsetCol = (width - piece.Width) / 2;
+            var offsetRow = top - Piece.Top;
+            var offsetCol = (width - Piece.Width) / 2;
 
-            foreach (var block in piece.blocks)
+            foreach (var block in Piece.blocks)
             {
                 block.MoveBy(offsetRow, offsetCol);
             }
 
-            Blocks.AddRange(piece.blocks);
+            Blocks.AddRange(Piece.blocks);
         }
 
         /// <summary>
@@ -133,9 +133,9 @@ namespace Tomino
         /// <returns>Collection of piece blocks positions.</returns>
         public Position[] GetPieceShadow()
         {
-            var positions = piece.GetPositions();
-            FallPiece();
-            var shadowPositions = piece.GetPositions().Values.Map(p => p);
+            var positions = Piece.GetPositions();
+            _ = FallPiece();
+            var shadowPositions = Piece.GetPositions().Values.Map(p => p);
             RestoreSavedPiecePosition(positions);
             return shadowPositions;
         }
@@ -143,28 +143,37 @@ namespace Tomino
         /// <summary>
         /// Moves the current piece left by 1 column.
         /// </summary>
-        public bool MovePieceLeft() => MovePiece(0, -1);
+        public bool MovePieceLeft()
+        {
+            return MovePiece(0, -1);
+        }
 
         /// <summary>
         /// Moves the current piece right by 1 column.
         /// </summary>
-        public bool MovePieceRight() => MovePiece(0, 1);
+        public bool MovePieceRight()
+        {
+            return MovePiece(0, 1);
+        }
 
         /// <summary>
         /// Moves the current piece down by 1 row.
         /// </summary>
-        public bool MovePieceDown() => MovePiece(-1, 0);
-
-        bool MovePiece(int rowOffset, int columnOffset)
+        public bool MovePieceDown()
         {
-            foreach (var block in piece.blocks)
+            return MovePiece(-1, 0);
+        }
+
+        private bool MovePiece(int rowOffset, int columnOffset)
+        {
+            foreach (var block in Piece.blocks)
             {
                 block.MoveBy(rowOffset, columnOffset);
             }
 
             if (HasCollisions())
             {
-                foreach (var block in piece.blocks)
+                foreach (var block in Piece.blocks)
                 {
                     block.MoveBy(-rowOffset, -columnOffset);
                 }
@@ -178,15 +187,15 @@ namespace Tomino
         /// </summary>
         public bool RotatePiece()
         {
-            if (!piece.canRotate)
+            if (!Piece.canRotate)
             {
                 return false;
             }
 
-            Dictionary<Block, Position> piecePosition = piece.GetPositions();
-            var offset = piece.blocks[0].Position;
+            Dictionary<Block, Position> piecePosition = Piece.GetPositions();
+            var offset = Piece.blocks[0].Position;
 
-            foreach (var block in piece.blocks)
+            foreach (var block in Piece.blocks)
             {
                 var row = block.Position.Row - offset.Row;
                 var column = block.Position.Column - offset.Column;
@@ -201,16 +210,16 @@ namespace Tomino
             return true;
         }
 
-        bool ResolveCollisionsAfterRotation()
+        private bool ResolveCollisionsAfterRotation()
         {
             var columnOffsets = new int[] { -1, -2, 1, 2 };
             foreach (int offset in columnOffsets)
             {
-                MovePiece(0, offset);
+                _ = MovePiece(0, offset);
 
                 if (HasCollisions())
                 {
-                    MovePiece(0, -offset);
+                    _ = MovePiece(0, -offset);
                 }
                 else
                 {
@@ -220,9 +229,9 @@ namespace Tomino
             return false;
         }
 
-        void RestoreSavedPiecePosition(Dictionary<Block, Position> piecePosition)
+        private void RestoreSavedPiecePosition(Dictionary<Block, Position> piecePosition)
         {
-            foreach (Block block in piece.blocks)
+            foreach (Block block in Piece.blocks)
             {
                 block.MoveTo(piecePosition[block]);
             }
@@ -271,17 +280,17 @@ namespace Tomino
             Blocks.Clear();
         }
 
-        List<Block> GetBlocksFromRow(int row)
+        private List<Block> GetBlocksFromRow(int row)
         {
             return Blocks.FindAll(block => block.Position.Row == row);
         }
 
-        void Remove(List<Block> blocksToRemove)
+        private void Remove(List<Block> blocksToRemove)
         {
-            Blocks.RemoveAll(block => blocksToRemove.Contains(block));
+            _ = Blocks.RemoveAll(block => blocksToRemove.Contains(block));
         }
 
-        void MoveDownBlocksBelowRow(int row)
+        private void MoveDownBlocksBelowRow(int row)
         {
             foreach (Block block in Blocks)
             {

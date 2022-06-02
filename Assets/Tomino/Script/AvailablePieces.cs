@@ -1,5 +1,3 @@
-using System;
-
 namespace Tomino
 {
     public static class AvailablePieces

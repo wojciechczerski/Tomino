@@ -11,7 +11,7 @@ namespace Tomino
             Items = new T[size];
             for (int i = 0; i < size; ++i)
             {
-                var newItem = GameObject.Instantiate(prefab);
+                var newItem = Object.Instantiate(prefab);
                 newItem.transform.parent = parent.transform;
                 Items[i] = newItem.GetComponent<T>();
             }
@@ -26,7 +26,10 @@ namespace Tomino
 
         public void DeactivateAll()
         {
-            foreach (var item in Items) item.gameObject.SetActive(false);
+            foreach (var item in Items)
+            {
+                item.gameObject.SetActive(false);
+            }
         }
     }
 }

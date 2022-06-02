@@ -13,7 +13,7 @@ public class SettingsView : MonoBehaviour
 
     private UnityAction onCloseCallback;
 
-    private void Awake()
+    internal void Awake()
     {
         titleText.text = Constant.Text.Settings;
 

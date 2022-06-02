@@ -38,12 +38,15 @@ public class BoardTests
     public void ComputesNextGeneratedPiece()
     {
         var board = new Board(20, 20, new BalancedRandomPieceProvider());
-        var nextPiece = board.nextPiece;
+        var nextPiece = board.NextPiece;
 
         board.AddPiece();
 
-        Assert.AreEqual(board.piece.GetType(), nextPiece.GetType());
+        Assert.AreEqual(board.Piece.GetType(), nextPiece.GetType());
     }
 
-    Board CreateEmptyBoard() => new Board(3, 3, new StubPieceProvider());
+    private Board CreateEmptyBoard()
+    {
+        return new(3, 3, new StubPieceProvider());
+    }
 }

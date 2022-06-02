@@ -23,7 +23,7 @@ namespace Tomino
         public Block(Position position, PieceType type)
         {
             Position = position;
-            this.Type = type;
+            Type = type;
         }
 
         /// <summary>

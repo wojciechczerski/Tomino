@@ -15,9 +15,7 @@ namespace Tomino
 
         public static void Swap<T>(this IList<T> list, int i, int j)
         {
-            var temp = list[i];
-            list[i] = list[j];
-            list[j] = temp;
+            (list[j], list[i]) = (list[i], list[j]);
         }
 
         public static T TakeFirst<T>(this IList<T> list)

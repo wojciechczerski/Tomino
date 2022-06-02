@@ -7,7 +7,7 @@ public enum StubPieceType
 
 public class StubPieceProvider : IPieceProvider
 {
-    private StubPieceType pieceType;
+    private readonly StubPieceType pieceType;
 
     public StubPieceProvider(StubPieceType type = StubPieceType.OneBlock)
     {
@@ -16,24 +16,25 @@ public class StubPieceProvider : IPieceProvider
 
     public Piece GetPiece()
     {
-        switch (pieceType)
+        return pieceType switch
         {
-            case StubPieceType.OneBlock:
-                return CreateOneBlockPiece();
-            case StubPieceType.TwoBlocks:
-                return CreateTwoBlocksPiece();
-        }
-        return default(Piece);
+            StubPieceType.OneBlock => CreateOneBlockPiece(),
+            StubPieceType.TwoBlocks => CreateTwoBlocksPiece(),
+            _ => default,
+        };
     }
 
-    public Piece GetNextPiece() => GetPiece();
+    public Piece GetNextPiece()
+    {
+        return GetPiece();
+    }
 
-    static Piece CreateOneBlockPiece()
+    private static Piece CreateOneBlockPiece()
     {
         return new Piece(new Position[] { new Position(0, 0), }, PieceType.I);
     }
 
-    static Piece CreateTwoBlocksPiece()
+    private static Piece CreateTwoBlocksPiece()
     {
         var blockPositions = new Position[] { new Position(0, 0), new Position(1, 0) };
         return new Piece(blockPositions, PieceType.I);

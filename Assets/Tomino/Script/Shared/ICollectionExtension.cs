@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Tomino
@@ -10,9 +9,12 @@ namespace Tomino
         {
             foreach (var element in collection)
             {
-                if (condition(element)) return element;
+                if (condition(element))
+                {
+                    return element;
+                }
             }
-            return default(T);
+            return default;
         }
 
         public static T[] First<T>(this ICollection<T> collection, int count)
@@ -21,7 +23,11 @@ namespace Tomino
             var index = 0;
             foreach (var element in collection)
             {
-                if (index >= count) break;
+                if (index >= count)
+                {
+                    break;
+                }
+
                 result[index++] = element;
             }
             return result;
@@ -30,7 +36,10 @@ namespace Tomino
         public static void Iterate<T>(this ICollection<T> collection, Action<T, int> action)
         {
             var index = 0;
-            foreach (var element in collection) action(element, index++);
+            foreach (var element in collection)
+            {
+                action(element, index++);
+            }
         }
 
         public static U[] Map<T, U>(this ICollection<T> collection, Func<T, U> map)
@@ -50,9 +59,9 @@ namespace Tomino
             return colleciton.CompareAll((a, b) => a.CompareTo(b) > 0);
         }
 
-        static T CompareAll<T>(this ICollection<T> colleciton, Func<T, T, bool> compare) where T : IComparable
+        private static T CompareAll<T>(this ICollection<T> colleciton, Func<T, T, bool> compare) where T : IComparable
         {
-            T result = default(T);
+            T result = default;
             var hasValue = false;
             foreach (var element in colleciton)
             {

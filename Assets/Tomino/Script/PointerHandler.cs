@@ -4,7 +4,10 @@ using UnityEngine.EventSystems;
 
 public class PointerHandler : MonoBehaviour, IPointerDownHandler
 {
-    public UnityEvent onPointerDown = new UnityEvent();
+    public UnityEvent onPointerDown = new();
 
-    void IPointerDownHandler.OnPointerDown(PointerEventData eventData) => onPointerDown.Invoke();
+    void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
+    {
+        onPointerDown.Invoke();
+    }
 }
