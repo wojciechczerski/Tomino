@@ -22,7 +22,7 @@ public class BoardView : MonoBehaviour
     public void SetBoard(Board board)
     {
         gameBoard = board;
-        int size = (board.width * board.height) + 10;
+        int size = (board.Width * board.Height) + 10;
         blockViewPool = new GameObjectPool<BlockView>(blockPrefab, size, gameObject);
     }
 
@@ -91,7 +91,7 @@ public class BoardView : MonoBehaviour
     public float BlockSize()
     {
         var boardWidth = rectTransform.rect.size.x;
-        return boardWidth / gameBoard.width;
+        return boardWidth / gameBoard.Width;
     }
 
     public Sprite BlockSprite(PieceType type)

@@ -11,17 +11,17 @@ namespace Tomino
         /// <summary>
         /// The width of the board.
         /// </summary>
-        public readonly int width;
+        public readonly int Width;
 
         /// <summary>
         /// The height of the board.
         /// </summary>
-        public readonly int height;
+        public readonly int Height;
 
         /// <summary>
         /// The topmost row of the board.
         /// </summary>
-        public readonly int top;
+        public readonly int Top;
 
         /// <summary>
         /// The colleciton of blocks placed on the board.
@@ -59,10 +59,10 @@ namespace Tomino
         /// <param name="pieceProvider">The piece provider.</param>
         public Board(int width, int height, IPieceProvider pieceProvider)
         {
-            this.width = width;
-            this.height = height;
+            Width = width;
+            Height = height;
             this.pieceProvider = pieceProvider;
-            top = height - 1;
+            Top = height - 1;
         }
 
         /// <summary>
@@ -89,9 +89,9 @@ namespace Tomino
         private bool CollidesWithBoard(Block block)
         {
             return block.Position.Row < 0 ||
-                   block.Position.Row >= height ||
+                   block.Position.Row >= Height ||
                    block.Position.Column < 0 ||
-                   block.Position.Column >= width;
+                   block.Position.Column >= Width;
         }
 
         public override int GetHashCode()
@@ -101,8 +101,8 @@ namespace Tomino
             {
                 var row = block.Position.Row;
                 var column = block.Position.Column;
-                var offset = width * height * (int)block.Type;
-                var blockHash = offset + (row * width) + column;
+                var offset = Width * Height * (int)block.Type;
+                var blockHash = offset + (row * Width) + column;
                 hash += blockHash;
             }
             return hash;
@@ -115,8 +115,8 @@ namespace Tomino
         {
             Piece = pieceProvider.GetPiece();
 
-            var offsetRow = top - Piece.Top;
-            var offsetCol = (width - Piece.Width) / 2;
+            var offsetRow = Top - Piece.Top;
+            var offsetCol = (Width - Piece.Width) / 2;
 
             foreach (var block in Piece.blocks)
             {
@@ -259,10 +259,10 @@ namespace Tomino
         public int RemoveFullRows()
         {
             int rowsRemoved = 0;
-            for (int row = height - 1; row >= 0; --row)
+            for (int row = Height - 1; row >= 0; --row)
             {
                 var rowBlocks = GetBlocksFromRow(row);
-                if (rowBlocks.Count == width)
+                if (rowBlocks.Count == Width)
                 {
                     Remove(rowBlocks);
                     MoveDownBlocksBelowRow(row);

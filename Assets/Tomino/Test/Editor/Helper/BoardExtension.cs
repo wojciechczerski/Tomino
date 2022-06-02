@@ -17,7 +17,7 @@ public static class BoardExtension
     {
         for (int row = 0; row < count; ++row)
         {
-            for (int column = 0; column < board.width; ++column)
+            for (int column = 0; column < board.Width; ++column)
             {
                 var position = new Position(row, column);
                 var allPositions = new List<Position>(board.Blocks.Map(b => b.Position));

@@ -136,10 +136,10 @@ public class GameTests
     {
         if (blockCollision)
         {
-            for (int row = 0; row < board.height; ++row)
+            for (int row = 0; row < board.Height; ++row)
             {
                 var leftPosition = new Position(row, 0);
-                var rightPostion = new Position(row, board.width - 1);
+                var rightPostion = new Position(row, board.Width - 1);
                 board.Blocks.Add(new Block(leftPosition, PieceType.I));
                 board.Blocks.Add(new Block(rightPostion, PieceType.I));
             }
@@ -157,7 +157,7 @@ public class GameTests
     [Test]
     public void RemovesFullRows()
     {
-        board.AddFullRows(board.height / 2);
+        board.AddFullRows(board.Height / 2);
         var blocksCount = pieceProvider.GetPiece().blocks.Length;
         UpdateGameWithAction(PlayerAction.Fall);
         blocksCount += pieceProvider.GetPiece().blocks.Length;
