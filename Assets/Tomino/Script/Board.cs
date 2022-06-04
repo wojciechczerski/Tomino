@@ -19,11 +19,6 @@ namespace Tomino
         public readonly int Height;
 
         /// <summary>
-        /// The topmost row of the board.
-        /// </summary>
-        public readonly int Top;
-
-        /// <summary>
         /// The colleciton of blocks placed on the board.
         /// </summary>
         public List<Block> Blocks { get; private set; } = new List<Block>();
@@ -41,6 +36,7 @@ namespace Tomino
         public Piece NextPiece => pieceProvider.GetNextPiece();
 
         private readonly IPieceProvider pieceProvider;
+        private int Top => Height - 1;
 
         /// <summary>
         /// Initializes board with specified size and a `BalancedPieceProvider`.
@@ -62,7 +58,6 @@ namespace Tomino
             Width = width;
             Height = height;
             this.pieceProvider = pieceProvider;
-            Top = height - 1;
         }
 
         /// <summary>
