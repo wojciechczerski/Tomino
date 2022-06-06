@@ -5,10 +5,7 @@ public class GameController : MonoBehaviour
 {
     public Camera currentCamera;
     public Game game;
-    public BoardView boardView;
-    public PieceView nextPieceView;
-    public ScoreView scoreView;
-    public LevelView levelView;
+    public GameConfig GameConfig;
     public AlertView alertView;
     public SettingsView settingsView;
     public AudioPlayer audioPlayer;
@@ -27,10 +24,10 @@ public class GameController : MonoBehaviour
     {
         Board board = new(10, 20);
 
-        boardView.SetBoard(board);
-        nextPieceView.SetBoard(board);
+        GameConfig.BoardView.SetBoard(board);
+        GameConfig.NextPieceView.SetBoard(board);
 
-        universalInput = new UniversalInput(new KeyboardInput(), boardView.touchInput);
+        universalInput = new UniversalInput(new KeyboardInput(), GameConfig.BoardView.touchInput);
 
         game = new Game(board, universalInput);
         game.FinishedEvent += OnGameFinished;
@@ -39,8 +36,8 @@ public class GameController : MonoBehaviour
         game.PieceMovedEvent += audioPlayer.PlayPieceMoveClip;
         game.Start();
 
-        scoreView.game = game;
-        levelView.game = game;
+        GameConfig.ScoreView.game = game;
+        GameConfig.LevelView.game = game;
     }
 
     public void OnPauseButtonTap()
@@ -103,7 +100,7 @@ public class GameController : MonoBehaviour
     private void HandlePlayerSettings()
     {
         screenButtons.SetActive(Settings.ScreenButonsEnabled);
-        boardView.touchInput.Enabled = !Settings.ScreenButonsEnabled;
+        GameConfig.BoardView.touchInput.Enabled = !Settings.ScreenButonsEnabled;
         musicAudioSource.gameObject.SetActive(Settings.MusicEnabled);
     }
 }
