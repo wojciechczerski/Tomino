@@ -1,19 +1,22 @@
-using Tomino;
-
-public static class GameExtension
+namespace Tomino.Test.Editor.Helper
 {
-    public static void WaitUntilPieceFallsAutomatically(this Game game)
+    public static class GameExtension
     {
-        var pieceFinishedFalling = false;
-        void eventHandler() { pieceFinishedFalling = true; }
-
-        game.PieceFinishedFallingEvent += eventHandler;
-
-        while (!pieceFinishedFalling)
+        public static void WaitUntilPieceFallsAutomatically(this Game game)
         {
-            game.Update(1.0f);
-        }
+            var pieceFinishedFalling = false;
 
-        game.PieceFinishedFallingEvent -= eventHandler;
+            game.PieceFinishedFallingEvent += EventHandler;
+
+            while (!pieceFinishedFalling)
+            {
+                game.Update(1.0f);
+            }
+
+            game.PieceFinishedFallingEvent -= EventHandler;
+            return;
+
+            void EventHandler() { pieceFinishedFalling = true; }
+        }
     }
 }

@@ -2,16 +2,16 @@
 
 public class BlockView : MonoBehaviour
 {
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer _spriteRenderer;
 
     internal void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void SetSprite(Sprite sprite)
     {
-        spriteRenderer.sprite = sprite;
+        _spriteRenderer.sprite = sprite;
     }
 
     public void SetPosition(Vector3 position)
@@ -21,7 +21,7 @@ public class BlockView : MonoBehaviour
 
     public void SetSize(float size)
     {
-        var sprite = spriteRenderer.sprite;
+        var sprite = _spriteRenderer.sprite;
         var scale = sprite.pixelsPerUnit / sprite.rect.width * size;
         transform.localScale = new Vector3(scale, scale);
     }

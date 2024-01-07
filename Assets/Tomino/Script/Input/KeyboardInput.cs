@@ -1,13 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
 using Tomino;
-using System.Collections.Generic;
+using UnityEngine;
 
 public class KeyboardInput : IPlayerInput
 {
-    private KeyCode pressedKey = KeyCode.None;
-    private float nextRepeatedKeyTime;
+    private KeyCode _pressedKey = KeyCode.None;
+    private float _nextRepeatedKeyTime;
 
-    private readonly Dictionary<KeyCode, PlayerAction> actionForKey = new()
+    private readonly Dictionary<KeyCode, PlayerAction> _actionForKey = new()
     {
         {KeyCode.LeftArrow, PlayerAction.MoveLeft},
         {KeyCode.RightArrow, PlayerAction.MoveRight},
@@ -16,7 +16,7 @@ public class KeyboardInput : IPlayerInput
         {KeyCode.Space, PlayerAction.Fall},
     };
 
-    private readonly List<KeyCode> repeatingKeys = new()
+    private readonly List<KeyCode> _repeatingKeys = new()
     {
         KeyCode.LeftArrow,
         KeyCode.RightArrow,
@@ -29,10 +29,10 @@ public class KeyboardInput : IPlayerInput
         if (actionKeyDown != KeyCode.None)
         {
             StartKeyRepeatIfPossible(actionKeyDown);
-            return actionForKey[actionKeyDown];
+            return _actionForKey[actionKeyDown];
         }
 
-        if (Input.GetKeyUp(pressedKey))
+        if (Input.GetKeyUp(_pressedKey))
         {
             Cancel();
         }
@@ -48,21 +48,21 @@ public class KeyboardInput : IPlayerInput
 
     public void Cancel()
     {
-        pressedKey = KeyCode.None;
+        _pressedKey = KeyCode.None;
     }
 
     private void StartKeyRepeatIfPossible(KeyCode key)
     {
-        if (repeatingKeys.Contains(key))
+        if (_repeatingKeys.Contains(key))
         {
-            pressedKey = key;
-            nextRepeatedKeyTime = Time.time + Constant.Input.KeyRepeatDelay;
+            _pressedKey = key;
+            _nextRepeatedKeyTime = Time.time + Constant.Input.KeyRepeatDelay;
         }
     }
 
     private KeyCode GetActionKeyDown()
     {
-        foreach (var key in actionForKey.Keys)
+        foreach (var key in _actionForKey.Keys)
         {
             if (Input.GetKeyDown(key))
             {
@@ -74,10 +74,10 @@ public class KeyboardInput : IPlayerInput
 
     private PlayerAction? GetActionForRepeatedKey()
     {
-        if (pressedKey != KeyCode.None && Time.time >= nextRepeatedKeyTime)
+        if (_pressedKey != KeyCode.None && Time.time >= _nextRepeatedKeyTime)
         {
-            nextRepeatedKeyTime = Time.time + Constant.Input.KeyRepeatInterval;
-            return actionForKey[pressedKey];
+            _nextRepeatedKeyTime = Time.time + Constant.Input.KeyRepeatInterval;
+            return _actionForKey[_pressedKey];
         }
         return null;
     }

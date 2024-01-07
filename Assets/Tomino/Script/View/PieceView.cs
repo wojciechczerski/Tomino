@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using Tomino;
+﻿using Tomino;
+using UnityEngine;
 
 public class PieceView : MonoBehaviour
 {
@@ -7,48 +7,48 @@ public class PieceView : MonoBehaviour
     public Sprite[] blockSprites;
     public RectTransform container;
 
-    private Board board;
-    private GameObjectPool<BlockView> blockViewPool;
-    private PieceType? renderedPieceType;
-    private readonly int blockPoolSize = 10;
-    private bool forceRender = false;
+    private Board _board;
+    private GameObjectPool<BlockView> _blockViewPool;
+    private PieceType? _renderedPieceType;
+    private const int BlockPoolSize = 10;
+    private bool _forceRender;
 
     public void SetBoard(Board board)
     {
-        this.board = board;
-        blockViewPool = new GameObjectPool<BlockView>(blockPrefab, blockPoolSize, gameObject);
+        _board = board;
+        _blockViewPool = new GameObjectPool<BlockView>(blockPrefab, BlockPoolSize, gameObject);
     }
 
     internal void Update()
     {
-        if (renderedPieceType == null || forceRender || board.NextPiece.Type != renderedPieceType)
+        if (_renderedPieceType == null || _forceRender || _board.NextPiece.Type != _renderedPieceType)
         {
-            RenderPiece(board.NextPiece);
-            renderedPieceType = board.NextPiece.Type;
-            forceRender = false;
+            RenderPiece(_board.NextPiece);
+            _renderedPieceType = _board.NextPiece.Type;
+            _forceRender = false;
         }
     }
 
     internal void OnRectTransformDimensionsChange()
     {
-        forceRender = true;
+        _forceRender = true;
     }
 
     private void RenderPiece(Piece piece)
     {
-        blockViewPool.DeactivateAll();
+        _blockViewPool.DeactivateAll();
 
         var blockSize = BlockSize(piece);
 
         foreach (var block in piece.blocks)
         {
-            var blockView = blockViewPool.GetAndActivate();
+            var blockView = _blockViewPool.GetAndActivate();
             blockView.SetSprite(BlockSprite(block.Type));
             blockView.SetSize(blockSize);
             blockView.SetPosition(BlockPosition(block.Position, blockSize));
         }
 
-        var pieceBlocks = blockViewPool.Items.First(piece.blocks.Length);
+        var pieceBlocks = _blockViewPool.Items.First(piece.blocks.Length);
         var xValues = pieceBlocks.Map(b => b.transform.localPosition.x);
         var yValues = pieceBlocks.Map(b => b.transform.localPosition.y);
 
@@ -75,8 +75,9 @@ public class PieceView : MonoBehaviour
 
     public float BlockSize(Piece piece)
     {
-        var width = container.rect.size.x;
-        var height = container.rect.size.y;
+        var rect = container.rect;
+        var width = rect.size.x;
+        var height = rect.size.y;
         var numBlocks = piece.blocks.Length;
         return Mathf.Min(width / numBlocks, height / numBlocks);
     }

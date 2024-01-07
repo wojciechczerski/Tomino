@@ -1,94 +1,94 @@
-﻿using UnityEngine;
+﻿using Constant;
 using Tomino;
+using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public Camera currentCamera;
-    public Game game;
-    public GameConfig GameConfig;
+    public GameConfig gameConfig;
     public AlertView alertView;
     public SettingsView settingsView;
     public AudioPlayer audioPlayer;
     public GameObject screenButtons;
     public AudioSource musicAudioSource;
 
-    private UniversalInput universalInput;
+    private Game _game;
+    private UniversalInput _universalInput;
 
     internal void Awake()
     {
         HandlePlayerSettings();
-        Settings.ChangedEvent += HandlePlayerSettings;
+        Settings.changedEvent += HandlePlayerSettings;
     }
 
     internal void Start()
     {
         Board board = new(10, 20);
 
-        GameConfig.BoardView.SetBoard(board);
-        GameConfig.NextPieceView.SetBoard(board);
+        gameConfig.boardView.SetBoard(board);
+        gameConfig.nextPieceView.SetBoard(board);
 
-        universalInput = new UniversalInput(new KeyboardInput(), GameConfig.BoardView.touchInput);
+        _universalInput = new UniversalInput(new KeyboardInput(), gameConfig.boardView.touchInput);
 
-        game = new Game(board, universalInput);
-        game.FinishedEvent += OnGameFinished;
-        game.PieceFinishedFallingEvent += audioPlayer.PlayPieceDropClip;
-        game.PieceRotatedEvent += audioPlayer.PlayPieceRotateClip;
-        game.PieceMovedEvent += audioPlayer.PlayPieceMoveClip;
-        game.Start();
+        _game = new Game(board, _universalInput);
+        _game.FinishedEvent += OnGameFinished;
+        _game.PieceFinishedFallingEvent += audioPlayer.PlayPieceDropClip;
+        _game.PieceRotatedEvent += audioPlayer.PlayPieceRotateClip;
+        _game.PieceMovedEvent += audioPlayer.PlayPieceMoveClip;
+        _game.Start();
 
-        GameConfig.ScoreView.game = game;
-        GameConfig.LevelView.game = game;
+        gameConfig.scoreView.game = _game;
+        gameConfig.levelView.game = _game;
     }
 
     public void OnPauseButtonTap()
     {
-        game.Pause();
+        _game.Pause();
         ShowPauseView();
     }
 
     public void OnMoveLeftButtonTap()
     {
-        game.SetNextAction(PlayerAction.MoveLeft);
+        _game.SetNextAction(PlayerAction.MoveLeft);
     }
 
     public void OnMoveRightButtonTap()
     {
-        game.SetNextAction(PlayerAction.MoveRight);
+        _game.SetNextAction(PlayerAction.MoveRight);
     }
 
     public void OnMoveDownButtonTap()
     {
-        game.SetNextAction(PlayerAction.MoveDown);
+        _game.SetNextAction(PlayerAction.MoveDown);
     }
 
     public void OnFallButtonTap()
     {
-        game.SetNextAction(PlayerAction.Fall);
+        _game.SetNextAction(PlayerAction.Fall);
     }
 
     public void OnRotateButtonTap()
     {
-        game.SetNextAction(PlayerAction.Rotate);
+        _game.SetNextAction(PlayerAction.Rotate);
     }
 
     private void OnGameFinished()
     {
-        alertView.SetTitle(Constant.Text.GameFinished);
-        alertView.AddButton(Constant.Text.PlayAgain, game.Start, audioPlayer.PlayNewGameClip);
+        alertView.SetTitle(Text.GameFinished);
+        alertView.AddButton(Text.PlayAgain, _game.Start, audioPlayer.PlayNewGameClip);
         alertView.Show();
     }
 
     internal void Update()
     {
-        game.Update(Time.deltaTime);
+        _game.Update(Time.deltaTime);
     }
 
     private void ShowPauseView()
     {
-        alertView.SetTitle(Constant.Text.GamePaused);
-        alertView.AddButton(Constant.Text.Resume, game.Resume, audioPlayer.PlayResumeClip);
-        alertView.AddButton(Constant.Text.NewGame, game.Start, audioPlayer.PlayNewGameClip);
-        alertView.AddButton(Constant.Text.Settings, ShowSettingsView, audioPlayer.PlayResumeClip);
+        alertView.SetTitle(Text.GamePaused);
+        alertView.AddButton(Text.Resume, _game.Resume, audioPlayer.PlayResumeClip);
+        alertView.AddButton(Text.NewGame, _game.Start, audioPlayer.PlayNewGameClip);
+        alertView.AddButton(Text.Settings, ShowSettingsView, audioPlayer.PlayResumeClip);
         alertView.Show();
     }
 
@@ -100,7 +100,7 @@ public class GameController : MonoBehaviour
     private void HandlePlayerSettings()
     {
         screenButtons.SetActive(Settings.ScreenButonsEnabled);
-        GameConfig.BoardView.touchInput.Enabled = !Settings.ScreenButonsEnabled;
+        gameConfig.boardView.touchInput.Enabled = !Settings.ScreenButonsEnabled;
         musicAudioSource.gameObject.SetActive(Settings.MusicEnabled);
     }
 }

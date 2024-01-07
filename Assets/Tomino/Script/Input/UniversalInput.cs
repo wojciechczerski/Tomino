@@ -1,28 +1,28 @@
-﻿using Tomino;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Tomino;
 
 public class UniversalInput : IPlayerInput
 {
-    private readonly List<IPlayerInput> inputs = new();
+    private readonly List<IPlayerInput> _inputs;
 
     public UniversalInput(params IPlayerInput[] inputs)
     {
-        this.inputs = new List<IPlayerInput>(inputs);
+        this._inputs = new List<IPlayerInput>(inputs);
     }
 
     public void Update()
     {
-        inputs.ForEach(input => input.Update());
+        _inputs.ForEach(input => input.Update());
     }
 
     public void Cancel()
     {
-        inputs.ForEach(input => input.Cancel());
+        _inputs.ForEach(input => input.Cancel());
     }
 
     public PlayerAction? GetPlayerAction()
     {
-        foreach (var input in inputs)
+        foreach (var input in _inputs)
         {
             var action = input.GetPlayerAction();
             if (action != null)

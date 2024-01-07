@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using Input = Constant.Input;
 
 /// <summary>
 /// A button that sends an event when it pressed or pressed and held.
@@ -11,32 +12,32 @@ public class PushButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     /// <summary>
     /// The event triggered after user pushes the button.
     /// </summary>
-    public UnityEvent OnPush = new();
+    public UnityEvent onPush = new();
 
     /// <summary>
     /// The delay in seconds required to register the 'Push and hold' event. 
     /// </summary>
-    public float PushAndHoldDelay = Constant.Input.KeyRepeatDelay;
+    public float pushAndHoldDelay = Input.KeyRepeatDelay;
 
     /// <summary>
     /// The event triggered after the user pushes and holds the button.
     /// </summary>
-    public UnityEvent OnPushAndHold = new();
+    public UnityEvent onPushAndHold = new();
 
     /// <summary>
     /// If set to true, the 'Push and hold' event will repeatedly fire with
     /// specified interval.
     /// </summary>
-    public bool RepeatPushAndHold = true;
+    public bool repeatPushAndHold = true;
 
     /// <summary>
     /// The interval in seconds in which 'Push and hold' event repeatedly fires.
     /// </summary>
-    public float PushAndHoldRepeatInterval = Constant.Input.KeyRepeatInterval;
+    public float pushAndHoldRepeatInterval = Input.KeyRepeatInterval;
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        OnPush.Invoke();
+        onPush.Invoke();
         _ = StartCoroutine(PushAndHold());
     }
 
@@ -47,13 +48,13 @@ public class PushButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private IEnumerator PushAndHold()
     {
-        yield return new WaitForSeconds(PushAndHoldDelay);
-        OnPushAndHold.Invoke();
+        yield return new WaitForSeconds(pushAndHoldDelay);
+        onPushAndHold.Invoke();
 
-        while (RepeatPushAndHold)
+        while (repeatPushAndHold)
         {
-            yield return new WaitForSeconds(PushAndHoldRepeatInterval);
-            OnPushAndHold.Invoke();
+            yield return new WaitForSeconds(pushAndHoldRepeatInterval);
+            onPushAndHold.Invoke();
         }
     }
 }

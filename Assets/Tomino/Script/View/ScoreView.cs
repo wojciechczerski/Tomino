@@ -1,6 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using Constant;
 using Tomino;
+using UnityEngine;
+using Text = UnityEngine.UI.Text;
 
 public class ScoreView : MonoBehaviour
 {
@@ -9,8 +10,8 @@ public class ScoreView : MonoBehaviour
 
     internal void Update()
     {
-        var padLength = Constant.ScoreFormat.Length;
-        var padCharacter = Constant.ScoreFormat.PadCharacter;
+        var padLength = ScoreFormat.Length;
+        var padCharacter = ScoreFormat.PadCharacter;
         scoreText.text = game.Score.Value.ToString().PadLeft(padLength, padCharacter);
     }
 }

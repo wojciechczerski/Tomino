@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using Tomino;
+﻿using Tomino;
+using UnityEngine;
 
 public class BoardView : MonoBehaviour
 {
@@ -13,29 +13,29 @@ public class BoardView : MonoBehaviour
     public Sprite shadowBlockSprite;
     public TouchInput touchInput = new();
 
-    private Board gameBoard;
-    private int renderedBoardHash = -1;
-    private bool forceRender = false;
-    private GameObjectPool<BlockView> blockViewPool;
-    private RectTransform rectTransform;
+    private Board _gameBoard;
+    private int _renderedBoardHash = -1;
+    private bool _forceRender;
+    private GameObjectPool<BlockView> _blockViewPool;
+    private RectTransform _rectTransform;
 
     public void SetBoard(Board board)
     {
-        gameBoard = board;
-        int size = (board.Width * board.Height) + 10;
-        blockViewPool = new GameObjectPool<BlockView>(blockPrefab, size, gameObject);
+        _gameBoard = board;
+        int size = (board.width * board.height) + 10;
+        _blockViewPool = new GameObjectPool<BlockView>(blockPrefab, size, gameObject);
     }
 
     public void RenderGameBoard()
     {
-        blockViewPool.DeactivateAll();
+        _blockViewPool.DeactivateAll();
         RenderPieceShadow();
         RenderBlocks();
     }
 
     private void RenderBlocks()
     {
-        foreach (var block in gameBoard.Blocks)
+        foreach (var block in _gameBoard.Blocks)
         {
             RenderBlock(BlockSprite(block.Type), block.Position, Layer.Blocks);
         }
@@ -43,7 +43,7 @@ public class BoardView : MonoBehaviour
 
     private void RenderPieceShadow()
     {
-        foreach (var position in gameBoard.GetPieceShadow())
+        foreach (var position in _gameBoard.GetPieceShadow())
         {
             RenderBlock(shadowBlockSprite, position, Layer.PieceShadow);
         }
@@ -51,7 +51,7 @@ public class BoardView : MonoBehaviour
 
     private void RenderBlock(Sprite sprite, Position position, Layer layer)
     {
-        var view = blockViewPool.GetAndActivate();
+        var view = _blockViewPool.GetAndActivate();
         view.SetSprite(sprite);
         view.SetSize(BlockSize());
         view.SetPosition(BlockPosition(position.Row, position.Column, layer));
@@ -59,25 +59,25 @@ public class BoardView : MonoBehaviour
 
     internal void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
+        _rectTransform = GetComponent<RectTransform>();
     }
 
     internal void Update()
     {
         touchInput.blockSize = BlockSize();
 
-        var hash = gameBoard.GetHashCode();
-        if (forceRender || hash != renderedBoardHash)
+        var hash = _gameBoard.GetHashCode();
+        if (_forceRender || hash != _renderedBoardHash)
         {
             RenderGameBoard();
-            renderedBoardHash = hash;
-            forceRender = false;
+            _renderedBoardHash = hash;
+            _forceRender = false;
         }
     }
 
     internal void OnRectTransformDimensionsChange()
     {
-        forceRender = true;
+        _forceRender = true;
     }
 
     private Vector3 BlockPosition(int row, int column, Layer layer)
@@ -90,8 +90,8 @@ public class BoardView : MonoBehaviour
 
     public float BlockSize()
     {
-        var boardWidth = rectTransform.rect.size.x;
-        return boardWidth / gameBoard.Width;
+        var boardWidth = _rectTransform.rect.size.x;
+        return boardWidth / _gameBoard.width;
     }
 
     public Sprite BlockSprite(PieceType type)
@@ -101,8 +101,8 @@ public class BoardView : MonoBehaviour
 
     public Vector3 PivotOffset()
     {
-        var pivot = rectTransform.pivot;
-        var boardSize = rectTransform.rect.size;
+        var pivot = _rectTransform.pivot;
+        var boardSize = _rectTransform.rect.size;
         return new Vector3(boardSize.x * pivot.x, boardSize.y * pivot.y);
     }
 }

@@ -1,44 +1,44 @@
-﻿using UnityEngine;
-using Tomino;
+﻿using Tomino;
+using UnityEngine;
 
 public class TouchInput : IPlayerInput
 {
     public float blockSize;
     public bool Enabled
     {
-        get => enabled;
+        get => _enabled;
         set
         {
-            enabled = value;
-            cancelCurrentTouch = false;
-            playerAction = null;
+            _enabled = value;
+            _cancelCurrentTouch = false;
+            _playerAction = null;
         }
     }
 
-    private Vector2 initialPosition = Vector2.zero;
-    private Vector2 processedOffset = Vector2.zero;
-    private PlayerAction? playerAction;
-    private bool moveDownDetected;
-    private float touchBeginTime;
+    private Vector2 _initialPosition = Vector2.zero;
+    private Vector2 _processedOffset = Vector2.zero;
+    private PlayerAction? _playerAction;
+    private bool _moveDownDetected;
+    private float _touchBeginTime;
 
-    private readonly float tapMaxDuration = 0.25f;
-    private readonly float tapMaxOffset = 30.0f;
-    private readonly float swipeMaxDuration = 0.3f;
+    private const float TapMaxDuration = 0.25f;
+    private const float TapMaxOffset = 30.0f;
+    private const float SwipeMaxDuration = 0.3f;
 
-    private bool cancelCurrentTouch;
-    private bool enabled = true;
+    private bool _cancelCurrentTouch;
+    private bool _enabled = true;
 
     public void Update()
     {
-        playerAction = null;
+        _playerAction = null;
 
         if (Input.touchCount > 0)
         {
             var touch = Input.GetTouch(0);
 
-            if (cancelCurrentTouch)
+            if (_cancelCurrentTouch)
             {
-                cancelCurrentTouch &= touch.phase != TouchPhase.Ended;
+                _cancelCurrentTouch &= touch.phase != TouchPhase.Ended;
             }
             else if (touch.phase == TouchPhase.Began)
             {
@@ -46,46 +46,46 @@ public class TouchInput : IPlayerInput
             }
             else if (touch.phase == TouchPhase.Moved)
             {
-                var offset = touch.position - initialPosition - processedOffset;
+                var offset = touch.position - _initialPosition - _processedOffset;
                 HandleMove(touch, offset);
             }
             else if (touch.phase == TouchPhase.Ended)
             {
-                var touchDuration = Time.time - touchBeginTime;
-                var offset = (touch.position - initialPosition).magnitude;
+                var touchDuration = Time.time - _touchBeginTime;
+                var offset = (touch.position - _initialPosition).magnitude;
 
-                if (touchDuration < tapMaxDuration && offset < tapMaxOffset)
+                if (touchDuration < TapMaxDuration && offset < TapMaxOffset)
                 {
-                    playerAction = PlayerAction.Rotate;
+                    _playerAction = PlayerAction.Rotate;
                 }
-                else if (moveDownDetected && touchDuration < swipeMaxDuration)
+                else if (_moveDownDetected && touchDuration < SwipeMaxDuration)
                 {
-                    playerAction = PlayerAction.Fall;
+                    _playerAction = PlayerAction.Fall;
                 }
             }
         }
         else
         {
-            cancelCurrentTouch = false;
+            _cancelCurrentTouch = false;
         }
     }
 
     public PlayerAction? GetPlayerAction()
     {
-        return Enabled ? playerAction : null;
+        return Enabled ? _playerAction : null;
     }
 
     public void Cancel()
     {
-        cancelCurrentTouch |= Input.touchCount > 0;
+        _cancelCurrentTouch |= Input.touchCount > 0;
     }
 
     private void TouchBegan(Touch touch)
     {
-        initialPosition = touch.position;
-        processedOffset = Vector2.zero;
-        moveDownDetected = false;
-        touchBeginTime = Time.time;
+        _initialPosition = touch.position;
+        _processedOffset = Vector2.zero;
+        _moveDownDetected = false;
+        _touchBeginTime = Time.time;
     }
 
     private void HandleMove(Touch touch, Vector2 offset)
@@ -93,26 +93,26 @@ public class TouchInput : IPlayerInput
         if (Mathf.Abs(offset.x) >= blockSize)
         {
             HandleHorizontalMove(touch, offset.x);
-            playerAction = ActionForHorizontalMoveOffset(offset.x);
+            _playerAction = ActionForHorizontalMoveOffset(offset.x);
         }
         if (offset.y <= -blockSize)
         {
             HandleVerticalMove(touch);
-            playerAction = PlayerAction.MoveDown;
+            _playerAction = PlayerAction.MoveDown;
         }
     }
 
     private void HandleHorizontalMove(Touch touch, float offset)
     {
-        processedOffset.x += Mathf.Sign(offset) * blockSize;
-        processedOffset.y = (touch.position - initialPosition).y;
+        _processedOffset.x += Mathf.Sign(offset) * blockSize;
+        _processedOffset.y = (touch.position - _initialPosition).y;
     }
 
     private void HandleVerticalMove(Touch touch)
     {
-        moveDownDetected = true;
-        processedOffset.y -= blockSize;
-        processedOffset.x = (touch.position - initialPosition).x;
+        _moveDownDetected = true;
+        _processedOffset.y -= blockSize;
+        _processedOffset.x = (touch.position - _initialPosition).x;
     }
 
     private PlayerAction ActionForHorizontalMoveOffset(float offset)

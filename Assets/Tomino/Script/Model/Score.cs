@@ -6,7 +6,7 @@ namespace Tomino
     {
         public int Value { get; private set; }
 
-        private readonly Dictionary<int, int> scoreForClearedRows = new()
+        private readonly Dictionary<int, int> _scoreForClearedRows = new()
         {
             { 1, 100 },
             { 2, 300 },
@@ -16,7 +16,7 @@ namespace Tomino
 
         public void RowsCleared(int count)
         {
-            _ = scoreForClearedRows.TryGetValue(count, out int valueIncrease);
+            _ = _scoreForClearedRows.TryGetValue(count, out int valueIncrease);
             Value += valueIncrease;
         }
 

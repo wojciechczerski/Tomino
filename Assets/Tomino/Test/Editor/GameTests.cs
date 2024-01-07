@@ -1,245 +1,248 @@
 ﻿using NUnit.Framework;
-using Tomino;
+using Tomino.Test.Editor.Helper;
 
-public class GameTests
+namespace Tomino.Test.Editor
 {
-    private StubInput input;
-    private StubPieceProvider pieceProvider;
-    private Board board;
-    private Game game;
-
-    [SetUp]
-    public void Initialize()
+    public class GameTests
     {
-        input = new StubInput();
-        pieceProvider = new StubPieceProvider();
-        board = new Board(10, 20, pieceProvider);
-        game = new Game(board, input);
-        game.Start();
-    }
+        private StubInput _input;
+        private StubPieceProvider _pieceProvider;
+        private Board _board;
+        private Game _game;
 
-    [Test]
-    public void CreatesNewPieceWhenTheGameStarts()
-    {
-        Assert.IsNotEmpty(board.Blocks);
-    }
-
-    [Test]
-    public void IgnoresInputWhenGameIsPaused()
-    {
-        var callbackCalled = false;
-        game.PieceFinishedFallingEvent += delegate
+        [SetUp]
+        public void Initialize()
         {
-            callbackCalled = true;
-        };
-
-        game.Pause();
-        UpdateGameWithAction(PlayerAction.Fall);
-
-        Assert.IsFalse(callbackCalled);
-
-        game.Resume();
-        UpdateGameWithAction(PlayerAction.Fall);
-        Assert.IsTrue(callbackCalled);
-    }
-
-    [TestCase(PlayerAction.MoveLeft, 0, -1)]
-    [TestCase(PlayerAction.MoveRight, 0, 1)]
-    [TestCase(PlayerAction.MoveDown, -1, 0)]
-    public void MovesPiece(PlayerAction action, int rowOffset, int columnOffset)
-    {
-        var positions = board.GetBlockPositions();
-
-        UpdateGameWithAction(action);
-
-        foreach (Block block in board.Blocks)
-        {
-            var start = positions[block];
-            var end = block.Position;
-            Assert.AreEqual(end.Row, start.Row + rowOffset);
-            Assert.AreEqual(end.Column, start.Column + columnOffset);
+            _input = new StubInput();
+            _pieceProvider = new StubPieceProvider();
+            _board = new Board(10, 20, _pieceProvider);
+            _game = new Game(_board, _input);
+            _game.Start();
         }
-    }
 
-    [Test]
-    public void MovesPieceDownWhenUpdating()
-    {
-        var positions = board.GetBlockPositions();
-        game.Update(10);
-
-        foreach (Block block in board.Blocks)
+        [Test]
+        public void CreatesNewPieceWhenTheGameStarts()
         {
-            Assert.AreEqual(block.Position.Row, positions[block].Row - 1);
+            Assert.IsNotEmpty(_board.Blocks);
         }
-    }
 
-    [Test]
-    public void RotatesPiece()
-    {
-        var secondBlockPositions = new Position[]
+        [Test]
+        public void IgnoresInputWhenGameIsPaused()
         {
-            new Position(2, 1),
-            new Position(1, 2),
-            new Position(0, 1),
-            new Position(1, 0),
-            new Position(2, 1)
-        };
-
-        pieceProvider = new StubPieceProvider(StubPieceType.TwoBlocks);
-        board = new Board(3, 3, pieceProvider);
-        game = new Game(board, input);
-        game.Start();
-
-        for (var i = 1; i < secondBlockPositions.Length; ++i)
-        {
-            UpdateGameWithAction(PlayerAction.Rotate);
-            var secondBlock = board.Blocks[1];
-
-            Assert.AreEqual(secondBlockPositions[i].Row, secondBlock.Position.Row);
-            Assert.AreEqual(secondBlockPositions[i].Column, secondBlock.Position.Column);
-        }
-    }
-
-    [Test]
-    public void HandlesDirectlyConfiguredPlayerInput()
-    {
-        var positions = board.GetBlockPositions();
-        game.SetNextAction(PlayerAction.MoveRight);
-        game.Update(10);
-
-        foreach (Block block in board.Blocks)
-        {
-            var start = positions[block];
-            var end = block.Position;
-            Assert.AreEqual(end.Row, start.Row);
-            Assert.AreEqual(end.Column, start.Column + 1);
-        }
-    }
-
-    [Test]
-    public void AddsNewPieceAfterCurrentPieceFallsDown()
-    {
-        var blocksCount = board.Blocks.Count;
-
-        UpdateGameWithAction(PlayerAction.Fall);
-
-        blocksCount += pieceProvider.GetPiece().blocks.Length;
-
-        Assert.AreEqual(blocksCount, board.Blocks.Count);
-    }
-
-    [TestCase(PlayerAction.MoveLeft, false)]
-    [TestCase(PlayerAction.MoveRight, false)]
-    [TestCase(PlayerAction.MoveLeft, true)]
-    [TestCase(PlayerAction.MoveRight, true)]
-    public void HandlesCollisions(PlayerAction action, bool blockCollision)
-    {
-        if (blockCollision)
-        {
-            for (int row = 0; row < board.Height; ++row)
+            var callbackCalled = false;
+            _game.PieceFinishedFallingEvent += delegate
             {
-                var leftPosition = new Position(row, 0);
-                var rightPostion = new Position(row, board.Width - 1);
-                board.Blocks.Add(new Block(leftPosition, PieceType.I));
-                board.Blocks.Add(new Block(rightPostion, PieceType.I));
+                callbackCalled = true;
+            };
+
+            _game.Pause();
+            UpdateGameWithAction(PlayerAction.Fall);
+
+            Assert.IsFalse(callbackCalled);
+
+            _game.Resume();
+            UpdateGameWithAction(PlayerAction.Fall);
+            Assert.IsTrue(callbackCalled);
+        }
+
+        [TestCase(PlayerAction.MoveLeft, 0, -1)]
+        [TestCase(PlayerAction.MoveRight, 0, 1)]
+        [TestCase(PlayerAction.MoveDown, -1, 0)]
+        public void MovesPiece(PlayerAction action, int rowOffset, int columnOffset)
+        {
+            var positions = _board.GetBlockPositions();
+
+            UpdateGameWithAction(action);
+
+            foreach (Block block in _board.Blocks)
+            {
+                var start = positions[block];
+                var end = block.Position;
+                Assert.AreEqual(end.Row, start.Row + rowOffset);
+                Assert.AreEqual(end.Column, start.Column + columnOffset);
             }
         }
 
-        for (int i = 0; i < 50; ++i)
+        [Test]
+        public void MovesPieceDownWhenUpdating()
         {
-            UpdateGameWithAction(action);
-            UpdateGameWithAction(PlayerAction.Rotate);
+            var positions = _board.GetBlockPositions();
+            _game.Update(10);
+
+            foreach (Block block in _board.Blocks)
+            {
+                Assert.AreEqual(block.Position.Row, positions[block].Row - 1);
+            }
         }
 
-        Assert.IsFalse(board.HasCollisions());
-    }
-
-    [Test]
-    public void RemovesFullRows()
-    {
-        board.AddFullRows(board.Height / 2);
-        var blocksCount = pieceProvider.GetPiece().blocks.Length;
-        UpdateGameWithAction(PlayerAction.Fall);
-        blocksCount += pieceProvider.GetPiece().blocks.Length;
-
-        Assert.AreEqual(blocksCount, board.Blocks.Count);
-    }
-
-    [Test]
-    public void FiresAnEventWhenTheGameFinishes()
-    {
-        var spy = new GameEventSpy();
-        game.FinishedEvent += spy.OnGameFinished;
-
-        for (int i = 0; i < board.FallDistance() + 1; ++i)
+        [Test]
+        public void RotatesPiece()
         {
+            var secondBlockPositions = new Position[]
+            {
+                new(2, 1),
+                new(1, 2),
+                new(0, 1),
+                new(1, 0),
+                new(2, 1)
+            };
+
+            _pieceProvider = new StubPieceProvider(StubPieceType.TwoBlocks);
+            _board = new Board(3, 3, _pieceProvider);
+            _game = new Game(_board, _input);
+            _game.Start();
+
+            for (var i = 1; i < secondBlockPositions.Length; ++i)
+            {
+                UpdateGameWithAction(PlayerAction.Rotate);
+                var secondBlock = _board.Blocks[1];
+
+                Assert.AreEqual(secondBlockPositions[i].Row, secondBlock.Position.Row);
+                Assert.AreEqual(secondBlockPositions[i].Column, secondBlock.Position.Column);
+            }
+        }
+
+        [Test]
+        public void HandlesDirectlyConfiguredPlayerInput()
+        {
+            var positions = _board.GetBlockPositions();
+            _game.SetNextAction(PlayerAction.MoveRight);
+            _game.Update(10);
+
+            foreach (Block block in _board.Blocks)
+            {
+                var start = positions[block];
+                var end = block.Position;
+                Assert.AreEqual(end.Row, start.Row);
+                Assert.AreEqual(end.Column, start.Column + 1);
+            }
+        }
+
+        [Test]
+        public void AddsNewPieceAfterCurrentPieceFallsDown()
+        {
+            var blocksCount = _board.Blocks.Count;
+
             UpdateGameWithAction(PlayerAction.Fall);
+
+            blocksCount += _pieceProvider.GetPiece().blocks.Length;
+
+            Assert.AreEqual(blocksCount, _board.Blocks.Count);
         }
 
-        Assert.IsTrue(spy.gameFinishedCalled);
-    }
-
-    [TestCase(1, 100)]
-    [TestCase(2, 300)]
-    [TestCase(3, 500)]
-    [TestCase(4, 800)]
-    public void UpdatesScoreWhenRowsAreCleared(int fullRowsCount, int score)
-    {
-        board.AddFullRows(fullRowsCount);
-        game.WaitUntilPieceFallsAutomatically();
-
-        Assert.AreEqual(score, game.Score.Value);
-    }
-
-    public void UpdatesScoreWhenPieceMovesDown()
-    {
-        int distance = board.FallDistance();
-        for (int i = 0; i < distance; ++i)
+        [TestCase(PlayerAction.MoveLeft, false)]
+        [TestCase(PlayerAction.MoveRight, false)]
+        [TestCase(PlayerAction.MoveLeft, true)]
+        [TestCase(PlayerAction.MoveRight, true)]
+        public void HandlesCollisions(PlayerAction action, bool blockCollision)
         {
-            UpdateGameWithAction(PlayerAction.MoveDown);
+            if (blockCollision)
+            {
+                for (int row = 0; row < _board.height; ++row)
+                {
+                    var leftPosition = new Position(row, 0);
+                    var rightPostion = new Position(row, _board.width - 1);
+                    _board.Blocks.Add(new Block(leftPosition, PieceType.I));
+                    _board.Blocks.Add(new Block(rightPostion, PieceType.I));
+                }
+            }
+
+            for (int i = 0; i < 50; ++i)
+            {
+                UpdateGameWithAction(action);
+                UpdateGameWithAction(PlayerAction.Rotate);
+            }
+
+            Assert.IsFalse(_board.HasCollisions());
         }
 
-        Assert.AreEqual(distance, game.Score.Value);
-    }
-
-    [Test]
-    public void UpdatesScoreWhenPieceFalls()
-    {
-        int distance = board.FallDistance();
-        UpdateGameWithAction(PlayerAction.Fall);
-
-        Assert.AreEqual(distance * 2, game.Score.Value);
-    }
-
-    [TestCase(5, 1)]
-    [TestCase(10, 2)]
-    [TestCase(15, 2)]
-    [TestCase(20, 3)]
-    public void UpdatesLevelAfterClearingRows(int numRowsCleared, int expectedLevel)
-    {
-        for (int i = 0; i < numRowsCleared; ++i)
+        [Test]
+        public void RemovesFullRows()
         {
-            board.AddFullRows(1);
+            _board.AddFullRows(_board.height / 2);
+            var blocksCount = _pieceProvider.GetPiece().blocks.Length;
             UpdateGameWithAction(PlayerAction.Fall);
+            blocksCount += _pieceProvider.GetPiece().blocks.Length;
+
+            Assert.AreEqual(blocksCount, _board.Blocks.Count);
         }
 
-        Assert.AreEqual(expectedLevel, game.Level.Number);
-    }
+        [Test]
+        public void FiresAnEventWhenTheGameFinishes()
+        {
+            var spy = new GameEventSpy();
+            _game.FinishedEvent += spy.OnGameFinished;
 
-    [Test]
-    public void IncreasesPieceFallingSpeedAfterAdvancingToTheNextLevel()
-    {
-        var initialFallDelay = game.Level.FallDelay;
+            for (int i = 0; i < _board.FallDistance() + 1; ++i)
+            {
+                UpdateGameWithAction(PlayerAction.Fall);
+            }
 
-        board.AddFullRows(10);
-        UpdateGameWithAction(PlayerAction.Fall);
+            Assert.IsTrue(spy.gameFinishedCalled);
+        }
 
-        Assert.Less(game.Level.FallDelay, initialFallDelay);
-    }
+        [TestCase(1, 100)]
+        [TestCase(2, 300)]
+        [TestCase(3, 500)]
+        [TestCase(4, 800)]
+        public void UpdatesScoreWhenRowsAreCleared(int fullRowsCount, int score)
+        {
+            _board.AddFullRows(fullRowsCount);
+            _game.WaitUntilPieceFallsAutomatically();
 
-    private void UpdateGameWithAction(PlayerAction action)
-    {
-        input.action = action;
-        game.Update(0);
+            Assert.AreEqual(score, _game.Score.Value);
+        }
+
+        public void UpdatesScoreWhenPieceMovesDown()
+        {
+            int distance = _board.FallDistance();
+            for (int i = 0; i < distance; ++i)
+            {
+                UpdateGameWithAction(PlayerAction.MoveDown);
+            }
+
+            Assert.AreEqual(distance, _game.Score.Value);
+        }
+
+        [Test]
+        public void UpdatesScoreWhenPieceFalls()
+        {
+            int distance = _board.FallDistance();
+            UpdateGameWithAction(PlayerAction.Fall);
+
+            Assert.AreEqual(distance * 2, _game.Score.Value);
+        }
+
+        [TestCase(5, 1)]
+        [TestCase(10, 2)]
+        [TestCase(15, 2)]
+        [TestCase(20, 3)]
+        public void UpdatesLevelAfterClearingRows(int numRowsCleared, int expectedLevel)
+        {
+            for (int i = 0; i < numRowsCleared; ++i)
+            {
+                _board.AddFullRows(1);
+                UpdateGameWithAction(PlayerAction.Fall);
+            }
+
+            Assert.AreEqual(expectedLevel, _game.Level.Number);
+        }
+
+        [Test]
+        public void IncreasesPieceFallingSpeedAfterAdvancingToTheNextLevel()
+        {
+            var initialFallDelay = _game.Level.FallDelay;
+
+            _board.AddFullRows(10);
+            UpdateGameWithAction(PlayerAction.Fall);
+
+            Assert.Less(_game.Level.FallDelay, initialFallDelay);
+        }
+
+        private void UpdateGameWithAction(PlayerAction action)
+        {
+            _input.action = action;
+            _game.Update(0);
+        }
     }
 }

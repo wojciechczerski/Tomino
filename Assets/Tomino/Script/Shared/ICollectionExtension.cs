@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Tomino
 {
-    public static class ICollectionExtension
+    public static class CollectionExtension
     {
-        public static T FindFirst<T>(this ICollection<T> collection, Func<T, bool> condition)
+        public static T FindFirst<T>(this IEnumerable<T> collection, Func<T, bool> condition)
         {
             foreach (var element in collection)
             {
@@ -17,7 +17,7 @@ namespace Tomino
             return default;
         }
 
-        public static T[] First<T>(this ICollection<T> collection, int count)
+        public static T[] First<T>(this IEnumerable<T> collection, int count)
         {
             var result = new T[count];
             var index = 0;
@@ -33,7 +33,7 @@ namespace Tomino
             return result;
         }
 
-        public static void Iterate<T>(this ICollection<T> collection, Action<T, int> action)
+        private static void Iterate<T>(this IEnumerable<T> collection, Action<T, int> action)
         {
             var index = 0;
             foreach (var element in collection)
@@ -42,28 +42,28 @@ namespace Tomino
             }
         }
 
-        public static U[] Map<T, U>(this ICollection<T> collection, Func<T, U> map)
+        public static TU[] Map<T, TU>(this ICollection<T> collection, Func<T, TU> map)
         {
-            var result = new U[collection.Count];
+            var result = new TU[collection.Count];
             collection.Iterate((element, index) => result[index] = map(element));
             return result;
         }
 
-        public static T Min<T>(this ICollection<T> colleciton) where T : IComparable
+        public static T Min<T>(this ICollection<T> collection) where T : IComparable
         {
-            return colleciton.CompareAll((a, b) => a.CompareTo(b) < 0);
+            return collection.CompareAll((a, b) => a.CompareTo(b) < 0);
         }
 
-        public static T Max<T>(this ICollection<T> colleciton) where T : IComparable
+        public static T Max<T>(this ICollection<T> collection) where T : IComparable
         {
-            return colleciton.CompareAll((a, b) => a.CompareTo(b) > 0);
+            return collection.CompareAll((a, b) => a.CompareTo(b) > 0);
         }
 
-        private static T CompareAll<T>(this ICollection<T> colleciton, Func<T, T, bool> compare) where T : IComparable
+        private static T CompareAll<T>(this IEnumerable<T> collection, Func<T, T, bool> compare) where T : IComparable
         {
             T result = default;
             var hasValue = false;
-            foreach (var element in colleciton)
+            foreach (var element in collection)
             {
                 if (!hasValue || compare(element, result))
                 {

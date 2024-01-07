@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 namespace Tomino
 {
@@ -11,7 +11,7 @@ namespace Tomino
         /// <summary>
         /// The collection of blocks contained in this piece.
         /// </summary>
-        public Block[] blocks;
+        public readonly Block[] blocks;
 
         /// <summary>
         /// Determines whether the piece can be rotated.
@@ -40,7 +40,6 @@ namespace Tomino
         /// <summary>
         /// Returns the topmost row in which a block of the piece is positioned.
         /// </summary>
-        /// <param name="block.Position.Row"></param>
         /// <returns>The top row of the piece.</returns>
         public int Top => blocks.Map(block => block.Position.Row).Max();
 
@@ -50,7 +49,7 @@ namespace Tomino
         /// <param name="blockPositions">The collection of blocks the piece should contain.</param>
         /// <param name="type">The type of the piece.</param>
         /// <param name="canRotate">Determines whether the piece can be rotated.</param>
-        public Piece(Position[] blockPositions, PieceType type, bool canRotate = true)
+        public Piece(ICollection<Position> blockPositions, PieceType type, bool canRotate = true)
         {
             blocks = blockPositions.Map(position => new Block(position, type));
             Type = type;

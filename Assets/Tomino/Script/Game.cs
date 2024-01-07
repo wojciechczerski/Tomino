@@ -33,7 +33,7 @@ namespace Tomino
         public event GameEventHandler PieceRotatedEvent = delegate { };
 
         /// <summary>
-        /// The event triggered when the piece finishes falliing.
+        /// The event triggered when the piece finishes falling.
         /// </summary>
         public event GameEventHandler PieceFinishedFallingEvent = delegate { };
 
@@ -47,12 +47,12 @@ namespace Tomino
         /// </summary>
         public Level Level { get; private set; }
 
-        private readonly Board board;
-        private readonly IPlayerInput input;
+        private readonly Board _board;
+        private readonly IPlayerInput _input;
 
-        private PlayerAction? nextAction = null;
-        private float elapsedTime;
-        private bool isPlaying;
+        private PlayerAction? _nextAction;
+        private float _elapsedTime;
+        private bool _isPlaying;
 
         /// <summary>
         /// Creates a game with specified board and input.
@@ -61,8 +61,8 @@ namespace Tomino
         /// <param name="input">The input used for pooling player events.</param>
         public Game(Board board, IPlayerInput input)
         {
-            this.board = board;
-            this.input = input;
+            _board = board;
+            _input = input;
             PieceFinishedFallingEvent += input.Cancel;
         }
 
@@ -71,12 +71,12 @@ namespace Tomino
         /// </summary>
         public void Start()
         {
-            isPlaying = true;
+            _isPlaying = true;
             ResumedEvent();
-            elapsedTime = 0;
+            _elapsedTime = 0;
             Score = new Score();
             Level = new Level();
-            board.RemoveAllBlocks();
+            _board.RemoveAllBlocks();
             AddPiece();
         }
 
@@ -85,7 +85,7 @@ namespace Tomino
         /// </summary>
         public void Resume()
         {
-            isPlaying = true;
+            _isPlaying = true;
             ResumedEvent();
         }
 
@@ -94,7 +94,7 @@ namespace Tomino
         /// </summary>
         public void Pause()
         {
-            isPlaying = false;
+            _isPlaying = false;
             PausedEvent();
         }
 
@@ -104,15 +104,15 @@ namespace Tomino
         /// <param name="action">The next player action to process.</param>
         public void SetNextAction(PlayerAction action)
         {
-            nextAction = action;
+            _nextAction = action;
         }
 
         private void AddPiece()
         {
-            board.AddPiece();
-            if (board.HasCollisions())
+            _board.AddPiece();
+            if (_board.HasCollisions())
             {
-                isPlaying = false;
+                _isPlaying = false;
                 PausedEvent();
                 FinishedEvent();
             }
@@ -124,22 +124,22 @@ namespace Tomino
         /// <param name="deltaTime"></param>
         public void Update(float deltaTime)
         {
-            if (!isPlaying)
+            if (!_isPlaying)
             {
                 return;
             }
 
-            input.Update();
+            _input.Update();
 
-            var action = input?.GetPlayerAction();
+            var action = _input?.GetPlayerAction();
             if (action.HasValue)
             {
                 HandlePlayerAction(action.Value);
             }
-            else if (nextAction.HasValue)
+            else if (_nextAction.HasValue)
             {
-                HandlePlayerAction(nextAction.Value);
-                nextAction = null;
+                HandlePlayerAction(_nextAction.Value);
+                _nextAction = null;
             }
             else
             {
@@ -149,10 +149,10 @@ namespace Tomino
 
         private void HandleAutomaticPieceFalling(float deltaTime)
         {
-            elapsedTime += deltaTime;
-            if (elapsedTime >= Level.FallDelay)
+            _elapsedTime += deltaTime;
+            if (_elapsedTime >= Level.FallDelay)
             {
-                if (!board.MovePieceDown())
+                if (!_board.MovePieceDown())
                 {
                     PieceFinishedFalling();
                 }
@@ -166,16 +166,16 @@ namespace Tomino
             switch (action)
             {
                 case PlayerAction.MoveLeft:
-                    pieceMoved = board.MovePieceLeft();
+                    pieceMoved = _board.MovePieceLeft();
                     break;
 
                 case PlayerAction.MoveRight:
-                    pieceMoved = board.MovePieceRight();
+                    pieceMoved = _board.MovePieceRight();
                     break;
 
                 case PlayerAction.MoveDown:
                     ResetElapsedTime();
-                    if (board.MovePieceDown())
+                    if (_board.MovePieceDown())
                     {
                         pieceMoved = true;
                         Score.PieceMovedDown();
@@ -187,7 +187,7 @@ namespace Tomino
                     break;
 
                 case PlayerAction.Rotate:
-                    var didRotate = board.RotatePiece();
+                    var didRotate = _board.RotatePiece();
                     if (didRotate)
                     {
                         PieceRotatedEvent();
@@ -196,12 +196,9 @@ namespace Tomino
                     break;
 
                 case PlayerAction.Fall:
-                    Score.PieceFinishedFalling(board.FallPiece());
+                    Score.PieceFinishedFalling(_board.FallPiece());
                     ResetElapsedTime();
                     PieceFinishedFalling();
-                    break;
-
-                default:
                     break;
             }
             if (pieceMoved)
@@ -213,7 +210,7 @@ namespace Tomino
         private void PieceFinishedFalling()
         {
             PieceFinishedFallingEvent();
-            int rowsCount = board.RemoveFullRows();
+            var rowsCount = _board.RemoveFullRows();
             Score.RowsCleared(rowsCount);
             Level.RowsCleared(rowsCount);
             AddPiece();
@@ -221,7 +218,7 @@ namespace Tomino
 
         private void ResetElapsedTime()
         {
-            elapsedTime = 0;
+            _elapsedTime = 0;
         }
     }
 }

@@ -5,9 +5,9 @@ namespace Tomino
 {
     public class BalancedRandomPieceProvider : IPieceProvider
     {
-        private readonly Random random = new();
-        private readonly List<int> pool = new();
-        private const int numDuplicates = 4;
+        private readonly Random _random = new();
+        private readonly List<int> _pool = new();
+        private const int NumDuplicates = 4;
 
         public Piece GetPiece()
         {
@@ -21,20 +21,20 @@ namespace Tomino
 
         private List<int> GetPopulatedPool()
         {
-            if (pool.Count == 0)
+            if (_pool.Count == 0)
             {
                 PopulatePool();
             }
-            return pool;
+            return _pool;
         }
 
         private void PopulatePool()
         {
             for (var index = 0; index < AvailablePieces.All().Length; ++index)
             {
-                pool.Add(index, numDuplicates);
+                _pool.Add(index, NumDuplicates);
             }
-            pool.Shuffle(random);
+            _pool.Shuffle(_random);
         }
     }
 }

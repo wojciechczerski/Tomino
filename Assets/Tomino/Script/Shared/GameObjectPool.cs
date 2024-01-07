@@ -9,10 +9,9 @@ namespace Tomino
         public GameObjectPool(GameObject prefab, int size, GameObject parent)
         {
             Items = new T[size];
-            for (int i = 0; i < size; ++i)
+            for (var i = 0; i < size; ++i)
             {
-                var newItem = Object.Instantiate(prefab);
-                newItem.transform.parent = parent.transform;
+                var newItem = Object.Instantiate(prefab, parent.transform, true);
                 Items[i] = newItem.GetComponent<T>();
             }
         }

@@ -5,32 +5,32 @@ namespace Tomino
     public static class Settings
     {
         public delegate void SettingsDelegate();
-        public static SettingsDelegate ChangedEvent = delegate { };
+        public static SettingsDelegate changedEvent = delegate { };
 
-        private static readonly string musicEnabledKey = "tomino.settings.musicEnabled";
-        private static readonly string screenButtonsEnabledKey = "tomino.settings.screenButtonsEnabled";
+        private const string MusicEnabledKey = "tomino.settings.musicEnabled";
+        private const string ScreenButtonsEnabledKey = "tomino.settings.screenButtonsEnabled";
 
         public static bool MusicEnabled
         {
-            get => PlayerPrefs.GetInt(musicEnabledKey, 1).BoolValue();
+            get => PlayerPrefs.GetInt(MusicEnabledKey, 1).BoolValue();
 
             set
             {
-                PlayerPrefs.SetInt(musicEnabledKey, value.IntValue());
+                PlayerPrefs.SetInt(MusicEnabledKey, value.IntValue());
                 PlayerPrefs.Save();
-                ChangedEvent.Invoke();
+                changedEvent.Invoke();
             }
         }
 
         public static bool ScreenButonsEnabled
         {
-            get => PlayerPrefs.GetInt(screenButtonsEnabledKey, 0).BoolValue();
+            get => PlayerPrefs.GetInt(ScreenButtonsEnabledKey, 0).BoolValue();
 
             set
             {
-                PlayerPrefs.SetInt(screenButtonsEnabledKey, value.IntValue());
+                PlayerPrefs.SetInt(ScreenButtonsEnabledKey, value.IntValue());
                 PlayerPrefs.Save();
-                ChangedEvent.Invoke();
+                changedEvent.Invoke();
             }
         }
     }

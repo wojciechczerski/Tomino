@@ -1,42 +1,43 @@
-﻿using Tomino;
-
-public enum StubPieceType
+﻿namespace Tomino.Test.Editor.Helper
 {
-    OneBlock, TwoBlocks
-}
-
-public class StubPieceProvider : IPieceProvider
-{
-    private readonly StubPieceType pieceType;
-
-    public StubPieceProvider(StubPieceType type = StubPieceType.OneBlock)
+    public enum StubPieceType
     {
-        pieceType = type;
+        OneBlock, TwoBlocks
     }
 
-    public Piece GetPiece()
+    public class StubPieceProvider : IPieceProvider
     {
-        return pieceType switch
+        private readonly StubPieceType _pieceType;
+
+        public StubPieceProvider(StubPieceType type = StubPieceType.OneBlock)
         {
-            StubPieceType.OneBlock => CreateOneBlockPiece(),
-            StubPieceType.TwoBlocks => CreateTwoBlocksPiece(),
-            _ => default,
-        };
-    }
+            _pieceType = type;
+        }
 
-    public Piece GetNextPiece()
-    {
-        return GetPiece();
-    }
+        public Piece GetPiece()
+        {
+            return _pieceType switch
+            {
+                StubPieceType.OneBlock => CreateOneBlockPiece(),
+                StubPieceType.TwoBlocks => CreateTwoBlocksPiece(),
+                _ => default,
+            };
+        }
 
-    private static Piece CreateOneBlockPiece()
-    {
-        return new Piece(new Position[] { new Position(0, 0), }, PieceType.I);
-    }
+        public Piece GetNextPiece()
+        {
+            return GetPiece();
+        }
 
-    private static Piece CreateTwoBlocksPiece()
-    {
-        var blockPositions = new Position[] { new Position(0, 0), new Position(1, 0) };
-        return new Piece(blockPositions, PieceType.I);
+        private static Piece CreateOneBlockPiece()
+        {
+            return new Piece(new Position[] { new(0, 0), }, PieceType.I);
+        }
+
+        private static Piece CreateTwoBlocksPiece()
+        {
+            var blockPositions = new Position[] { new(0, 0), new(1, 0) };
+            return new Piece(blockPositions, PieceType.I);
+        }
     }
 }

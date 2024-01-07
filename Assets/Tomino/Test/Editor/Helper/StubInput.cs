@@ -1,15 +1,16 @@
-﻿using Tomino;
-
-public class StubInput : IPlayerInput
+﻿namespace Tomino.Test.Editor.Helper
 {
-    public PlayerAction? action;
-
-    public void Update() { }
-
-    public void Cancel() { }
-
-    public PlayerAction? GetPlayerAction()
+    public class StubInput : IPlayerInput
     {
-        return action;
+        public PlayerAction? action;
+
+        public void Update() { }
+
+        public void Cancel() { }
+
+        public PlayerAction? GetPlayerAction()
+        {
+            return action;
+        }
     }
 }

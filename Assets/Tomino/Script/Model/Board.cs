@@ -11,17 +11,17 @@ namespace Tomino
         /// <summary>
         /// The width of the board.
         /// </summary>
-        public readonly int Width;
+        public readonly int width;
 
         /// <summary>
         /// The height of the board.
         /// </summary>
-        public readonly int Height;
+        public readonly int height;
 
         /// <summary>
-        /// The colleciton of blocks placed on the board.
+        /// The collection of blocks placed on the board.
         /// </summary>
-        public List<Block> Blocks { get; private set; } = new List<Block>();
+        public List<Block> Blocks { get; } = new();
 
         /// <summary>
         /// The current falling piece.
@@ -33,10 +33,10 @@ namespace Tomino
         /// The piece that will be added to the board when the current piece finishes falling.
         /// </summary>
         /// <returns></returns>
-        public Piece NextPiece => pieceProvider.GetNextPiece();
+        public Piece NextPiece => _pieceProvider.GetNextPiece();
 
-        private readonly IPieceProvider pieceProvider;
-        private int Top => Height - 1;
+        private readonly IPieceProvider _pieceProvider;
+        private int Top => height - 1;
 
         /// <summary>
         /// Initializes board with specified size and a `BalancedPieceProvider`.
@@ -55,9 +55,9 @@ namespace Tomino
         /// <param name="pieceProvider">The piece provider.</param>
         public Board(int width, int height, IPieceProvider pieceProvider)
         {
-            Width = width;
-            Height = height;
-            this.pieceProvider = pieceProvider;
+            this.width = width;
+            this.height = height;
+            _pieceProvider = pieceProvider;
         }
 
         /// <summary>
@@ -84,20 +84,20 @@ namespace Tomino
         private bool CollidesWithBoard(Block block)
         {
             return block.Position.Row < 0 ||
-                   block.Position.Row >= Height ||
+                   block.Position.Row >= height ||
                    block.Position.Column < 0 ||
-                   block.Position.Column >= Width;
+                   block.Position.Column >= width;
         }
 
         public override int GetHashCode()
         {
-            int hash = 0;
+            var hash = 0;
             foreach (var block in Blocks)
             {
                 var row = block.Position.Row;
                 var column = block.Position.Column;
-                var offset = Width * Height * (int)block.Type;
-                var blockHash = offset + (row * Width) + column;
+                var offset = width * height * (int)block.Type;
+                var blockHash = offset + (row * width) + column;
                 hash += blockHash;
             }
             return hash;
@@ -108,10 +108,10 @@ namespace Tomino
         /// </summary>
         public void AddPiece()
         {
-            Piece = pieceProvider.GetPiece();
+            Piece = _pieceProvider.GetPiece();
 
             var offsetRow = Top - Piece.Top;
-            var offsetCol = (Width - Piece.Width) / 2;
+            var offsetCol = (width - Piece.Width) / 2;
 
             foreach (var block in Piece.blocks)
             {
@@ -207,8 +207,8 @@ namespace Tomino
 
         private bool ResolveCollisionsAfterRotation()
         {
-            var columnOffsets = new int[] { -1, -2, 1, 2 };
-            foreach (int offset in columnOffsets)
+            var columnOffsets = new[] { -1, -2, 1, 2 };
+            foreach (var offset in columnOffsets)
             {
                 _ = MovePiece(0, offset);
 
@@ -238,7 +238,7 @@ namespace Tomino
         /// <returns>Number of rows the piece has been moved down.</returns>
         public int FallPiece()
         {
-            int rowsCount = 0;
+            var rowsCount = 0;
             while (MovePieceDown())
             {
                 rowsCount++;
@@ -253,11 +253,11 @@ namespace Tomino
         /// <returns></returns>
         public int RemoveFullRows()
         {
-            int rowsRemoved = 0;
-            for (int row = Height - 1; row >= 0; --row)
+            var rowsRemoved = 0;
+            for (var row = height - 1; row >= 0; --row)
             {
                 var rowBlocks = GetBlocksFromRow(row);
-                if (rowBlocks.Count == Width)
+                if (rowBlocks.Count == width)
                 {
                     Remove(rowBlocks);
                     MoveDownBlocksBelowRow(row);
@@ -280,14 +280,14 @@ namespace Tomino
             return Blocks.FindAll(block => block.Position.Row == row);
         }
 
-        private void Remove(List<Block> blocksToRemove)
+        private void Remove(ICollection<Block> blocksToRemove)
         {
             _ = Blocks.RemoveAll(block => blocksToRemove.Contains(block));
         }
 
         private void MoveDownBlocksBelowRow(int row)
         {
-            foreach (Block block in Blocks)
+            foreach (var block in Blocks)
             {
                 if (block.Position.Row > row)
                 {

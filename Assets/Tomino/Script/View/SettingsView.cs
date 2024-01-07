@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using Tomino;
+using UnityEngine;
 using UnityEngine.Events;
-using Tomino;
+using UnityEngine.UI;
 
 public class SettingsView : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class SettingsView : MonoBehaviour
     public Button closeButton;
     public AudioPlayer audioPlayer;
 
-    private UnityAction onCloseCallback;
+    private UnityAction _onCloseCallback;
 
     internal void Awake()
     {
@@ -19,25 +19,25 @@ public class SettingsView : MonoBehaviour
 
         musicToggle.isOn = Settings.MusicEnabled;
         musicToggle.GetComponentInChildren<Text>().text = Constant.Text.Music;
-        musicToggle.onValueChanged.AddListener((enabled) =>
+        musicToggle.onValueChanged.AddListener(musicEnabled =>
         {
-            Settings.MusicEnabled = enabled;
-            PlayToggleAudioClip(enabled);
+            Settings.MusicEnabled = musicEnabled;
+            PlayToggleAudioClip(musicEnabled);
         });
 
         screenButtonsToggle.isOn = Settings.ScreenButonsEnabled;
         screenButtonsToggle.GetComponentInChildren<Text>().text = Constant.Text.ScreenButtons;
-        screenButtonsToggle.onValueChanged.AddListener((enabled) =>
+        screenButtonsToggle.onValueChanged.AddListener(screenButonsEnabled =>
         {
-            Settings.ScreenButonsEnabled = enabled;
-            PlayToggleAudioClip(enabled);
+            Settings.ScreenButonsEnabled = screenButonsEnabled;
+            PlayToggleAudioClip(screenButonsEnabled);
         });
 
         closeButton.GetComponentInChildren<Text>().text = Constant.Text.Close;
         closeButton.onClick.AddListener(() =>
         {
             Hide();
-            onCloseCallback.Invoke();
+            _onCloseCallback.Invoke();
         });
 
         closeButton.gameObject.GetComponent<PointerHandler>().onPointerDown.AddListener(() =>
@@ -50,7 +50,7 @@ public class SettingsView : MonoBehaviour
 
     public void Show(UnityAction onCloseCallback)
     {
-        this.onCloseCallback = onCloseCallback;
+        _onCloseCallback = onCloseCallback;
         gameObject.SetActive(true);
     }
 
@@ -59,9 +59,9 @@ public class SettingsView : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void PlayToggleAudioClip(bool enabled)
+    private void PlayToggleAudioClip(bool audioEnabled)
     {
-        if (enabled)
+        if (audioEnabled)
         {
             audioPlayer.PlayToggleOnClip();
         }

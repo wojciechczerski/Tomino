@@ -1,36 +1,34 @@
-using NUnit.Framework;
-using Tomino;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using NUnit.Framework;
 
-public class BalancedRandomPieceProviderTests
+namespace Tomino.Test.Editor
 {
-    [Test]
-    public void GeneratesRandomPiecesWithSimilarProbability()
+    public class BalancedRandomPieceProviderTests
     {
-        var sampleSize = 1000;
-        var provider = new BalancedRandomPieceProvider();
-        var pieceCount = new Dictionary<PieceType, int>();
-
-        for (int i = 0; i < sampleSize; i++)
+        [Test]
+        public void GeneratesRandomPiecesWithSimilarProbability()
         {
-            var pieceType = provider.GetPiece().Type;
+            const int sampleSize = 1000;
+            var provider = new BalancedRandomPieceProvider();
+            var pieceCount = new Dictionary<PieceType, int>();
 
-            if (pieceCount.ContainsKey(pieceType))
+            for (var i = 0; i < sampleSize; i++)
             {
-                pieceCount[pieceType] += 1;
-            }
-            else
-            {
-                pieceCount[pieceType] = 1;
-            }
-        }
+                var pieceType = provider.GetPiece().Type;
 
-        var averageCount = sampleSize / (float)AvailablePieces.All().Length;
-        foreach (float count in pieceCount.Values)
-        {
-            var difference = (count - averageCount) / averageCount;
-            Assert.True(Math.Abs(difference) < 0.05f);
+                if (!pieceCount.TryAdd(pieceType, 1))
+                {
+                    pieceCount[pieceType] += 1;
+                }
+            }
+
+            var averageCount = sampleSize / (float)AvailablePieces.All().Length;
+            foreach (float count in pieceCount.Values)
+            {
+                var difference = (count - averageCount) / averageCount;
+                Assert.True(Math.Abs(difference) < 0.05f);
+            }
         }
     }
 }

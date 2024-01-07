@@ -1,9 +1,12 @@
-﻿public class GameEventSpy
+﻿namespace Tomino.Test.Editor.Helper
 {
-    public bool gameFinishedCalled;
-
-    public void OnGameFinished()
+    public class GameEventSpy
     {
-        gameFinishedCalled = true;
+        public bool gameFinishedCalled;
+
+        public void OnGameFinished()
+        {
+            gameFinishedCalled = true;
+        }
     }
 }

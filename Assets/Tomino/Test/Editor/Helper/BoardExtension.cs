@@ -1,38 +1,39 @@
 ﻿using System.Collections.Generic;
-using Tomino;
 
-public static class BoardExtension
+namespace Tomino.Test.Editor.Helper
 {
-    public static Dictionary<Block, Position> GetBlockPositions(this Board board)
+    public static class BoardExtension
     {
-        var positions = new Dictionary<Block, Position>();
-        foreach (Block block in board.Blocks)
+        public static Dictionary<Block, Position> GetBlockPositions(this Board board)
         {
-            positions[block] = block.Position;
-        }
-        return positions;
-    }
-
-    public static void AddFullRows(this Board board, int count)
-    {
-        for (int row = 0; row < count; ++row)
-        {
-            for (int column = 0; column < board.Width; ++column)
+            var positions = new Dictionary<Block, Position>();
+            foreach (Block block in board.Blocks)
             {
-                var position = new Position(row, column);
-                var allPositions = new List<Position>(board.Blocks.Map(b => b.Position));
+                positions[block] = block.Position;
+            }
+            return positions;
+        }
 
-                if (!allPositions.Contains(position))
+        public static void AddFullRows(this Board board, int count)
+        {
+            for (int row = 0; row < count; ++row)
+            {
+                for (int column = 0; column < board.width; ++column)
                 {
-                    board.Blocks.Add(new Block(position, PieceType.I));
+                    var position = new Position(row, column);
+                    var allPositions = new List<Position>(board.Blocks.Map(b => b.Position));
+
+                    if (!allPositions.Contains(position))
+                    {
+                        board.Blocks.Add(new Block(position, PieceType.I));
+                    }
                 }
             }
         }
-    }
 
-    public static int FallDistance(this Board board)
-    {
-        return board.Piece.GetPositions().Values.Map(p => p.Row).Min();
+        public static int FallDistance(this Board board)
+        {
+            return board.Piece.GetPositions().Values.Map(p => p.Row).Min();
+        }
     }
 }
-

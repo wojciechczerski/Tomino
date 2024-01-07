@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using Tomino;
+using UnityEngine;
 using UnityEngine.UI;
-using Tomino;
 
 public class LevelView : MonoBehaviour
 {
