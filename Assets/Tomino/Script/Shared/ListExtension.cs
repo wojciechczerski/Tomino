@@ -13,7 +13,7 @@ namespace Tomino
             }
         }
 
-        public static void Swap<T>(this IList<T> list, int i, int j)
+        private static void Swap<T>(this IList<T> list, int i, int j)
         {
             (list[j], list[i]) = (list[i], list[j]);
         }
@@ -27,7 +27,7 @@ namespace Tomino
 
         public static void Add<T>(this IList<T> list, T value, int numDuplicates)
         {
-            for (int n = 0; n < numDuplicates; n++)
+            for (var n = 0; n < numDuplicates; n++)
             {
                 list.Add(value);
             }

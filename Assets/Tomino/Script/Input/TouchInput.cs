@@ -95,11 +95,11 @@ public class TouchInput : IPlayerInput
             HandleHorizontalMove(touch, offset.x);
             _playerAction = ActionForHorizontalMoveOffset(offset.x);
         }
-        if (offset.y <= -blockSize)
-        {
-            HandleVerticalMove(touch);
-            _playerAction = PlayerAction.MoveDown;
-        }
+
+        if (!(offset.y <= -blockSize)) return;
+
+        HandleVerticalMove(touch);
+        _playerAction = PlayerAction.MoveDown;
     }
 
     private void HandleHorizontalMove(Touch touch, float offset)
@@ -115,7 +115,7 @@ public class TouchInput : IPlayerInput
         _processedOffset.x = (touch.position - _initialPosition).x;
     }
 
-    private PlayerAction ActionForHorizontalMoveOffset(float offset)
+    private static PlayerAction ActionForHorizontalMoveOffset(float offset)
     {
         return offset > 0 ? PlayerAction.MoveRight : PlayerAction.MoveLeft;
     }

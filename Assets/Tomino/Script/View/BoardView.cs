@@ -11,7 +11,7 @@ public class BoardView : MonoBehaviour
     public GameObject blockPrefab;
     public Sprite[] blockSprites;
     public Sprite shadowBlockSprite;
-    public TouchInput touchInput = new();
+    public readonly TouchInput touchInput = new();
 
     private Board _gameBoard;
     private int _renderedBoardHash = -1;
@@ -22,11 +22,11 @@ public class BoardView : MonoBehaviour
     public void SetBoard(Board board)
     {
         _gameBoard = board;
-        int size = (board.width * board.height) + 10;
+        var size = board.width * board.height + 10;
         _blockViewPool = new GameObjectPool<BlockView>(blockPrefab, size, gameObject);
     }
 
-    public void RenderGameBoard()
+    private void RenderGameBoard()
     {
         _blockViewPool.DeactivateAll();
         RenderPieceShadow();
@@ -67,12 +67,11 @@ public class BoardView : MonoBehaviour
         touchInput.blockSize = BlockSize();
 
         var hash = _gameBoard.GetHashCode();
-        if (_forceRender || hash != _renderedBoardHash)
-        {
-            RenderGameBoard();
-            _renderedBoardHash = hash;
-            _forceRender = false;
-        }
+        if (!_forceRender && hash == _renderedBoardHash) return;
+
+        RenderGameBoard();
+        _renderedBoardHash = hash;
+        _forceRender = false;
     }
 
     internal void OnRectTransformDimensionsChange()
@@ -88,18 +87,18 @@ public class BoardView : MonoBehaviour
         return position + offset - PivotOffset();
     }
 
-    public float BlockSize()
+    private float BlockSize()
     {
         var boardWidth = _rectTransform.rect.size.x;
         return boardWidth / _gameBoard.width;
     }
 
-    public Sprite BlockSprite(PieceType type)
+    private Sprite BlockSprite(PieceType type)
     {
         return blockSprites[(int)type];
     }
 
-    public Vector3 PivotOffset()
+    private Vector3 PivotOffset()
     {
         var pivot = _rectTransform.pivot;
         var boardSize = _rectTransform.rect.size;

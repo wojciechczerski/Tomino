@@ -16,7 +16,7 @@ namespace Tomino
 
         public void RowsCleared(int count)
         {
-            _ = _scoreForClearedRows.TryGetValue(count, out int valueIncrease);
+            _ = _scoreForClearedRows.TryGetValue(count, out var valueIncrease);
             Value += valueIncrease;
         }
 

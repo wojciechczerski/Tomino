@@ -4,7 +4,7 @@ namespace Tomino
 {
     public class GameObjectPool<T> where T : MonoBehaviour
     {
-        public T[] Items { get; private set; }
+        public T[] Items { get; }
 
         public GameObjectPool(GameObject prefab, int size, GameObject parent)
         {

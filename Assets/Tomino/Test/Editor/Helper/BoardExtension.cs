@@ -7,7 +7,7 @@ namespace Tomino.Test.Editor.Helper
         public static Dictionary<Block, Position> GetBlockPositions(this Board board)
         {
             var positions = new Dictionary<Block, Position>();
-            foreach (Block block in board.Blocks)
+            foreach (var block in board.Blocks)
             {
                 positions[block] = block.Position;
             }
@@ -16,9 +16,9 @@ namespace Tomino.Test.Editor.Helper
 
         public static void AddFullRows(this Board board, int count)
         {
-            for (int row = 0; row < count; ++row)
+            for (var row = 0; row < count; ++row)
             {
-                for (int column = 0; column < board.width; ++column)
+                for (var column = 0; column < board.width; ++column)
                 {
                     var position = new Position(row, column);
                     var allPositions = new List<Position>(board.Blocks.Map(b => b.Position));

@@ -10,8 +10,8 @@ public class ScoreView : MonoBehaviour
 
     internal void Update()
     {
-        var padLength = ScoreFormat.Length;
-        var padCharacter = ScoreFormat.PadCharacter;
+        const int padLength = ScoreFormat.Length;
+        const char padCharacter = ScoreFormat.PadCharacter;
         scoreText.text = game.Score.Value.ToString().PadLeft(padLength, padCharacter);
     }
 }

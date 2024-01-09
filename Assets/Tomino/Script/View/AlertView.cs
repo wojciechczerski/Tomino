@@ -39,7 +39,7 @@ public class AlertView : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void Hide()
+    private void Hide()
     {
         for (var i = buttonsContainer.childCount - 1; i >= 0; i--)
         {

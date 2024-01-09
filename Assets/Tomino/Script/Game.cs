@@ -97,11 +97,10 @@ namespace Tomino
         private void AddPiece()
         {
             _board.AddPiece();
-            if (_board.HasCollisions())
-            {
-                _isPlaying = false;
-                FinishedEvent();
-            }
+            if (!_board.HasCollisions()) return;
+
+            _isPlaying = false;
+            FinishedEvent();
         }
 
         /// <summary>
@@ -136,14 +135,13 @@ namespace Tomino
         private void HandleAutomaticPieceFalling(float deltaTime)
         {
             _elapsedTime += deltaTime;
-            if (_elapsedTime >= Level.FallDelay)
+            if (!(_elapsedTime >= Level.FallDelay)) return;
+
+            if (!_board.MovePieceDown())
             {
-                if (!_board.MovePieceDown())
-                {
-                    PieceFinishedFalling();
-                }
-                ResetElapsedTime();
+                PieceFinishedFalling();
             }
+            ResetElapsedTime();
         }
 
         private void HandlePlayerAction(PlayerAction action)

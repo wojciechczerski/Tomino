@@ -20,7 +20,7 @@
             {
                 StubPieceType.OneBlock => CreateOneBlockPiece(),
                 StubPieceType.TwoBlocks => CreateTwoBlocksPiece(),
-                _ => default,
+                _ => default
             };
         }
 
@@ -31,7 +31,7 @@
 
         private static Piece CreateOneBlockPiece()
         {
-            return new Piece(new Position[] { new(0, 0), }, PieceType.I);
+            return new Piece(new Position[] { new(0, 0) }, PieceType.I);
         }
 
         private static Piece CreateTwoBlocksPiece()

@@ -65,11 +65,10 @@ namespace Tomino
             var hasValue = false;
             foreach (var element in collection)
             {
-                if (!hasValue || compare(element, result))
-                {
-                    result = element;
-                    hasValue = true;
-                }
+                if (hasValue && !compare(element, result)) continue;
+
+                result = element;
+                hasValue = true;
             }
             return result;
         }

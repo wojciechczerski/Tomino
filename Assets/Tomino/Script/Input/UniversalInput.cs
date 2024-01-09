@@ -7,7 +7,7 @@ public class UniversalInput : IPlayerInput
 
     public UniversalInput(params IPlayerInput[] inputs)
     {
-        this._inputs = new List<IPlayerInput>(inputs);
+        _inputs = new List<IPlayerInput>(inputs);
     }
 
     public void Update()

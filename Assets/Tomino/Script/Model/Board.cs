@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Tomino
 {
@@ -91,16 +92,11 @@ namespace Tomino
 
         public override int GetHashCode()
         {
-            var hash = 0;
-            foreach (var block in Blocks)
-            {
-                var row = block.Position.Row;
-                var column = block.Position.Column;
-                var offset = width * height * (int)block.Type;
-                var blockHash = offset + (row * width) + column;
-                hash += blockHash;
-            }
-            return hash;
+            return (from block in Blocks
+                let row = block.Position.Row
+                let column = block.Position.Column
+                let offset = width * height * (int)block.Type
+                select offset + row * width + column).Sum();
         }
 
         /// <summary>
@@ -126,7 +122,7 @@ namespace Tomino
         /// falling.
         /// </summary>
         /// <returns>Collection of piece blocks positions.</returns>
-        public Position[] GetPieceShadow()
+        public ICollection<Position> GetPieceShadow()
         {
             var positions = Piece.GetPositions();
             _ = FallPiece();
@@ -166,15 +162,14 @@ namespace Tomino
                 block.MoveBy(rowOffset, columnOffset);
             }
 
-            if (HasCollisions())
+            if (!HasCollisions()) return true;
+
+            foreach (var block in Piece.blocks)
             {
-                foreach (var block in Piece.blocks)
-                {
-                    block.MoveBy(-rowOffset, -columnOffset);
-                }
-                return false;
+                block.MoveBy(-rowOffset, -columnOffset);
             }
-            return true;
+
+            return false;
         }
 
         /// <summary>
@@ -187,7 +182,7 @@ namespace Tomino
                 return false;
             }
 
-            Dictionary<Block, Position> piecePosition = Piece.GetPositions();
+            var piecePosition = Piece.GetPositions();
             var offset = Piece.blocks[0].Position;
 
             foreach (var block in Piece.blocks)
@@ -197,12 +192,10 @@ namespace Tomino
                 block.MoveTo(-column + offset.Row, row + offset.Column);
             }
 
-            if (HasCollisions() && !ResolveCollisionsAfterRotation())
-            {
-                RestoreSavedPiecePosition(piecePosition);
-                return false;
-            }
-            return true;
+            if (!HasCollisions() || ResolveCollisionsAfterRotation()) return true;
+
+            RestoreSavedPiecePosition(piecePosition);
+            return false;
         }
 
         private bool ResolveCollisionsAfterRotation()
@@ -221,12 +214,13 @@ namespace Tomino
                     return true;
                 }
             }
+
             return false;
         }
 
-        private void RestoreSavedPiecePosition(Dictionary<Block, Position> piecePosition)
+        private void RestoreSavedPiecePosition(IReadOnlyDictionary<Block, Position> piecePosition)
         {
-            foreach (Block block in Piece.blocks)
+            foreach (var block in Piece.blocks)
             {
                 block.MoveTo(piecePosition[block]);
             }
@@ -243,6 +237,7 @@ namespace Tomino
             {
                 rowsCount++;
             }
+
             return rowsCount;
         }
 
@@ -257,13 +252,13 @@ namespace Tomino
             for (var row = height - 1; row >= 0; --row)
             {
                 var rowBlocks = GetBlocksFromRow(row);
-                if (rowBlocks.Count == width)
-                {
-                    Remove(rowBlocks);
-                    MoveDownBlocksBelowRow(row);
-                    rowsRemoved += 1;
-                }
+                if (rowBlocks.Count != width) continue;
+
+                Remove(rowBlocks);
+                MoveDownBlocksBelowRow(row);
+                rowsRemoved += 1;
             }
+
             return rowsRemoved;
         }
 
@@ -282,17 +277,14 @@ namespace Tomino
 
         private void Remove(ICollection<Block> blocksToRemove)
         {
-            _ = Blocks.RemoveAll(block => blocksToRemove.Contains(block));
+            _ = Blocks.RemoveAll(blocksToRemove.Contains);
         }
 
         private void MoveDownBlocksBelowRow(int row)
         {
-            foreach (var block in Blocks)
+            foreach (var block in Blocks.Where(block => block.Position.Row > row))
             {
-                if (block.Position.Row > row)
-                {
-                    block.MoveBy(-1, 0);
-                }
+                block.MoveBy(-1, 0);
             }
         }
     }

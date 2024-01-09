@@ -21,12 +21,11 @@ public class PieceView : MonoBehaviour
 
     internal void Update()
     {
-        if (_renderedPieceType == null || _forceRender || _board.NextPiece.Type != _renderedPieceType)
-        {
-            RenderPiece(_board.NextPiece);
-            _renderedPieceType = _board.NextPiece.Type;
-            _forceRender = false;
-        }
+        if (_renderedPieceType != null && !_forceRender && _board.NextPiece.Type == _renderedPieceType) return;
+
+        RenderPiece(_board.NextPiece);
+        _renderedPieceType = _board.NextPiece.Type;
+        _forceRender = false;
     }
 
     internal void OnRectTransformDimensionsChange()
@@ -59,8 +58,8 @@ public class PieceView : MonoBehaviour
         var maxY = Mathf.Max(yValues) + halfBlockSize;
         var width = maxX - minX;
         var height = maxY - minY;
-        var offsetX = (-width / 2.0f) - minX;
-        var offsetY = (-height / 2.0f) - minY;
+        var offsetX = -width / 2.0f - minX;
+        var offsetY = -height / 2.0f - minY;
 
         foreach (var block in pieceBlocks)
         {
@@ -68,12 +67,12 @@ public class PieceView : MonoBehaviour
         }
     }
 
-    private Vector3 BlockPosition(Position position, float blockSize)
+    private static Vector3 BlockPosition(Position position, float blockSize)
     {
         return new Vector3(position.Column * blockSize, position.Row * blockSize);
     }
 
-    public float BlockSize(Piece piece)
+    private float BlockSize(Piece piece)
     {
         var rect = container.rect;
         var width = rect.size.x;
@@ -82,7 +81,7 @@ public class PieceView : MonoBehaviour
         return Mathf.Min(width / numBlocks, height / numBlocks);
     }
 
-    public Sprite BlockSprite(PieceType type)
+    private Sprite BlockSprite(PieceType type)
     {
         return blockSprites[(int)type];
     }

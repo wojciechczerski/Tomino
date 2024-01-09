@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 using Tomino.Test.Editor.Helper;
 
 namespace Tomino.Test.Editor
@@ -33,23 +34,13 @@ namespace Tomino.Test.Editor
             board.AddPiece();
             var shadow = board.GetPieceShadow();
 
-            Assert.AreEqual(shadow.Length, 1);
-            Assert.AreEqual(shadow[0], new Position(0, 1));
+            Assert.AreEqual(shadow.Count, 1);
+            Assert.AreEqual(shadow.ElementAt(0), new Position(0, 1));
         }
 
-        public void ComputesNextGeneratedPiece()
+        private static Board CreateEmptyBoard()
         {
-            var board = new Board(20, 20, new BalancedRandomPieceProvider());
-            var nextPiece = board.NextPiece;
-
-            board.AddPiece();
-
-            Assert.AreEqual(board.Piece.GetType(), nextPiece.GetType());
-        }
-
-        private Board CreateEmptyBoard()
-        {
-            return new(3, 3, new StubPieceProvider());
+            return new Board(3, 3, new StubPieceProvider());
         }
     }
 }

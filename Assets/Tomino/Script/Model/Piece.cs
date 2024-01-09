@@ -63,7 +63,7 @@ namespace Tomino
         public Dictionary<Block, Position> GetPositions()
         {
             var positions = new Dictionary<Block, Position>();
-            foreach (Block block in blocks)
+            foreach (var block in blocks)
             {
                 positions[block] = block.Position;
             }

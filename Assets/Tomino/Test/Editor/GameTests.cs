@@ -54,7 +54,7 @@ namespace Tomino.Test.Editor
 
             UpdateGameWithAction(action);
 
-            foreach (Block block in _board.Blocks)
+            foreach (var block in _board.Blocks)
             {
                 var start = positions[block];
                 var end = block.Position;
@@ -69,7 +69,7 @@ namespace Tomino.Test.Editor
             var positions = _board.GetBlockPositions();
             _game.Update(10);
 
-            foreach (Block block in _board.Blocks)
+            foreach (var block in _board.Blocks)
             {
                 Assert.AreEqual(block.Position.Row, positions[block].Row - 1);
             }
@@ -109,7 +109,7 @@ namespace Tomino.Test.Editor
             _game.SetNextAction(PlayerAction.MoveRight);
             _game.Update(10);
 
-            foreach (Block block in _board.Blocks)
+            foreach (var block in _board.Blocks)
             {
                 var start = positions[block];
                 var end = block.Position;
@@ -138,16 +138,16 @@ namespace Tomino.Test.Editor
         {
             if (blockCollision)
             {
-                for (int row = 0; row < _board.height; ++row)
+                for (var row = 0; row < _board.height; ++row)
                 {
                     var leftPosition = new Position(row, 0);
-                    var rightPostion = new Position(row, _board.width - 1);
+                    var rightPosition = new Position(row, _board.width - 1);
                     _board.Blocks.Add(new Block(leftPosition, PieceType.I));
-                    _board.Blocks.Add(new Block(rightPostion, PieceType.I));
+                    _board.Blocks.Add(new Block(rightPosition, PieceType.I));
                 }
             }
 
-            for (int i = 0; i < 50; ++i)
+            for (var i = 0; i < 50; ++i)
             {
                 UpdateGameWithAction(action);
                 UpdateGameWithAction(PlayerAction.Rotate);
@@ -173,7 +173,7 @@ namespace Tomino.Test.Editor
             var spy = new GameEventSpy();
             _game.FinishedEvent += spy.OnGameFinished;
 
-            for (int i = 0; i < _board.FallDistance() + 1; ++i)
+            for (var i = 0; i < _board.FallDistance() + 1; ++i)
             {
                 UpdateGameWithAction(PlayerAction.Fall);
             }
@@ -193,21 +193,10 @@ namespace Tomino.Test.Editor
             Assert.AreEqual(score, _game.Score.Value);
         }
 
-        public void UpdatesScoreWhenPieceMovesDown()
-        {
-            int distance = _board.FallDistance();
-            for (int i = 0; i < distance; ++i)
-            {
-                UpdateGameWithAction(PlayerAction.MoveDown);
-            }
-
-            Assert.AreEqual(distance, _game.Score.Value);
-        }
-
         [Test]
         public void UpdatesScoreWhenPieceFalls()
         {
-            int distance = _board.FallDistance();
+            var distance = _board.FallDistance();
             UpdateGameWithAction(PlayerAction.Fall);
 
             Assert.AreEqual(distance * 2, _game.Score.Value);
@@ -219,7 +208,7 @@ namespace Tomino.Test.Editor
         [TestCase(20, 3)]
         public void UpdatesLevelAfterClearingRows(int numRowsCleared, int expectedLevel)
         {
-            for (int i = 0; i < numRowsCleared; ++i)
+            for (var i = 0; i < numRowsCleared; ++i)
             {
                 _board.AddFullRows(1);
                 UpdateGameWithAction(PlayerAction.Fall);

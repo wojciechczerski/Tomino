@@ -2,26 +2,26 @@
 {
     public static class Text
     {
-        public static readonly string GameFinished = "GAME FINISHED";
-        public static readonly string GamePaused = "GAME PAUSED";
-        public static readonly string PlayAgain = "PLAY AGAIN";
-        public static readonly string Resume = "RESUME";
-        public static readonly string NewGame = "NEW GAME";
-        public static readonly string Settings = "SETTINGS";
-        public static readonly string Music = "MUSIC";
-        public static readonly string ScreenButtons = "SCREEN BUTTONS";
-        public static readonly string Close = "CLOSE";
+        public const string GameFinished = "GAME FINISHED";
+        public const string GamePaused = "GAME PAUSED";
+        public const string PlayAgain = "PLAY AGAIN";
+        public const string Resume = "RESUME";
+        public const string NewGame = "NEW GAME";
+        public const string Settings = "SETTINGS";
+        public const string Music = "MUSIC";
+        public const string ScreenButtons = "SCREEN BUTTONS";
+        public const string Close = "CLOSE";
     }
 
     public static class ScoreFormat
     {
-        public static readonly int Length = 9;
-        public static readonly char PadCharacter = '0';
+        public const int Length = 9;
+        public const char PadCharacter = '0';
     }
 
     public static class Input
     {
-        public static readonly float KeyRepeatDelay = 0.18f;
-        public static readonly float KeyRepeatInterval = 0.07f;
+        public const float KeyRepeatDelay = 0.18f;
+        public const float KeyRepeatInterval = 0.07f;
     }
 }
