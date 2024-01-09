@@ -8,16 +8,6 @@ namespace Tomino
         public delegate void GameEventHandler();
 
         /// <summary>
-        /// The event triggered when the game is resumed.
-        /// </summary>
-        public event GameEventHandler ResumedEvent = delegate { };
-
-        /// <summary>
-        /// The event triggered when the game is paused.
-        /// </summary>
-        public event GameEventHandler PausedEvent = delegate { };
-
-        /// <summary>
         /// The event triggered when the game is finished.
         /// </summary>
         public event GameEventHandler FinishedEvent = delegate { };
@@ -72,7 +62,6 @@ namespace Tomino
         public void Start()
         {
             _isPlaying = true;
-            ResumedEvent();
             _elapsedTime = 0;
             Score = new Score();
             Level = new Level();
@@ -86,7 +75,6 @@ namespace Tomino
         public void Resume()
         {
             _isPlaying = true;
-            ResumedEvent();
         }
 
         /// <summary>
@@ -95,7 +83,6 @@ namespace Tomino
         public void Pause()
         {
             _isPlaying = false;
-            PausedEvent();
         }
 
         /// <summary>
@@ -113,7 +100,6 @@ namespace Tomino
             if (_board.HasCollisions())
             {
                 _isPlaying = false;
-                PausedEvent();
                 FinishedEvent();
             }
         }
