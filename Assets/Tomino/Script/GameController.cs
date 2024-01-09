@@ -61,11 +61,6 @@ public class GameController : MonoBehaviour
         _game.SetNextAction(PlayerAction.MoveDown);
     }
 
-    public void OnFallButtonTap()
-    {
-        _game.SetNextAction(PlayerAction.Fall);
-    }
-
     public void OnRotateButtonTap()
     {
         _game.SetNextAction(PlayerAction.Rotate);
