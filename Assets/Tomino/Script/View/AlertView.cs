@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Tomino.View;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -21,17 +22,14 @@ public class AlertView : MonoBehaviour
     public void AddButton(string text, UnityAction onClickAction, UnityAction pointerDownAction)
     {
         var buttonGameObject = Instantiate(buttonPrefab);
-        var rectTransformComponent = buttonGameObject.GetComponent<RectTransform>();
-        var buttonComponent = buttonGameObject.GetComponent<Button>();
-        var textComponent = buttonGameObject.GetComponentInChildren<Text>();
-        var pointerHandlerComponent = buttonGameObject.GetComponent<PointerHandler>();
+        var alertButton = buttonGameObject.GetComponent<AlertButtonView>();
 
-        pointerHandlerComponent.onPointerDown.AddListener(pointerDownAction);
-        buttonComponent.onClick.AddListener(onClickAction);
-        buttonComponent.onClick.AddListener(Hide);
-        textComponent.text = text;
+        alertButton.PointerHandler.onPointerDown.AddListener(pointerDownAction);
+        alertButton.Button.onClick.AddListener(onClickAction);
+        alertButton.Button.onClick.AddListener(Hide);
+        alertButton.Text.text = text;
 
-        rectTransformComponent.SetParent(buttonsContainer, false);
+        alertButton.RectTransform.SetParent(buttonsContainer, false);
     }
 
     public void Show()
