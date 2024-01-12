@@ -1,6 +1,8 @@
-﻿using Tomino.View;
+﻿using System.Collections.Generic;
+using Tomino.View;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Pool;
 using UnityEngine.UI;
 
 public class AlertView : MonoBehaviour
@@ -9,8 +11,12 @@ public class AlertView : MonoBehaviour
     public RectTransform buttonsContainer;
     public GameObject buttonPrefab;
 
+    private ObjectPool<AlertButtonView> _buttonPool;
+    private readonly List<AlertButtonView> _buttons = new ();
+
     internal void Awake()
     {
+        _buttonPool = new ObjectPool<AlertButtonView>(CreateAlertButton, OnGetAlertButton, OnReleaseAlertButton);
         Hide();
     }
 
@@ -21,15 +27,12 @@ public class AlertView : MonoBehaviour
 
     public void AddButton(string text, UnityAction onClickAction, UnityAction pointerDownAction)
     {
-        var buttonGameObject = Instantiate(buttonPrefab);
-        var alertButton = buttonGameObject.GetComponent<AlertButtonView>();
-
+        var alertButton = _buttonPool.Get();
         alertButton.PointerHandler.onPointerDown.AddListener(pointerDownAction);
         alertButton.Button.onClick.AddListener(onClickAction);
         alertButton.Button.onClick.AddListener(Hide);
         alertButton.Text.text = text;
-
-        alertButton.RectTransform.SetParent(buttonsContainer, false);
+        alertButton.RectTransform.SetSiblingIndex(buttonsContainer.childCount - 1);
     }
 
     public void Show()
@@ -39,10 +42,32 @@ public class AlertView : MonoBehaviour
 
     private void Hide()
     {
-        for (var i = buttonsContainer.childCount - 1; i >= 0; i--)
-        {
-            Destroy(buttonsContainer.GetChild(i).gameObject);
-        }
+        _buttons.ForEach(_buttonPool.Release);
+        _buttons.Clear();
         gameObject.SetActive(false);
+    }
+
+    private AlertButtonView CreateAlertButton()
+    {
+        var instance = Instantiate(buttonPrefab);
+        instance.SetActive(false);
+
+        var button = instance.GetComponent<AlertButtonView>();
+        button.RectTransform.SetParent(buttonsContainer, false);
+
+        return button;
+    }
+
+    private void OnGetAlertButton(AlertButtonView button)
+    {
+        button.gameObject.SetActive(true);
+        _buttons.Add(button);
+    }
+
+    private static void OnReleaseAlertButton(AlertButtonView button)
+    {
+        button.Button.onClick.RemoveAllListeners();
+        button.PointerHandler.onPointerDown.RemoveAllListeners();
+        button.gameObject.SetActive(false);
     }
 }
