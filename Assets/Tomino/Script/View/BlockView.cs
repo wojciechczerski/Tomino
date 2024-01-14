@@ -19,6 +19,11 @@ public class BlockView : MonoBehaviour
         transform.localPosition = position;
     }
 
+    public void SetColor(Color color)
+    {
+        _spriteRenderer.color = color;
+    }
+
     public void SetSize(float size)
     {
         var sprite = _spriteRenderer.sprite;

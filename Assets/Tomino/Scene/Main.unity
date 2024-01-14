@@ -4397,6 +4397,15 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b4e95d9d195ad4cb39c8c25fa6408a18, type: 3}
   - {fileID: 21300000, guid: 2e6bd5509a3b1475d9ea8f11481a7c57, type: 3}
   - {fileID: 21300000, guid: 27630e5701be3434a9d631b8fb12fab7, type: 3}
+  blockSprite: {fileID: 21300000, guid: 6d55945d7fd594f7985df2b3deeeb300, type: 3}
+  blockColors:
+  - {r: 0.6431373, g: 0.3529412, b: 0.86274517, a: 1}
+  - {r: 0.86274517, g: 0.3529412, b: 0.86274517, a: 1}
+  - {r: 0.82745105, g: 0.30588236, b: 0.4431373, a: 1}
+  - {r: 0.9333334, g: 0.5058824, b: 0.6392157, a: 1}
+  - {r: 0.9450981, g: 0.003921569, b: 0.5058824, a: 1}
+  - {r: 0.7843138, g: 0.050980397, b: 0.6, a: 1}
+  - {r: 0.4431373, g: 0.30980393, b: 0.8705883, a: 1}
   shadowBlockSprite: {fileID: 21300000, guid: 03a75a7f153bc46f780a3b96e2729505, type: 3}
 --- !u!1 &1678670804
 GameObject:

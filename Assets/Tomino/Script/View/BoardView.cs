@@ -5,11 +5,14 @@ public class BoardView : MonoBehaviour
 {
     private enum Layer
     {
-        Blocks, PieceShadow
+        Blocks,
+        PieceShadow
     }
 
     public GameObject blockPrefab;
     public Sprite[] blockSprites;
+    public Sprite blockSprite;
+    public Color[] blockColors;
     public Sprite shadowBlockSprite;
     public readonly TouchInput touchInput = new();
 
@@ -37,7 +40,7 @@ public class BoardView : MonoBehaviour
     {
         foreach (var block in _gameBoard.Blocks)
         {
-            RenderBlock(BlockSprite(block.Type), block.Position, Layer.Blocks);
+            RenderBlock(blockSprite, block.Position, BlockColor(block.Type), Layer.Blocks);
         }
     }
 
@@ -45,15 +48,16 @@ public class BoardView : MonoBehaviour
     {
         foreach (var position in _gameBoard.GetPieceShadow())
         {
-            RenderBlock(shadowBlockSprite, position, Layer.PieceShadow);
+            RenderBlock(shadowBlockSprite, position, Color.white, Layer.PieceShadow);
         }
     }
 
-    private void RenderBlock(Sprite sprite, Position position, Layer layer)
+    private void RenderBlock(Sprite sprite, Position position, Color color, Layer layer)
     {
         var view = _blockViewPool.GetAndActivate();
         view.SetSprite(sprite);
         view.SetSize(BlockSize());
+        view.SetColor(color);
         view.SetPosition(BlockPosition(position.Row, position.Column, layer));
     }
 
@@ -96,6 +100,11 @@ public class BoardView : MonoBehaviour
     private Sprite BlockSprite(PieceType type)
     {
         return blockSprites[(int)type];
+    }
+
+    private Color BlockColor(PieceType type)
+    {
+        return blockColors[(int)type];
     }
 
     private Vector3 PivotOffset()
