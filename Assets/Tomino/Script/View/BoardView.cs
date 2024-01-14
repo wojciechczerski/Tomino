@@ -10,7 +10,6 @@ public class BoardView : MonoBehaviour
     }
 
     public GameObject blockPrefab;
-    public Sprite[] blockSprites;
     public Sprite blockSprite;
     public Color[] blockColors;
     public Sprite shadowBlockSprite;
@@ -95,11 +94,6 @@ public class BoardView : MonoBehaviour
     {
         var boardWidth = _rectTransform.rect.size.x;
         return boardWidth / _gameBoard.width;
-    }
-
-    private Sprite BlockSprite(PieceType type)
-    {
-        return blockSprites[(int)type];
     }
 
     private Color BlockColor(PieceType type)

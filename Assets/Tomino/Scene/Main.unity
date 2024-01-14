@@ -4389,14 +4389,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 1946527347529550, guid: 262ceda6c78e44f29bdcadd59e8c7cc5,
     type: 3}
-  blockSprites:
-  - {fileID: 21300000, guid: 2b04b070b759942bf99614a1e6cf610d, type: 3}
-  - {fileID: 21300000, guid: 4ecb7f2281bc64a3b8a4147ae3c6e5b6, type: 3}
-  - {fileID: 21300000, guid: 69fe660da071d4322aa70e29712528c9, type: 3}
-  - {fileID: 21300000, guid: 6127214068f4f4f6ea12fe39edc4c461, type: 3}
-  - {fileID: 21300000, guid: b4e95d9d195ad4cb39c8c25fa6408a18, type: 3}
-  - {fileID: 21300000, guid: 2e6bd5509a3b1475d9ea8f11481a7c57, type: 3}
-  - {fileID: 21300000, guid: 27630e5701be3434a9d631b8fb12fab7, type: 3}
   blockSprite: {fileID: 21300000, guid: 6d55945d7fd594f7985df2b3deeeb300, type: 3}
   blockColors:
   - {r: 0.6431373, g: 0.3529412, b: 0.86274517, a: 1}
