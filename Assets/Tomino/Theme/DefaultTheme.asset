@@ -19,3 +19,5 @@ MonoBehaviour:
   blockColor5: {r: 0.9411765, g: 0, b: 0.50980395, a: 1}
   blockColor6: {r: 0.78431374, g: 0.039215688, b: 0.5882353, a: 1}
   blockColor7: {r: 0.43137255, g: 0.3137255, b: 0.8627451, a: 1}
+  boardBackgroundColor: {r: 0.11764706, g: 0.15686275, b: 0.19607843, a: 1}
+  boardBorderColor: {r: 0.21568628, g: 0.5294118, b: 0.88235295, a: 1}
