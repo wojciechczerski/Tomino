@@ -1,10 +1,12 @@
 ﻿using Tomino;
+using Tomino.View;
 using UnityEngine;
 
 public class PieceView : MonoBehaviour
 {
     public GameObject blockPrefab;
-    public Sprite[] blockSprites;
+    public Sprite blockSprite;
+    public Theme theme;
     public RectTransform container;
 
     private Board _board;
@@ -42,8 +44,9 @@ public class PieceView : MonoBehaviour
         foreach (var block in piece.blocks)
         {
             var blockView = _blockViewPool.GetAndActivate();
-            blockView.SetSprite(BlockSprite(block.Type));
+            blockView.SetSprite(blockSprite);
             blockView.SetSize(blockSize);
+            blockView.SetColor(BlockColor(block.Type));
             blockView.SetPosition(BlockPosition(block.Position, blockSize));
         }
 
@@ -81,8 +84,8 @@ public class PieceView : MonoBehaviour
         return Mathf.Min(width / numBlocks, height / numBlocks);
     }
 
-    private Sprite BlockSprite(PieceType type)
+    private Color BlockColor(PieceType type)
     {
-        return blockSprites[(int)type];
+        return theme.BlockColors[(int)type];
     }
 }
