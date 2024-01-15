@@ -1,7 +1,14 @@
+using System;
 using UnityEngine;
 
 namespace Tomino.View
 {
+    public enum ThemeColorName
+    {
+        BoardBackgroundColor,
+        BoardBorderColor
+    }
+
     [CreateAssetMenu(fileName = "Theme", menuName = "Tomino/Theme", order = 1)]
     public class Theme: ScriptableObject
     {
@@ -21,5 +28,15 @@ namespace Tomino.View
         {
             blockColor1, blockColor2, blockColor3, blockColor4, blockColor5, blockColor6, blockColor7
         };
+
+        public Color GetColor(ThemeColorName colorName)
+        {
+            return colorName switch
+            {
+                ThemeColorName.BoardBackgroundColor => boardBackgroundColor,
+                ThemeColorName.BoardBorderColor => boardBorderColor,
+                _ => throw new ArgumentOutOfRangeException(nameof(colorName), colorName, null)
+            };
+        }
     }
 }
