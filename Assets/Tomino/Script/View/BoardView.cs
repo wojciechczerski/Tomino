@@ -1,4 +1,5 @@
 ﻿using Tomino;
+using Tomino.View;
 using UnityEngine;
 
 public class BoardView : MonoBehaviour
@@ -11,7 +12,7 @@ public class BoardView : MonoBehaviour
 
     public GameObject blockPrefab;
     public Sprite blockSprite;
-    public Color[] blockColors;
+    public Theme theme;
     public Sprite shadowBlockSprite;
     public readonly TouchInput touchInput = new();
 
@@ -98,7 +99,7 @@ public class BoardView : MonoBehaviour
 
     private Color BlockColor(PieceType type)
     {
-        return blockColors[(int)type];
+        return theme.BlockColors[(int)type];
     }
 
     private Vector3 PivotOffset()
