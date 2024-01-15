@@ -4390,7 +4390,7 @@ MonoBehaviour:
   blockPrefab: {fileID: 1946527347529550, guid: 262ceda6c78e44f29bdcadd59e8c7cc5,
     type: 3}
   blockSprite: {fileID: 21300000, guid: 6d55945d7fd594f7985df2b3deeeb300, type: 3}
-  theme: {fileID: 11400000, guid: 062eac556c68b4abda593df6e2af46c9, type: 2}
+  themeProvider: {fileID: 11400000, guid: f986fc615d5af435ca420b0435fb1eb3, type: 2}
   shadowBlockSprite: {fileID: 21300000, guid: 03a75a7f153bc46f780a3b96e2729505, type: 3}
 --- !u!1 &1678670804
 GameObject:
@@ -5371,7 +5371,7 @@ MonoBehaviour:
   blockPrefab: {fileID: 1946527347529550, guid: 262ceda6c78e44f29bdcadd59e8c7cc5,
     type: 3}
   blockSprite: {fileID: 21300000, guid: 6d55945d7fd594f7985df2b3deeeb300, type: 3}
-  theme: {fileID: 11400000, guid: 062eac556c68b4abda593df6e2af46c9, type: 2}
+  themeProvider: {fileID: 11400000, guid: f986fc615d5af435ca420b0435fb1eb3, type: 2}
   container: {fileID: 1291738416}
 --- !u!114 &2001834798
 MonoBehaviour:

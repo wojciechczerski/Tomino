@@ -12,7 +12,7 @@ public class BoardView : MonoBehaviour
 
     public GameObject blockPrefab;
     public Sprite blockSprite;
-    public Theme theme;
+    public ThemeProvider themeProvider;
     public Sprite shadowBlockSprite;
     public readonly TouchInput touchInput = new();
 
@@ -99,7 +99,7 @@ public class BoardView : MonoBehaviour
 
     private Color BlockColor(PieceType type)
     {
-        return theme.BlockColors[(int)type];
+        return themeProvider.currentTheme.BlockColors[(int)type];
     }
 
     private Vector3 PivotOffset()

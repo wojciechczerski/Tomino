@@ -6,7 +6,7 @@ public class PieceView : MonoBehaviour
 {
     public GameObject blockPrefab;
     public Sprite blockSprite;
-    public Theme theme;
+    public ThemeProvider themeProvider;
     public RectTransform container;
 
     private Board _board;
@@ -86,6 +86,6 @@ public class PieceView : MonoBehaviour
 
     private Color BlockColor(PieceType type)
     {
-        return theme.BlockColors[(int)type];
+        return themeProvider.currentTheme.BlockColors[(int)type];
     }
 }
