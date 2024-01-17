@@ -25,3 +25,7 @@ MonoBehaviour:
   panelBorderColor: {r: 0.21568629, g: 0.5294118, b: 0.882353, a: 1}
   menuBackgroundColor: {r: 0.078431375, g: 0.21568628, b: 0.3529412, a: 1}
   menuBorderColor: {r: 0.21568628, g: 0.5294118, b: 0.88235295, a: 1}
+  buttonBorderColor: {r: 1, g: 1, b: 1, a: 1}
+  buttonBackgroundColor: {r: 0.9607843, g: 0.13725491, b: 0.627451, a: 1}
+  buttonIconColor: {r: 1, g: 1, b: 1, a: 1}
+  buttonTextColor: {r: 1, g: 1, b: 1, a: 1}
