@@ -21,3 +21,5 @@ MonoBehaviour:
   blockColor7: {r: 0.43137255, g: 0.3137255, b: 0.8627451, a: 1}
   boardBackgroundColor: {r: 0.11764706, g: 0.15686275, b: 0.19607843, a: 1}
   boardBorderColor: {r: 0.21568628, g: 0.5294118, b: 0.88235295, a: 1}
+  panelBackgroundColor: {r: 0.078431375, g: 0.21568628, b: 0.3529412, a: 1}
+  panelBorderColor: {r: 0.21568629, g: 0.5294118, b: 0.882353, a: 1}

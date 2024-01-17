@@ -92,6 +92,8 @@ MonoBehaviour:
   themeProvider: {fileID: 11400000, guid: f986fc615d5af435ca420b0435fb1eb3, type: 2}
   borderImage: {fileID: 2252873869475128582}
   backgroundImage: {fileID: 8796208622945529904}
+  borderColorName: 1
+  backgroundColorName: 0
 --- !u!1 &8599063877953350627
 GameObject:
   m_ObjectHideFlags: 0

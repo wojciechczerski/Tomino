@@ -5,6 +5,8 @@ namespace Tomino.View
 {
     public enum ThemeColorName
     {
+        PanelBackgroundColor,
+        PanelBorderColor,
         BoardBackgroundColor,
         BoardBorderColor
     }
@@ -23,6 +25,8 @@ namespace Tomino.View
         [Space(10)]
         public Color boardBackgroundColor = new(30 / 255.0f, 40 / 255.0f, 50 / 255.0f, 1);
         public Color boardBorderColor = new(55 / 255.0f, 135 / 255.0f, 225 / 255.0f, 1);
+        public Color panelBackgroundColor = new(20 / 255.0f, 55 / 255.0f, 90 / 255.0f, 1);
+        public Color panelBorderColor = new(55 / 255.0f, 135 / 255.0f, 225 / 255.0f, 1);
 
         public Color[] BlockColors => new[]
         {
@@ -33,6 +37,8 @@ namespace Tomino.View
         {
             return colorName switch
             {
+                ThemeColorName.PanelBackgroundColor => panelBackgroundColor,
+                ThemeColorName.PanelBorderColor => panelBorderColor,
                 ThemeColorName.BoardBackgroundColor => boardBackgroundColor,
                 ThemeColorName.BoardBorderColor => boardBorderColor,
                 _ => throw new ArgumentOutOfRangeException(nameof(colorName), colorName, null)
