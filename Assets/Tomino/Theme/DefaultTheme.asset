@@ -23,3 +23,5 @@ MonoBehaviour:
   boardBorderColor: {r: 0.21568628, g: 0.5294118, b: 0.88235295, a: 1}
   panelBackgroundColor: {r: 0.078431375, g: 0.21568628, b: 0.3529412, a: 1}
   panelBorderColor: {r: 0.21568629, g: 0.5294118, b: 0.882353, a: 1}
+  menuBackgroundColor: {r: 0.078431375, g: 0.21568628, b: 0.3529412, a: 1}
+  menuBorderColor: {r: 0.21568628, g: 0.5294118, b: 0.88235295, a: 1}

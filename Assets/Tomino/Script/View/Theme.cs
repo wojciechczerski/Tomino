@@ -8,7 +8,9 @@ namespace Tomino.View
         PanelBackgroundColor,
         PanelBorderColor,
         BoardBackgroundColor,
-        BoardBorderColor
+        BoardBorderColor,
+        MenuBackgroundColor,
+        MenuBorderColor,
     }
 
     [CreateAssetMenu(fileName = "Theme", menuName = "Tomino/Theme", order = 1)]
@@ -27,7 +29,8 @@ namespace Tomino.View
         public Color boardBorderColor = new(55 / 255.0f, 135 / 255.0f, 225 / 255.0f, 1);
         public Color panelBackgroundColor = new(20 / 255.0f, 55 / 255.0f, 90 / 255.0f, 1);
         public Color panelBorderColor = new(55 / 255.0f, 135 / 255.0f, 225 / 255.0f, 1);
-
+        public Color menuBackgroundColor = new(20 / 255.0f, 55 / 255.0f, 90 / 255.0f, 1);
+        public Color menuBorderColor = new(55 / 255.0f, 135 / 255.0f, 225 / 255.0f, 1);
         public Color[] BlockColors => new[]
         {
             blockColor1, blockColor2, blockColor3, blockColor4, blockColor5, blockColor6, blockColor7
@@ -41,6 +44,8 @@ namespace Tomino.View
                 ThemeColorName.PanelBorderColor => panelBorderColor,
                 ThemeColorName.BoardBackgroundColor => boardBackgroundColor,
                 ThemeColorName.BoardBorderColor => boardBorderColor,
+                ThemeColorName.MenuBackgroundColor => menuBackgroundColor,
+                ThemeColorName.MenuBorderColor => menuBorderColor,
                 _ => throw new ArgumentOutOfRangeException(nameof(colorName), colorName, null)
             };
         }
