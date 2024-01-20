@@ -30,3 +30,5 @@ MonoBehaviour:
   buttonIconColor: {r: 1, g: 1, b: 1, a: 1}
   buttonTextColor: {r: 1, g: 1, b: 1, a: 1}
   gameLabelTextColor: {r: 0.9607843, g: 0.13725491, b: 0.627451, a: 1}
+  gameScoreTextColor: {r: 1, g: 1, b: 1, a: 1}
+  gameLevelTextColor: {r: 0.5568628, g: 0.70980394, b: 0.9607844, a: 1}

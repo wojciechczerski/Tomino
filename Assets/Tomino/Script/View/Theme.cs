@@ -15,7 +15,9 @@ namespace Tomino.View
         ButtonBackgroundColor,
         ButtonIconColor,
         ButtonTextColor,
-        GameLabelTextColor
+        GameLabelTextColor,
+        GameScoreTextColor,
+        GameLevelTextColor,
     }
 
     [CreateAssetMenu(fileName = "Theme", menuName = "Tomino/Theme", order = 1)]
@@ -41,6 +43,8 @@ namespace Tomino.View
         public Color buttonIconColor = Color.white;
         public Color buttonTextColor = Color.white;
         public Color gameLabelTextColor = new(245 / 255.0f, 35 / 255.0f, 160 / 255.0f, 1);
+        public Color gameScoreTextColor = Color.white;
+        public Color gameLevelTextColor = new(245 / 255.0f, 35 / 255.0f, 160 / 255.0f, 1);
 
         public Color[] BlockColors => new[]
         {
@@ -62,6 +66,8 @@ namespace Tomino.View
                 ThemeColorName.ButtonIconColor => buttonIconColor,
                 ThemeColorName.ButtonTextColor => buttonTextColor,
                 ThemeColorName.GameLabelTextColor => gameLabelTextColor,
+                ThemeColorName.GameScoreTextColor => gameScoreTextColor,
+                ThemeColorName.GameLevelTextColor => gameLevelTextColor,
                 _ => throw new ArgumentOutOfRangeException(nameof(colorName), colorName, null)
             };
         }
