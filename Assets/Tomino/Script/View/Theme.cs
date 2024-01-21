@@ -45,6 +45,14 @@ namespace Tomino.View
         public Color gameLabelTextColor = new(245 / 255.0f, 35 / 255.0f, 160 / 255.0f, 1);
         public Color gameScoreTextColor = Color.white;
         public Color gameLevelTextColor = new(245 / 255.0f, 35 / 255.0f, 160 / 255.0f, 1);
+        public Color toggleBorderColor = Color.white;
+        public Color toggleBorderColorSelected = Color.white;
+        public Color toggleIconColor = Color.white;
+        public Color toggleIconColorSelected = Color.white;
+        public Color toggleBackgroundColor = Color.clear;
+        public Color toggleBackgroundColorSelected = new(245 / 255.0f, 35 / 255.0f, 160 / 255.0f, 1);
+        public Color toggleTextColor = Color.white;
+        public Color toggleTextColorSelected = Color.white;
 
         public Color[] BlockColors => new[]
         {
