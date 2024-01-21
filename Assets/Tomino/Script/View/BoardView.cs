@@ -48,7 +48,7 @@ public class BoardView : MonoBehaviour
     {
         foreach (var position in _gameBoard.GetPieceShadow())
         {
-            RenderBlock(shadowBlockSprite, position, Color.white, Layer.PieceShadow);
+            RenderBlock(shadowBlockSprite, position, themeProvider.currentTheme.blockShadowColor, Layer.PieceShadow);
         }
     }
 

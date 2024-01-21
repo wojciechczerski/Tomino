@@ -33,6 +33,7 @@ namespace Tomino.View
         public Color blockColor5 = new(240 / 255.0f, 0 / 255.0f, 130 / 255.0f, 1);
         public Color blockColor6 = new(200 / 255.0f, 10 / 255.0f, 150 / 255.0f, 1);
         public Color blockColor7 = new(110 / 255.0f, 80 / 255.0f, 220 / 255.0f, 1);
+        public Color blockShadowColor = Color.white;
 
         [Space(10)]
         public Color boardBackgroundColor = new(30 / 255.0f, 40 / 255.0f, 50 / 255.0f, 1);
