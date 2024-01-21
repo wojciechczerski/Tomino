@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 819453630912827192}
   - component: {fileID: 1312571335287454566}
   - component: {fileID: 2864451780537734968}
+  - component: {fileID: 7669517409459397440}
   m_Layer: 5
   m_Name: MenuText
   m_TagString: Untagged
@@ -58,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.078431375, g: 0.21568628, b: 0.3529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -79,3 +80,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Text
+--- !u!114 &7669517409459397440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5878027268467603805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5292de7a2e245178cffb8f613a1cdd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeProvider: {fileID: 11400000, guid: f986fc615d5af435ca420b0435fb1eb3, type: 2}
+  text: {fileID: 2864451780537734968}
+  colorName: 13
