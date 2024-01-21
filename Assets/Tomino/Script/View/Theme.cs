@@ -19,7 +19,8 @@ namespace Tomino.View
         GameScoreTextColor,
         GameLevelTextColor,
         MenuTextColor,
-        ScreenButtonColor
+        ScreenButtonColor,
+        GameBackgroundColor
     }
 
     [CreateAssetMenu(fileName = "Theme", menuName = "Tomino/Theme", order = 1)]
@@ -57,6 +58,7 @@ namespace Tomino.View
         public Color toggleTextColorSelected = Color.white;
         public Color menuTextColor = Color.white;
         public Color screenButtonColor = Color.white;
+        public Color gameBackgroundColor = new(35 / 255.0f, 65 / 255.0f, 100 / 255.0f, 1);
 
         public Color[] BlockColors => new[]
         {
@@ -82,6 +84,7 @@ namespace Tomino.View
                 ThemeColorName.GameLevelTextColor => gameLevelTextColor,
                 ThemeColorName.MenuTextColor => menuTextColor,
                 ThemeColorName.ScreenButtonColor => screenButtonColor,
+                ThemeColorName.GameBackgroundColor => gameBackgroundColor,
                 _ => throw new ArgumentOutOfRangeException(nameof(colorName), colorName, null)
             };
         }
