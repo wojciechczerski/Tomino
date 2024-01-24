@@ -20,6 +20,7 @@ namespace Tomino.View
         GameLevelTextColor,
         MenuTextColor,
         ScreenButtonColor,
+        ScreenButtonBorderColor,
         GameBackgroundColor
     }
 
@@ -59,6 +60,7 @@ namespace Tomino.View
         public Color toggleTextColorSelected = Color.white;
         public Color menuTextColor = Color.white;
         public Color screenButtonColor = Color.white;
+        public Color screenButtonBorderColor = Color.white;
         public Color gameBackgroundColor = new(35 / 255.0f, 65 / 255.0f, 100 / 255.0f, 1);
 
         public Color[] BlockColors => new[]
@@ -85,6 +87,7 @@ namespace Tomino.View
                 ThemeColorName.GameLevelTextColor => gameLevelTextColor,
                 ThemeColorName.MenuTextColor => menuTextColor,
                 ThemeColorName.ScreenButtonColor => screenButtonColor,
+                ThemeColorName.ScreenButtonBorderColor => screenButtonBorderColor,
                 ThemeColorName.GameBackgroundColor => gameBackgroundColor,
                 _ => throw new ArgumentOutOfRangeException(nameof(colorName), colorName, null)
             };

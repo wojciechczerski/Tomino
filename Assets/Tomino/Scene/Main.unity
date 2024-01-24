@@ -1291,12 +1291,23 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 2023a21c647e549f69c1556e43d139d7,
+      objectReference: {fileID: 21300000, guid: 01a881e55d68140eda5eaa13f801dc01,
         type: 3}
     - target: {fileID: 4627362028319156246, guid: bcaefe5f65249409c8f3c9087cf977fa,
         type: 3}
       propertyPath: m_Name
       value: Down Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507875230206890151, guid: bcaefe5f65249409c8f3c9087cf977fa,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2023a21c647e549f69c1556e43d139d7,
+        type: 3}
+    - target: {fileID: 6507875230206890151, guid: bcaefe5f65249409c8f3c9087cf977fa,
+        type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2799,12 +2810,23 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0e612b22a4025441ca5a9a13cf645576,
+      objectReference: {fileID: 21300000, guid: 1b7fc5ce2eda641879fda9b2ec550ee3,
         type: 3}
     - target: {fileID: 4627362028319156246, guid: bcaefe5f65249409c8f3c9087cf977fa,
         type: 3}
       propertyPath: m_Name
       value: Right Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507875230206890151, guid: bcaefe5f65249409c8f3c9087cf977fa,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0e612b22a4025441ca5a9a13cf645576,
+        type: 3}
+    - target: {fileID: 6507875230206890151, guid: bcaefe5f65249409c8f3c9087cf977fa,
+        type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4145,7 +4167,7 @@ PrefabInstance:
     - target: {fileID: 4341526950120056410, guid: a74b1b7b21f98445d9b395d6f4ef590d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 56.153847
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4341526950120056410, guid: a74b1b7b21f98445d9b395d6f4ef590d,
         type: 3}
@@ -5291,12 +5313,43 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 260feaba5de38420ab40537663b9aa8d,
+      objectReference: {fileID: 21300000, guid: 4a797697573344c3393c646e0992dc7f,
         type: 3}
     - target: {fileID: 4627362028319156246, guid: bcaefe5f65249409c8f3c9087cf977fa,
         type: 3}
       propertyPath: m_Name
       value: Rotate Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507875230206890151, guid: bcaefe5f65249409c8f3c9087cf977fa,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7a83fd2fb722d4c4ea766a33b0ebf401,
+        type: 3}
+    - target: {fileID: 6507875230206890151, guid: bcaefe5f65249409c8f3c9087cf977fa,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507875230206890151, guid: bcaefe5f65249409c8f3c9087cf977fa,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507875230206890151, guid: bcaefe5f65249409c8f3c9087cf977fa,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507875230206890151, guid: bcaefe5f65249409c8f3c9087cf977fa,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507875230206890151, guid: bcaefe5f65249409c8f3c9087cf977fa,
+        type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5483,7 +5536,7 @@ PrefabInstance:
     - target: {fileID: 4341526950120056410, guid: a74b1b7b21f98445d9b395d6f4ef590d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 56.153847
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4341526950120056410, guid: a74b1b7b21f98445d9b395d6f4ef590d,
         type: 3}
@@ -5561,7 +5614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13725491, g: 0.25490198, b: 0.39215687, a: 1}
+  m_Color: {r: 1, g: 0.7957736, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5600,7 +5653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   themeProvider: {fileID: 11400000, guid: f986fc615d5af435ca420b0435fb1eb3, type: 2}
   image: {fileID: 2021287630}
-  colorName: 15
+  colorName: 16
 --- !u!1001 &2023800822
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7219,12 +7272,23 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3bcec6091be1247f9a1bf0fd17b11e2d,
+      objectReference: {fileID: 21300000, guid: 3555e34dc0ba14bd0bea476bdd4bdc8c,
         type: 3}
     - target: {fileID: 4627362028319156246, guid: bcaefe5f65249409c8f3c9087cf977fa,
         type: 3}
       propertyPath: m_Name
       value: Left Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507875230206890151, guid: bcaefe5f65249409c8f3c9087cf977fa,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3bcec6091be1247f9a1bf0fd17b11e2d,
+        type: 3}
+    - target: {fileID: 6507875230206890151, guid: bcaefe5f65249409c8f3c9087cf977fa,
+        type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
