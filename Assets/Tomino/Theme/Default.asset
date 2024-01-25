@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d74596528c54431aa91270c4c5658717, type: 3}
-  m_Name: DefaultTheme
+  m_Name: Default
   m_EditorClassIdentifier: 
   blockColor1: {r: 0.64705884, g: 0.3529412, b: 0.8627451, a: 1}
   blockColor2: {r: 0.8627451, g: 0.3529412, b: 0.8627451, a: 1}
@@ -42,5 +42,6 @@ MonoBehaviour:
   toggleTextColor: {r: 1, g: 1, b: 1, a: 1}
   toggleTextColorSelected: {r: 1, g: 1, b: 1, a: 1}
   menuTextColor: {r: 1, g: 1, b: 1, a: 1}
-  screenButtonColor: {r: 1, g: 1, b: 1, a: 1}
+  screenButtonColor: {r: 0.8745099, g: 0.1254902, b: 0.57254905, a: 1}
+  screenButtonBorderColor: {r: 1, g: 1, b: 1, a: 1}
   gameBackgroundColor: {r: 0.13725491, g: 0.25490198, b: 0.39215687, a: 1}
