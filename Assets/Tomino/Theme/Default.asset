@@ -20,19 +20,21 @@ MonoBehaviour:
   blockColor6: {r: 0.78431374, g: 0.039215688, b: 0.5882353, a: 1}
   blockColor7: {r: 0.43137255, g: 0.3137255, b: 0.8627451, a: 1}
   blockShadowColor: {r: 1, g: 1, b: 1, a: 1}
+  gameBackgroundColor: {r: 0.13725491, g: 0.25490198, b: 0.39215687, a: 1}
   boardBackgroundColor: {r: 0.11764706, g: 0.15686275, b: 0.19607843, a: 1}
   boardBorderColor: {r: 0.21568628, g: 0.5294118, b: 0.88235295, a: 1}
   panelBackgroundColor: {r: 0.078431375, g: 0.21568628, b: 0.3529412, a: 1}
   panelBorderColor: {r: 0.21568629, g: 0.5294118, b: 0.882353, a: 1}
+  panelLabelTextColor: {r: 0.9607843, g: 0.13725491, b: 0.627451, a: 1}
+  panelScoreTextColor: {r: 1, g: 1, b: 1, a: 1}
+  panelLevelTextColor: {r: 0.5568628, g: 0.70980394, b: 0.9607844, a: 1}
   menuBackgroundColor: {r: 0.078431375, g: 0.21568628, b: 0.3529412, a: 1}
   menuBorderColor: {r: 0.21568628, g: 0.5294118, b: 0.88235295, a: 1}
+  menuTextColor: {r: 1, g: 1, b: 1, a: 1}
   buttonBorderColor: {r: 1, g: 1, b: 1, a: 1}
   buttonBackgroundColor: {r: 0.9607843, g: 0.13725491, b: 0.627451, a: 1}
   buttonIconColor: {r: 1, g: 1, b: 1, a: 1}
   buttonTextColor: {r: 1, g: 1, b: 1, a: 1}
-  gameLabelTextColor: {r: 0.9607843, g: 0.13725491, b: 0.627451, a: 1}
-  gameScoreTextColor: {r: 1, g: 1, b: 1, a: 1}
-  gameLevelTextColor: {r: 0.5568628, g: 0.70980394, b: 0.9607844, a: 1}
   toggleBorderColor: {r: 1, g: 1, b: 1, a: 1}
   toggleBorderColorSelected: {r: 1, g: 1, b: 1, a: 1}
   toggleIconColor: {r: 1, g: 1, b: 1, a: 1}
@@ -41,7 +43,5 @@ MonoBehaviour:
   toggleBackgroundColorSelected: {r: 0.9607843, g: 0.13725491, b: 0.627451, a: 1}
   toggleTextColor: {r: 1, g: 1, b: 1, a: 1}
   toggleTextColorSelected: {r: 1, g: 1, b: 1, a: 1}
-  menuTextColor: {r: 1, g: 1, b: 1, a: 1}
   screenButtonColor: {r: 0.8745099, g: 0.1254902, b: 0.57254905, a: 1}
   screenButtonBorderColor: {r: 1, g: 1, b: 1, a: 1}
-  gameBackgroundColor: {r: 0.13725491, g: 0.25490198, b: 0.39215687, a: 1}

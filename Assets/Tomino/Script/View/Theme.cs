@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Tomino.View
 {
@@ -37,19 +38,21 @@ namespace Tomino.View
         public Color blockShadowColor = Color.white;
 
         [Space(10)]
+        public Color gameBackgroundColor = new(35 / 255.0f, 65 / 255.0f, 100 / 255.0f, 1);
         public Color boardBackgroundColor = new(30 / 255.0f, 40 / 255.0f, 50 / 255.0f, 1);
         public Color boardBorderColor = new(55 / 255.0f, 135 / 255.0f, 225 / 255.0f, 1);
         public Color panelBackgroundColor = new(20 / 255.0f, 55 / 255.0f, 90 / 255.0f, 1);
         public Color panelBorderColor = new(55 / 255.0f, 135 / 255.0f, 225 / 255.0f, 1);
+        public Color panelLabelTextColor = new(245 / 255.0f, 35 / 255.0f, 160 / 255.0f, 1);
+        public Color panelScoreTextColor = Color.white;
+        public Color panelLevelTextColor = new(245 / 255.0f, 35 / 255.0f, 160 / 255.0f, 1);
         public Color menuBackgroundColor = new(20 / 255.0f, 55 / 255.0f, 90 / 255.0f, 1);
         public Color menuBorderColor = new(55 / 255.0f, 135 / 255.0f, 225 / 255.0f, 1);
+        public Color menuTextColor = Color.white;
         public Color buttonBorderColor = Color.white;
         public Color buttonBackgroundColor = new(245 / 255.0f, 35 / 255.0f, 160 / 255.0f, 1);
         public Color buttonIconColor = Color.white;
         public Color buttonTextColor = Color.white;
-        public Color gameLabelTextColor = new(245 / 255.0f, 35 / 255.0f, 160 / 255.0f, 1);
-        public Color gameScoreTextColor = Color.white;
-        public Color gameLevelTextColor = new(245 / 255.0f, 35 / 255.0f, 160 / 255.0f, 1);
         public Color toggleBorderColor = Color.white;
         public Color toggleBorderColorSelected = Color.white;
         public Color toggleIconColor = Color.white;
@@ -58,10 +61,8 @@ namespace Tomino.View
         public Color toggleBackgroundColorSelected = new(245 / 255.0f, 35 / 255.0f, 160 / 255.0f, 1);
         public Color toggleTextColor = Color.white;
         public Color toggleTextColorSelected = Color.white;
-        public Color menuTextColor = Color.white;
         public Color screenButtonColor = Color.white;
         public Color screenButtonBorderColor = Color.white;
-        public Color gameBackgroundColor = new(35 / 255.0f, 65 / 255.0f, 100 / 255.0f, 1);
 
         public Color[] BlockColors => new[]
         {
@@ -82,9 +83,9 @@ namespace Tomino.View
                 ThemeColorName.ButtonBackgroundColor => buttonBackgroundColor,
                 ThemeColorName.ButtonIconColor => buttonIconColor,
                 ThemeColorName.ButtonTextColor => buttonTextColor,
-                ThemeColorName.GameLabelTextColor => gameLabelTextColor,
-                ThemeColorName.GameScoreTextColor => gameScoreTextColor,
-                ThemeColorName.GameLevelTextColor => gameLevelTextColor,
+                ThemeColorName.GameLabelTextColor => panelLabelTextColor,
+                ThemeColorName.GameScoreTextColor => panelScoreTextColor,
+                ThemeColorName.GameLevelTextColor => panelLevelTextColor,
                 ThemeColorName.MenuTextColor => menuTextColor,
                 ThemeColorName.ScreenButtonColor => screenButtonColor,
                 ThemeColorName.ScreenButtonBorderColor => screenButtonBorderColor,
