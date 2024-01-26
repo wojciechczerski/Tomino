@@ -15,6 +15,11 @@ public class PieceView : MonoBehaviour
     private const int BlockPoolSize = 10;
     private bool _forceRender;
 
+    private void Awake()
+    {
+        Settings.changedEvent += () => _forceRender = true;
+    }
+
     public void SetBoard(Board board)
     {
         _board = board;

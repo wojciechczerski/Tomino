@@ -64,6 +64,7 @@ public class BoardView : MonoBehaviour
     internal void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
+        Settings.changedEvent += () => _forceRender = true;
     }
 
     internal void Update()
