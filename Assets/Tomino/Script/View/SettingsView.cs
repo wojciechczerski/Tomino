@@ -39,17 +39,23 @@ public class SettingsView : MonoBehaviour
         themeText.text = Constant.Text.Theme;
 
         defaultThemeToggle.GetComponentInChildren<Text>().text = Constant.Text.DefaultTheme;
-        defaultThemeToggle.onValueChanged.AddListener(screenButtonsEnabled =>
+        defaultThemeToggle.onValueChanged.AddListener(toggleEnabled =>
         {
             Settings.Theme = Settings.ThemeType.Default;
-            PlayToggleAudioClip(screenButtonsEnabled);
+            if (toggleEnabled)
+            {
+                PlayToggleAudioClip(true);
+            }
         });
 
         autumnThemeToggle.GetComponentInChildren<Text>().text = Constant.Text.AutumnTheme;
-        autumnThemeToggle.onValueChanged.AddListener(screenButtonsEnabled =>
+        autumnThemeToggle.onValueChanged.AddListener(toggleEnabled =>
         {
             Settings.Theme = Settings.ThemeType.Autumn;
-            PlayToggleAudioClip(screenButtonsEnabled);
+            if (toggleEnabled)
+            {
+                PlayToggleAudioClip(true);
+            }
         });
 
         closeButton.GetComponentInChildren<Text>().text = Constant.Text.Close;
