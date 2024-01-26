@@ -10,6 +10,9 @@
         public const string Settings = "SETTINGS";
         public const string Music = "MUSIC";
         public const string ScreenButtons = "SCREEN BUTTONS";
+        public const string Theme = "THEME";
+        public const string DefaultTheme = "DEFAULT";
+        public const string AutumnTheme = "Autumn";
         public const string Close = "CLOSE";
     }
 

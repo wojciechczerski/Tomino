@@ -8,6 +8,9 @@ public class SettingsView : MonoBehaviour
     public Text titleText;
     public Toggle musicToggle;
     public Toggle screenButtonsToggle;
+    public Text themeText;
+    public Toggle defaultThemeToggle;
+    public Toggle autumnThemeToggle;
     public Button closeButton;
     public AudioPlayer audioPlayer;
 
@@ -30,6 +33,22 @@ public class SettingsView : MonoBehaviour
         screenButtonsToggle.onValueChanged.AddListener(screenButtonsEnabled =>
         {
             Settings.ScreenButonsEnabled = screenButtonsEnabled;
+            PlayToggleAudioClip(screenButtonsEnabled);
+        });
+
+        themeText.text = Constant.Text.Theme;
+
+        defaultThemeToggle.GetComponentInChildren<Text>().text = Constant.Text.DefaultTheme;
+        defaultThemeToggle.onValueChanged.AddListener(screenButtonsEnabled =>
+        {
+            Settings.Theme = Settings.ThemeType.Default;
+            PlayToggleAudioClip(screenButtonsEnabled);
+        });
+
+        autumnThemeToggle.GetComponentInChildren<Text>().text = Constant.Text.AutumnTheme;
+        autumnThemeToggle.onValueChanged.AddListener(screenButtonsEnabled =>
+        {
+            Settings.Theme = Settings.ThemeType.Autumn;
             PlayToggleAudioClip(screenButtonsEnabled);
         });
 
