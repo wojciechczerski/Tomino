@@ -12,7 +12,9 @@
         public const string ScreenButtons = "SCREEN BUTTONS";
         public const string Theme = "THEME";
         public const string DefaultTheme = "DEFAULT";
-        public const string AutumnTheme = "Autumn";
+        public const string AutumnTheme = "AUTUMN";
+        public const string PinkTheme = "PINK";
+        public const string TealTheme = "TEAL";
         public const string Close = "CLOSE";
     }
 

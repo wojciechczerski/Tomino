@@ -7,6 +7,8 @@ namespace Tomino.View
         public ThemeProvider themeProvider;
         public Theme defaultTheme;
         public Theme autumnTheme;
+        public Theme pinkTheme;
+        public Theme tealTheme;
 
         private void Awake()
         {
@@ -20,6 +22,8 @@ namespace Tomino.View
             {
                 Settings.ThemeType.Default => defaultTheme,
                 Settings.ThemeType.Autumn => autumnTheme,
+                Settings.ThemeType.Pink => pinkTheme,
+                Settings.ThemeType.Teal => tealTheme,
                 _ => defaultTheme
             };
         }

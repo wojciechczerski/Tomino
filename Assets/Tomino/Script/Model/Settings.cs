@@ -7,7 +7,7 @@ namespace Tomino
     {
         public enum ThemeType
         {
-            Default, Autumn
+            Default, Autumn, Pink, Teal
         }
 
         public delegate void SettingsDelegate();

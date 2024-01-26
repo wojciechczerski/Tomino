@@ -11,6 +11,8 @@ public class SettingsView : MonoBehaviour
     public Text themeText;
     public Toggle defaultThemeToggle;
     public Toggle autumnThemeToggle;
+    public Toggle pinkThemeToggle;
+    public Toggle tealThemeToggle;
     public Button closeButton;
     public AudioPlayer audioPlayer;
 
@@ -38,27 +40,10 @@ public class SettingsView : MonoBehaviour
 
         themeText.text = Constant.Text.Theme;
 
-        defaultThemeToggle.isOn = Settings.Theme == Settings.ThemeType.Default;
-        defaultThemeToggle.GetComponentInChildren<Text>().text = Constant.Text.DefaultTheme;
-        defaultThemeToggle.onValueChanged.AddListener(toggleEnabled =>
-        {
-            Settings.Theme = Settings.ThemeType.Default;
-            if (toggleEnabled)
-            {
-                PlayToggleAudioClip(true);
-            }
-        });
-
-        autumnThemeToggle.isOn = Settings.Theme == Settings.ThemeType.Autumn;
-        autumnThemeToggle.GetComponentInChildren<Text>().text = Constant.Text.AutumnTheme;
-        autumnThemeToggle.onValueChanged.AddListener(toggleEnabled =>
-        {
-            Settings.Theme = Settings.ThemeType.Autumn;
-            if (toggleEnabled)
-            {
-                PlayToggleAudioClip(true);
-            }
-        });
+        ConfigureThemeToggle(defaultThemeToggle, Settings.ThemeType.Default, Constant.Text.DefaultTheme);
+        ConfigureThemeToggle(autumnThemeToggle, Settings.ThemeType.Autumn, Constant.Text.AutumnTheme);
+        ConfigureThemeToggle(pinkThemeToggle, Settings.ThemeType.Pink, Constant.Text.PinkTheme);
+        ConfigureThemeToggle(tealThemeToggle, Settings.ThemeType.Teal, Constant.Text.TealTheme);
 
         closeButton.GetComponentInChildren<Text>().text = Constant.Text.Close;
         closeButton.onClick.AddListener(() =>
@@ -96,5 +81,19 @@ public class SettingsView : MonoBehaviour
         {
             audioPlayer.PlayToggleOffClip();
         }
+    }
+
+    private void ConfigureThemeToggle(Toggle themeToggle, Settings.ThemeType themeType, string themeName)
+    {
+        themeToggle.isOn = Settings.Theme == themeType;
+        themeToggle.GetComponentInChildren<Text>().text = themeName;
+        themeToggle.onValueChanged.AddListener(toggleEnabled =>
+        {
+            Settings.Theme = themeType;
+            if (toggleEnabled)
+            {
+                PlayToggleAudioClip(true);
+            }
+        });
     }
 }
