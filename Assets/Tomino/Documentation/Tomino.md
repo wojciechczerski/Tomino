@@ -46,3 +46,18 @@ After configuration, you can start the `Game` using the `game.Start()` method.
 Both the `Game` and the `Board` represent the gameplay's current (in memory) state. These classes are separated from Unity APIs, meaning other components, such as `BoardView`, `PieceView` or `ScoreView` handle rendering.
 
 In addition, the `BoardView` contains an instance of the `TouchInput`, which you can pass to the `Game` constructor.
+
+## Theming
+
+Tomino supports customizing colours it uses to tint individual game and UI components. The theming system comprises `Theme`, `ThemeProvider` and `ThemeController` components.
+
+The `Theme` is a `ScriptableObject` containing the colour scheme. Tomino provides four pre-defined themes (found in the Tomino/Theme folder):
+Default
+Autumn
+Pink
+Teal
+You can create a custom theme using the Assets -> Create -> Tomino -> Theme menu.
+
+The `ThemeProvider` is a `ScriptableObject` that references the current `Theme`.
+
+The `ThemeController` is a `MonoBehaviour` that listens to the `Settings` change events and updates the `ThemeProvider.currentTheme` value accordingly.
