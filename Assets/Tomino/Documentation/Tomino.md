@@ -1,33 +1,33 @@
 # Getting started
 
-This document describes steps required for using Tomino in your Unity project.
+This document describes the steps required for using Tomino in your Unity project.
 
 ## Core components
 
-The core logic of the game is controlled by components that have no dependencies on Unity. This components include:
+The core components that control the game logic have no dependencies on Unity. These components include:
 
 - `Game` - Controls the game logic by handling user input and updating the board state.
-- `Board` - Contains collection of blocks placed on the board and allows for moving them within the defined bounds.
-- `Block` - A block with specified type that can be placed (and moved) on a board.
-- `Piece` - A piece is a collection of blocks that all move together on the board.
+- `Board` - Contains a collection of blocks placed on the board and allows for moving them within the defined bounds.
+- `Block` - A unit-sized rectangle with a specified type that the `Board` renders.
+- `Piece` - A piece is a collection of blocks moving together on the `Board`.
 
-Separating from Unity API facilitates game logic testing as there is no need to deal with `MonoBehavior` dependencies.
+Separating from Unity API facilitates game logic testing, as dealing with `MonoBehavior` dependencies is unnecessary.
 
 ## Creating the `Board` and the `Game`
 
-The first step is to create a `Board` which will define boundaries and positions for blocks and the piece controlled by the player.
+The first step is to create a `Board`, which will define boundaries and positions for blocks and the piece controlled by the player.
 
 ```csharp
 Board board = new Board(10, 20);
 ```
 
-The next step is to instantiate the `Game` object that is responsible for controlling the main logic by handling user input and updating the board tate. The game pools user input from the provided `IPlayerInput` parameter.
+The next step is to instantiate the `Game` object responsible for controlling the main logic by handling user input and updating the board state. The game pools user input from the provided `IPlayerInput` parameter.
 
 ```csharp
 var game = new Game(board, new KeyboardInput());
 ```
 
-The game needs to receive update events and because it's not a `MonoBehavior` it has to be done manually, e.g. by the parent controller class.
+The `Game` needs to receive update events, and because it's not a `MonoBehavior`, it has to be done manually, e.g. by the parent controller class.
 
 ```csharp
 class GameController: MonoBehavior
@@ -39,10 +39,10 @@ class GameController: MonoBehavior
 }
 ```
 
-When configuration is finished the game can be started by calling the `game.Start()` method.
+After configuration, you can start the `Game` using the `game.Start()` method.
 
 ## Rendering the `Board`
 
-Both `Game` and the `Board` represent the current (in memory) state of the gameplay. This classes are separated from Unity APIs which means that endering has to be handled by other components, such as `BoardView`, `PieceView` or `ScoreView`.
+Both the `Game` and the `Board` represent the gameplay's current (in memory) state. These classes are separated from Unity APIs, meaning other components, such as `BoardView`, `PieceView` or `ScoreView` handle rendering.
 
-In addition, the `BoardView` contains an instance of the `TouchInput` which can be passed to the `Game` constructor.
+In addition, the `BoardView` contains an instance of the `TouchInput`, which you can pass to the `Game` constructor.
