@@ -30,11 +30,11 @@ public class SettingsView : MonoBehaviour
             PlayToggleAudioClip(musicEnabled);
         });
 
-        screenButtonsToggle.isOn = Settings.ScreenButonsEnabled;
+        screenButtonsToggle.isOn = Settings.ScreenButtonsEnabled;
         screenButtonsToggle.GetComponentInChildren<Text>().text = Constant.Text.ScreenButtons;
         screenButtonsToggle.onValueChanged.AddListener(screenButtonsEnabled =>
         {
-            Settings.ScreenButonsEnabled = screenButtonsEnabled;
+            Settings.ScreenButtonsEnabled = screenButtonsEnabled;
             PlayToggleAudioClip(screenButtonsEnabled);
         });
 

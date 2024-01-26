@@ -94,8 +94,8 @@ public class GameController : MonoBehaviour
 
     private void HandlePlayerSettings()
     {
-        screenButtons.SetActive(Settings.ScreenButonsEnabled);
-        gameConfig.boardView.touchInput.Enabled = !Settings.ScreenButonsEnabled;
+        screenButtons.SetActive(Settings.ScreenButtonsEnabled);
+        gameConfig.boardView.touchInput.Enabled = !Settings.ScreenButtonsEnabled;
         musicAudioSource.gameObject.SetActive(Settings.MusicEnabled);
     }
 }
