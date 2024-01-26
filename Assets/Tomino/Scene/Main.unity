@@ -1968,6 +1968,7 @@ GameObject:
   - component: {fileID: 654111114}
   - component: {fileID: 654111113}
   - component: {fileID: 654111115}
+  - component: {fileID: 654111116}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -2104,6 +2105,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &654111116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654111112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2019d33c54543ba9e73f3f4ae08d318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeProvider: {fileID: 11400000, guid: f986fc615d5af435ca420b0435fb1eb3, type: 2}
+  defaultTheme: {fileID: 11400000, guid: 062eac556c68b4abda593df6e2af46c9, type: 2}
+  autumnTheme: {fileID: 11400000, guid: b0f823b2c8fa446939bfb2ac28a30088, type: 2}
 --- !u!1 &654503502
 GameObject:
   m_ObjectHideFlags: 0
@@ -6194,7 +6210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13725491, g: 0.25490198, b: 0.39215687, a: 1}
+  m_Color: {r: 0.34806916, g: 0.38679248, b: 0.21711464, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
