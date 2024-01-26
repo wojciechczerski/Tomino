@@ -38,6 +38,7 @@ public class SettingsView : MonoBehaviour
 
         themeText.text = Constant.Text.Theme;
 
+        defaultThemeToggle.isOn = Settings.Theme == Settings.ThemeType.Default;
         defaultThemeToggle.GetComponentInChildren<Text>().text = Constant.Text.DefaultTheme;
         defaultThemeToggle.onValueChanged.AddListener(toggleEnabled =>
         {
@@ -48,6 +49,7 @@ public class SettingsView : MonoBehaviour
             }
         });
 
+        autumnThemeToggle.isOn = Settings.Theme == Settings.ThemeType.Autumn;
         autumnThemeToggle.GetComponentInChildren<Text>().text = Constant.Text.AutumnTheme;
         autumnThemeToggle.onValueChanged.AddListener(toggleEnabled =>
         {
