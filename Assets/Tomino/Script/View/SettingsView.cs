@@ -27,10 +27,10 @@ public class SettingsView : MonoBehaviour
 
         screenButtonsToggle.isOn = Settings.ScreenButonsEnabled;
         screenButtonsToggle.GetComponentInChildren<Text>().text = Constant.Text.ScreenButtons;
-        screenButtonsToggle.onValueChanged.AddListener(screenButonsEnabled =>
+        screenButtonsToggle.onValueChanged.AddListener(screenButtonsEnabled =>
         {
-            Settings.ScreenButonsEnabled = screenButonsEnabled;
-            PlayToggleAudioClip(screenButonsEnabled);
+            Settings.ScreenButonsEnabled = screenButtonsEnabled;
+            PlayToggleAudioClip(screenButtonsEnabled);
         });
 
         closeButton.GetComponentInChildren<Text>().text = Constant.Text.Close;
