@@ -54,7 +54,7 @@ Tomino supports customizing colours it uses to tint individual game and UI compo
 The `Theme` is a `ScriptableObject` containing the colour scheme. Tomino provides four pre-defined themes (found in the Tomino/Theme folder):
 Default
 Autumn
-Pink
+Summer
 Teal
 You can create a custom theme using the Assets -> Create -> Tomino -> Theme menu.
 

@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d74596528c54431aa91270c4c5658717, type: 3}
+  m_Name: Summer
+  m_EditorClassIdentifier: 
+  blockColor1: {r: 0.09803922, g: 0.78466076, b: 0.81960785, a: 1}
+  blockColor2: {r: 0.14686202, g: 0.73800004, b: 0.59051543, a: 1}
+  blockColor3: {r: 1, g: 0.34509805, b: 0.3647059, a: 1}
+  blockColor4: {r: 1, g: 0.55316675, b: 0.34509802, a: 1}
+  blockColor5: {r: 0.209865, g: 0.61611396, b: 0.823, a: 1}
+  blockColor6: {r: 1, g: 0.7720038, b: 0.2971698, a: 1}
+  blockColor7: {r: 1, g: 0.319, b: 0.5239613, a: 1}
+  blockShadowColor: {r: 1, g: 1, b: 1, a: 1}
+  gameBackgroundColor: {r: 1, g: 0.5529412, b: 0.42745098, a: 1}
+  boardBackgroundColor: {r: 0.3137255, g: 0.16862746, b: 0.22745098, a: 1}
+  boardBorderColor: {r: 1, g: 0.7764706, b: 0.34509805, a: 1}
+  panelBackgroundColor: {r: 0.6901961, g: 0.2901961, b: 0.3529412, a: 1}
+  panelBorderColor: {r: 0.9843138, g: 0.76470596, b: 0.34117648, a: 1}
+  panelLabelTextColor: {r: 1, g: 0.77647066, b: 0.34509805, a: 1}
+  panelScoreTextColor: {r: 1, g: 1, b: 1, a: 1}
+  panelLevelTextColor: {r: 0.9764706, g: 0.8862745, b: 0.49019608, a: 1}
+  menuBackgroundColor: {r: 0.3137255, g: 0.16862746, b: 0.227451, a: 1}
+  menuBorderColor: {r: 1, g: 0.77647066, b: 0.34509805, a: 1}
+  menuTextColor: {r: 1, g: 1, b: 1, a: 1}
+  buttonBorderColor: {r: 1, g: 1, b: 1, a: 1}
+  buttonBackgroundColor: {r: 1, g: 0.34509805, b: 0.3647059, a: 1}
+  buttonIconColor: {r: 1, g: 1, b: 1, a: 1}
+  buttonTextColor: {r: 1, g: 1, b: 1, a: 1}
+  toggleBorderColor: {r: 1, g: 1, b: 1, a: 1}
+  toggleBorderColorSelected: {r: 1, g: 1, b: 1, a: 1}
+  toggleIconColor: {r: 1, g: 1, b: 1, a: 1}
+  toggleIconColorSelected: {r: 1, g: 1, b: 1, a: 1}
+  toggleBackgroundColor: {r: 0, g: 0, b: 0, a: 0}
+  toggleBackgroundColorSelected: {r: 0.9803922, g: 0.34117648, b: 0.36078432, a: 1}
+  toggleTextColor: {r: 1, g: 1, b: 1, a: 1}
+  toggleTextColorSelected: {r: 1, g: 1, b: 1, a: 1}
+  screenButtonColor: {r: 0.09019608, g: 0.7843138, b: 0.8196079, a: 0}
+  screenButtonBorderColor: {r: 1, g: 1, b: 1, a: 1}

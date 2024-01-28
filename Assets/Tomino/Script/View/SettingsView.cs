@@ -11,7 +11,7 @@ public class SettingsView : MonoBehaviour
     public Text themeText;
     public Toggle defaultThemeToggle;
     public Toggle autumnThemeToggle;
-    public Toggle pinkThemeToggle;
+    public Toggle summerThemeToggle;
     public Toggle tealThemeToggle;
     public Button closeButton;
     public AudioPlayer audioPlayer;
@@ -42,7 +42,7 @@ public class SettingsView : MonoBehaviour
 
         ConfigureThemeToggle(defaultThemeToggle, Settings.ThemeType.Default, Constant.Text.DefaultTheme);
         ConfigureThemeToggle(autumnThemeToggle, Settings.ThemeType.Autumn, Constant.Text.AutumnTheme);
-        ConfigureThemeToggle(pinkThemeToggle, Settings.ThemeType.Pink, Constant.Text.PinkTheme);
+        ConfigureThemeToggle(summerThemeToggle, Settings.ThemeType.Summer, Constant.Text.SummerTheme);
         ConfigureThemeToggle(tealThemeToggle, Settings.ThemeType.Teal, Constant.Text.TealTheme);
 
         closeButton.GetComponentInChildren<Text>().text = Constant.Text.Close;

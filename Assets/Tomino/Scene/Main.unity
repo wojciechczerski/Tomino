@@ -2122,7 +2122,7 @@ MonoBehaviour:
   themeProvider: {fileID: 11400000, guid: f986fc615d5af435ca420b0435fb1eb3, type: 2}
   defaultTheme: {fileID: 11400000, guid: 062eac556c68b4abda593df6e2af46c9, type: 2}
   autumnTheme: {fileID: 11400000, guid: b0f823b2c8fa446939bfb2ac28a30088, type: 2}
-  pinkTheme: {fileID: 11400000, guid: 0adf9c0ff87644a9d8e7b65c32eab220, type: 2}
+  summerTheme: {fileID: 11400000, guid: 0adf9c0ff87644a9d8e7b65c32eab220, type: 2}
   tealTheme: {fileID: 11400000, guid: 8e5e3b4f094f74d889ae72b0d58b1449, type: 2}
 --- !u!1 &654503502
 GameObject:
@@ -4597,7 +4597,7 @@ PrefabInstance:
     - target: {fileID: 8022663914913217341, guid: be979e42bf4e54633ae75e5387ffde64,
         type: 3}
       propertyPath: m_Name
-      value: Pink Theme Toggle
+      value: Summer Theme Toggle
       objectReference: {fileID: 0}
     - target: {fileID: 8196112202881682246, guid: be979e42bf4e54633ae75e5387ffde64,
         type: 3}
@@ -5817,7 +5817,7 @@ MonoBehaviour:
   themeText: {fileID: 1695869875}
   defaultThemeToggle: {fileID: 218163541}
   autumnThemeToggle: {fileID: 2135433725}
-  pinkThemeToggle: {fileID: 2145505018}
+  summerThemeToggle: {fileID: 2145505018}
   tealThemeToggle: {fileID: 1299845961}
   closeButton: {fileID: 574198897}
   audioPlayer: {fileID: 1797789527}
