@@ -1,4 +1,4 @@
-﻿namespace Constant
+﻿namespace Tomino.Model
 {
     public static class Text
     {

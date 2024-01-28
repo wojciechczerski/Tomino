@@ -1,4 +1,7 @@
-﻿namespace Tomino.Test.Editor.Helper
+﻿using Tomino.Input;
+using Tomino.Model;
+
+namespace Tomino.Test.Editor.Helper
 {
     public class StubInput : IPlayerInput
     {

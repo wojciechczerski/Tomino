@@ -1,122 +1,125 @@
-﻿using Tomino;
+﻿using Tomino.Model;
 using UnityEngine;
 
-public class TouchInput : IPlayerInput
+namespace Tomino.Input
 {
-    public float blockSize;
-    public bool Enabled
+    public class TouchInput : IPlayerInput
     {
-        get => _enabled;
-        set
+        public float blockSize;
+        public bool Enabled
         {
-            _enabled = value;
-            _cancelCurrentTouch = false;
+            get => _enabled;
+            set
+            {
+                _enabled = value;
+                _cancelCurrentTouch = false;
+                _playerAction = null;
+            }
+        }
+
+        private Vector2 _initialPosition = Vector2.zero;
+        private Vector2 _processedOffset = Vector2.zero;
+        private PlayerAction? _playerAction;
+        private bool _moveDownDetected;
+        private float _touchBeginTime;
+
+        private const float TapMaxDuration = 0.25f;
+        private const float TapMaxOffset = 30.0f;
+        private const float SwipeMaxDuration = 0.3f;
+
+        private bool _cancelCurrentTouch;
+        private bool _enabled = true;
+
+        public void Update()
+        {
             _playerAction = null;
-        }
-    }
 
-    private Vector2 _initialPosition = Vector2.zero;
-    private Vector2 _processedOffset = Vector2.zero;
-    private PlayerAction? _playerAction;
-    private bool _moveDownDetected;
-    private float _touchBeginTime;
-
-    private const float TapMaxDuration = 0.25f;
-    private const float TapMaxOffset = 30.0f;
-    private const float SwipeMaxDuration = 0.3f;
-
-    private bool _cancelCurrentTouch;
-    private bool _enabled = true;
-
-    public void Update()
-    {
-        _playerAction = null;
-
-        if (Input.touchCount > 0)
-        {
-            var touch = Input.GetTouch(0);
-
-            if (_cancelCurrentTouch)
+            if (UnityEngine.Input.touchCount > 0)
             {
-                _cancelCurrentTouch &= touch.phase != TouchPhase.Ended;
-            }
-            else if (touch.phase == TouchPhase.Began)
-            {
-                TouchBegan(touch);
-            }
-            else if (touch.phase == TouchPhase.Moved)
-            {
-                var offset = touch.position - _initialPosition - _processedOffset;
-                HandleMove(touch, offset);
-            }
-            else if (touch.phase == TouchPhase.Ended)
-            {
-                var touchDuration = Time.time - _touchBeginTime;
-                var offset = (touch.position - _initialPosition).magnitude;
+                var touch = UnityEngine.Input.GetTouch(0);
 
-                if (touchDuration < TapMaxDuration && offset < TapMaxOffset)
+                if (_cancelCurrentTouch)
                 {
-                    _playerAction = PlayerAction.Rotate;
+                    _cancelCurrentTouch &= touch.phase != TouchPhase.Ended;
                 }
-                else if (_moveDownDetected && touchDuration < SwipeMaxDuration)
+                else if (touch.phase == TouchPhase.Began)
                 {
-                    _playerAction = PlayerAction.Fall;
+                    TouchBegan(touch);
+                }
+                else if (touch.phase == TouchPhase.Moved)
+                {
+                    var offset = touch.position - _initialPosition - _processedOffset;
+                    HandleMove(touch, offset);
+                }
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    var touchDuration = Time.time - _touchBeginTime;
+                    var offset = (touch.position - _initialPosition).magnitude;
+
+                    if (touchDuration < TapMaxDuration && offset < TapMaxOffset)
+                    {
+                        _playerAction = PlayerAction.Rotate;
+                    }
+                    else if (_moveDownDetected && touchDuration < SwipeMaxDuration)
+                    {
+                        _playerAction = PlayerAction.Fall;
+                    }
                 }
             }
+            else
+            {
+                _cancelCurrentTouch = false;
+            }
         }
-        else
+
+        public PlayerAction? GetPlayerAction()
         {
-            _cancelCurrentTouch = false;
+            return Enabled ? _playerAction : null;
         }
-    }
 
-    public PlayerAction? GetPlayerAction()
-    {
-        return Enabled ? _playerAction : null;
-    }
-
-    public void Cancel()
-    {
-        _cancelCurrentTouch |= Input.touchCount > 0;
-    }
-
-    private void TouchBegan(Touch touch)
-    {
-        _initialPosition = touch.position;
-        _processedOffset = Vector2.zero;
-        _moveDownDetected = false;
-        _touchBeginTime = Time.time;
-    }
-
-    private void HandleMove(Touch touch, Vector2 offset)
-    {
-        if (Mathf.Abs(offset.x) >= blockSize)
+        public void Cancel()
         {
-            HandleHorizontalMove(touch, offset.x);
-            _playerAction = ActionForHorizontalMoveOffset(offset.x);
+            _cancelCurrentTouch |= UnityEngine.Input.touchCount > 0;
         }
 
-        if (!(offset.y <= -blockSize)) return;
+        private void TouchBegan(Touch touch)
+        {
+            _initialPosition = touch.position;
+            _processedOffset = Vector2.zero;
+            _moveDownDetected = false;
+            _touchBeginTime = Time.time;
+        }
 
-        HandleVerticalMove(touch);
-        _playerAction = PlayerAction.MoveDown;
-    }
+        private void HandleMove(Touch touch, Vector2 offset)
+        {
+            if (Mathf.Abs(offset.x) >= blockSize)
+            {
+                HandleHorizontalMove(touch, offset.x);
+                _playerAction = ActionForHorizontalMoveOffset(offset.x);
+            }
 
-    private void HandleHorizontalMove(Touch touch, float offset)
-    {
-        _processedOffset.x += Mathf.Sign(offset) * blockSize;
-        _processedOffset.y = (touch.position - _initialPosition).y;
-    }
+            if (!(offset.y <= -blockSize)) return;
 
-    private void HandleVerticalMove(Touch touch)
-    {
-        _moveDownDetected = true;
-        _processedOffset.y -= blockSize;
-        _processedOffset.x = (touch.position - _initialPosition).x;
-    }
+            HandleVerticalMove(touch);
+            _playerAction = PlayerAction.MoveDown;
+        }
 
-    private static PlayerAction ActionForHorizontalMoveOffset(float offset)
-    {
-        return offset > 0 ? PlayerAction.MoveRight : PlayerAction.MoveLeft;
+        private void HandleHorizontalMove(Touch touch, float offset)
+        {
+            _processedOffset.x += Mathf.Sign(offset) * blockSize;
+            _processedOffset.y = (touch.position - _initialPosition).y;
+        }
+
+        private void HandleVerticalMove(Touch touch)
+        {
+            _moveDownDetected = true;
+            _processedOffset.y -= blockSize;
+            _processedOffset.x = (touch.position - _initialPosition).x;
+        }
+
+        private static PlayerAction ActionForHorizontalMoveOffset(float offset)
+        {
+            return offset > 0 ? PlayerAction.MoveRight : PlayerAction.MoveLeft;
+        }
     }
 }

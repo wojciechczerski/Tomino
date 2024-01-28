@@ -1,33 +1,36 @@
 ﻿using UnityEngine;
 
-public class BlockView : MonoBehaviour
+namespace Tomino.View
 {
-    private SpriteRenderer _spriteRenderer;
-
-    internal void Awake()
+    public class BlockView : MonoBehaviour
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+        private SpriteRenderer _spriteRenderer;
 
-    public void SetSprite(Sprite sprite)
-    {
-        _spriteRenderer.sprite = sprite;
-    }
+        internal void Awake()
+        {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+        }
 
-    public void SetPosition(Vector3 position)
-    {
-        transform.localPosition = position;
-    }
+        public void SetSprite(Sprite sprite)
+        {
+            _spriteRenderer.sprite = sprite;
+        }
 
-    public void SetColor(Color color)
-    {
-        _spriteRenderer.color = color;
-    }
+        public void SetPosition(Vector3 position)
+        {
+            transform.localPosition = position;
+        }
 
-    public void SetSize(float size)
-    {
-        var sprite = _spriteRenderer.sprite;
-        var scale = sprite.pixelsPerUnit / sprite.rect.width * size;
-        transform.localScale = new Vector3(scale, scale);
+        public void SetColor(Color color)
+        {
+            _spriteRenderer.color = color;
+        }
+
+        public void SetSize(float size)
+        {
+            var sprite = _spriteRenderer.sprite;
+            var scale = sprite.pixelsPerUnit / sprite.rect.width * size;
+            transform.localScale = new Vector3(scale, scale);
+        }
     }
 }

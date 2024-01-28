@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Dazzle
+namespace Tomino.Shared
 {
     public class SafeArea : MonoBehaviour
     {

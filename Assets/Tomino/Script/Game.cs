@@ -1,3 +1,6 @@
+using Tomino.Input;
+using Tomino.Model;
+
 namespace Tomino
 {
     /// <summary>

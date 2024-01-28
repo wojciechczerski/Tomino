@@ -1,6 +1,6 @@
 using System;
 
-namespace Tomino
+namespace Tomino.Model
 {
     public class Level
     {

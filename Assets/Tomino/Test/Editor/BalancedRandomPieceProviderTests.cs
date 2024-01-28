@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Tomino.Model;
 
 namespace Tomino.Test.Editor
 {

@@ -1,57 +1,60 @@
 ﻿using UnityEngine;
 
-public class AudioPlayer : MonoBehaviour
+namespace Tomino.Audio
 {
-    public AudioClip pauseClip;
-    public AudioClip resumeClip;
-    public AudioClip newGameClip;
-    public AudioClip pieceMoveClip;
-    public AudioClip pieceRotateClip;
-    public AudioClip pieceDropClip;
-    private AudioSource _audioSource;
-
-    public void PlayPauseClip()
+    public class AudioPlayer : MonoBehaviour
     {
-        _audioSource.PlayOneShot(pauseClip);
-    }
+        public AudioClip pauseClip;
+        public AudioClip resumeClip;
+        public AudioClip newGameClip;
+        public AudioClip pieceMoveClip;
+        public AudioClip pieceRotateClip;
+        public AudioClip pieceDropClip;
+        private AudioSource _audioSource;
 
-    public void PlayResumeClip()
-    {
-        _audioSource.PlayOneShot(resumeClip);
-    }
+        public void PlayPauseClip()
+        {
+            _audioSource.PlayOneShot(pauseClip);
+        }
 
-    public void PlayNewGameClip()
-    {
-        _audioSource.PlayOneShot(newGameClip);
-    }
+        public void PlayResumeClip()
+        {
+            _audioSource.PlayOneShot(resumeClip);
+        }
 
-    public void PlayPieceMoveClip()
-    {
-        _audioSource.PlayOneShot(pieceMoveClip);
-    }
+        public void PlayNewGameClip()
+        {
+            _audioSource.PlayOneShot(newGameClip);
+        }
 
-    public void PlayPieceRotateClip()
-    {
-        _audioSource.PlayOneShot(pieceRotateClip);
-    }
+        public void PlayPieceMoveClip()
+        {
+            _audioSource.PlayOneShot(pieceMoveClip);
+        }
 
-    public void PlayPieceDropClip()
-    {
-        _audioSource.PlayOneShot(pieceDropClip);
-    }
+        public void PlayPieceRotateClip()
+        {
+            _audioSource.PlayOneShot(pieceRotateClip);
+        }
 
-    public void PlayToggleOnClip()
-    {
-        _audioSource.PlayOneShot(resumeClip);
-    }
+        public void PlayPieceDropClip()
+        {
+            _audioSource.PlayOneShot(pieceDropClip);
+        }
 
-    public void PlayToggleOffClip()
-    {
-        _audioSource.PlayOneShot(pauseClip);
-    }
+        public void PlayToggleOnClip()
+        {
+            _audioSource.PlayOneShot(resumeClip);
+        }
 
-    internal void Awake()
-    {
-        _audioSource = GetComponent<AudioSource>();
+        public void PlayToggleOffClip()
+        {
+            _audioSource.PlayOneShot(pauseClip);
+        }
+
+        internal void Awake()
+        {
+            _audioSource = GetComponent<AudioSource>();
+        }
     }
 }

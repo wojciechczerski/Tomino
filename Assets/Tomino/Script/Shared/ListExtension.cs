@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Tomino
+namespace Tomino.Shared
 {
     public static class ListExtension
     {

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using Tomino.Model;
 using Tomino.Test.Editor.Helper;
 
 namespace Tomino.Test.Editor

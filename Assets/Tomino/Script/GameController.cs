@@ -1,101 +1,106 @@
-﻿using Constant;
-using Tomino;
+﻿using Tomino.Audio;
+using Tomino.Input;
+using Tomino.Model;
+using Tomino.View;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+namespace Tomino
 {
-    public GameConfig gameConfig;
-    public AlertView alertView;
-    public SettingsView settingsView;
-    public AudioPlayer audioPlayer;
-    public GameObject screenButtons;
-    public AudioSource musicAudioSource;
-
-    private Game _game;
-    private UniversalInput _universalInput;
-
-    internal void Awake()
+    public class GameController : MonoBehaviour
     {
-        HandlePlayerSettings();
-        Settings.changedEvent += HandlePlayerSettings;
-    }
+        public GameConfig gameConfig;
+        public AlertView alertView;
+        public SettingsView settingsView;
+        public AudioPlayer audioPlayer;
+        public GameObject screenButtons;
+        public AudioSource musicAudioSource;
 
-    internal void Start()
-    {
-        Board board = new(10, 20);
+        private Game _game;
+        private UniversalInput _universalInput;
 
-        gameConfig.boardView.SetBoard(board);
-        gameConfig.nextPieceView.SetBoard(board);
+        internal void Awake()
+        {
+            HandlePlayerSettings();
+            Settings.changedEvent += HandlePlayerSettings;
+        }
 
-        _universalInput = new UniversalInput(new KeyboardInput(), gameConfig.boardView.touchInput);
+        internal void Start()
+        {
+            Board board = new(10, 20);
 
-        _game = new Game(board, _universalInput);
-        _game.FinishedEvent += OnGameFinished;
-        _game.PieceFinishedFallingEvent += audioPlayer.PlayPieceDropClip;
-        _game.PieceRotatedEvent += audioPlayer.PlayPieceRotateClip;
-        _game.PieceMovedEvent += audioPlayer.PlayPieceMoveClip;
-        _game.Start();
+            gameConfig.boardView.SetBoard(board);
+            gameConfig.nextPieceView.SetBoard(board);
 
-        gameConfig.scoreView.game = _game;
-        gameConfig.levelView.game = _game;
-    }
+            _universalInput = new UniversalInput(new KeyboardInput(), gameConfig.boardView.touchInput);
 
-    public void OnPauseButtonTap()
-    {
-        _game.Pause();
-        ShowPauseView();
-    }
+            _game = new Game(board, _universalInput);
+            _game.FinishedEvent += OnGameFinished;
+            _game.PieceFinishedFallingEvent += audioPlayer.PlayPieceDropClip;
+            _game.PieceRotatedEvent += audioPlayer.PlayPieceRotateClip;
+            _game.PieceMovedEvent += audioPlayer.PlayPieceMoveClip;
+            _game.Start();
 
-    public void OnMoveLeftButtonTap()
-    {
-        _game.SetNextAction(PlayerAction.MoveLeft);
-    }
+            gameConfig.scoreView.game = _game;
+            gameConfig.levelView.game = _game;
+        }
 
-    public void OnMoveRightButtonTap()
-    {
-        _game.SetNextAction(PlayerAction.MoveRight);
-    }
+        public void OnPauseButtonTap()
+        {
+            _game.Pause();
+            ShowPauseView();
+        }
 
-    public void OnMoveDownButtonTap()
-    {
-        _game.SetNextAction(PlayerAction.MoveDown);
-    }
+        public void OnMoveLeftButtonTap()
+        {
+            _game.SetNextAction(PlayerAction.MoveLeft);
+        }
 
-    public void OnRotateButtonTap()
-    {
-        _game.SetNextAction(PlayerAction.Rotate);
-    }
+        public void OnMoveRightButtonTap()
+        {
+            _game.SetNextAction(PlayerAction.MoveRight);
+        }
 
-    private void OnGameFinished()
-    {
-        alertView.SetTitle(Text.GameFinished);
-        alertView.AddButton(Text.PlayAgain, _game.Start, audioPlayer.PlayNewGameClip);
-        alertView.Show();
-    }
+        public void OnMoveDownButtonTap()
+        {
+            _game.SetNextAction(PlayerAction.MoveDown);
+        }
 
-    internal void Update()
-    {
-        _game.Update(Time.deltaTime);
-    }
+        public void OnRotateButtonTap()
+        {
+            _game.SetNextAction(PlayerAction.Rotate);
+        }
 
-    private void ShowPauseView()
-    {
-        alertView.SetTitle(Text.GamePaused);
-        alertView.AddButton(Text.Resume, _game.Resume, audioPlayer.PlayResumeClip);
-        alertView.AddButton(Text.NewGame, _game.Start, audioPlayer.PlayNewGameClip);
-        alertView.AddButton(Text.Settings, ShowSettingsView, audioPlayer.PlayResumeClip);
-        alertView.Show();
-    }
+        private void OnGameFinished()
+        {
+            alertView.SetTitle(Text.GameFinished);
+            alertView.AddButton(Text.PlayAgain, _game.Start, audioPlayer.PlayNewGameClip);
+            alertView.Show();
+        }
 
-    private void ShowSettingsView()
-    {
-        settingsView.Show(ShowPauseView);
-    }
+        internal void Update()
+        {
+            _game.Update(Time.deltaTime);
+        }
 
-    private void HandlePlayerSettings()
-    {
-        screenButtons.SetActive(Settings.ScreenButtonsEnabled);
-        gameConfig.boardView.touchInput.Enabled = !Settings.ScreenButtonsEnabled;
-        musicAudioSource.gameObject.SetActive(Settings.MusicEnabled);
+        private void ShowPauseView()
+        {
+            alertView.SetTitle(Text.GamePaused);
+            alertView.AddButton(Text.Resume, _game.Resume, audioPlayer.PlayResumeClip);
+            alertView.AddButton(Text.NewGame, _game.Start, audioPlayer.PlayNewGameClip);
+            alertView.AddButton(Text.Settings, ShowSettingsView, audioPlayer.PlayResumeClip);
+            alertView.Show();
+        }
+
+        private void ShowSettingsView()
+        {
+            settingsView.Show(ShowPauseView);
+        }
+
+        private void HandlePlayerSettings()
+        {
+            screenButtons.SetActive(Settings.ScreenButtonsEnabled);
+            gameConfig.boardView.touchInput.Enabled = !Settings.ScreenButtonsEnabled;
+            musicAudioSource.gameObject.SetActive(Settings.MusicEnabled);
+        }
     }
 }

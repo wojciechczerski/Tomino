@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Tomino
+namespace Tomino.Shared
 {
     public class GameObjectPool<T> where T : MonoBehaviour
     {

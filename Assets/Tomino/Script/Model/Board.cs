@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Tomino.Shared;
 
-namespace Tomino
+namespace Tomino.Model
 {
     /// <summary>
     /// Contains collection of blocks placed on the board and allows for moving them within the

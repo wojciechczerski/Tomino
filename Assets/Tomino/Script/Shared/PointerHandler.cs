@@ -2,12 +2,15 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class PointerHandler : MonoBehaviour, IPointerDownHandler
+namespace Tomino.Shared
 {
-    public UnityEvent onPointerDown = new();
-
-    void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
+    public class PointerHandler : MonoBehaviour, IPointerDownHandler
     {
-        onPointerDown.Invoke();
+        public UnityEvent onPointerDown = new();
+
+        void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
+        {
+            onPointerDown.Invoke();
+        }
     }
 }

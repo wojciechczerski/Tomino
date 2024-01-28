@@ -1,4 +1,4 @@
-namespace Tomino
+namespace Tomino.Model
 {
     public static class AvailablePieces
     {

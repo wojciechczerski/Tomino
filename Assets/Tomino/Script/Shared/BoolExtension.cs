@@ -1,7 +1,10 @@
-﻿public static class BoolExtension
+﻿namespace Tomino.Shared
 {
-    public static int IntValue(this bool value)
+    public static class BoolExtension
     {
-        return value ? 1 : 0;
+        public static int IntValue(this bool value)
+        {
+            return value ? 1 : 0;
+        }
     }
 }

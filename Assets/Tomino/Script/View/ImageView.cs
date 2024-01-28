@@ -1,16 +1,18 @@
-using Tomino.View;
 using UnityEngine;
 using UnityEngine.UI;
 
-[ExecuteAlways]
-public class ImageView : MonoBehaviour
+namespace Tomino.View
 {
-    public ThemeProvider themeProvider;
-    public Image image;
-    public ThemeColorName colorName;
-
-    private void Update()
+    [ExecuteAlways]
+    public class ImageView : MonoBehaviour
     {
-        image.color = themeProvider.currentTheme.GetColor(colorName);
+        public ThemeProvider themeProvider;
+        public Image image;
+        public ThemeColorName colorName;
+
+        private void Update()
+        {
+            image.color = themeProvider.currentTheme.GetColor(colorName);
+        }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Tomino.Model;
+using Tomino.Shared;
 
 namespace Tomino.Test.Editor.Helper
 {

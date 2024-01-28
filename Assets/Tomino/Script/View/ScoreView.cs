@@ -1,17 +1,19 @@
-﻿using Constant;
-using Tomino;
+﻿using Tomino.Model;
 using UnityEngine;
 using Text = UnityEngine.UI.Text;
 
-public class ScoreView : MonoBehaviour
+namespace Tomino.View
 {
-    public Text scoreText;
-    public Game game;
-
-    internal void Update()
+    public class ScoreView : MonoBehaviour
     {
-        const int padLength = ScoreFormat.Length;
-        const char padCharacter = ScoreFormat.PadCharacter;
-        scoreText.text = game.Score.Value.ToString().PadLeft(padLength, padCharacter);
+        public Text scoreText;
+        public Game game;
+
+        internal void Update()
+        {
+            const int padLength = ScoreFormat.Length;
+            const char padCharacter = ScoreFormat.PadCharacter;
+            scoreText.text = game.Score.Value.ToString().PadLeft(padLength, padCharacter);
+        }
     }
 }

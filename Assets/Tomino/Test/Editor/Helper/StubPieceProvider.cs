@@ -1,4 +1,6 @@
-﻿namespace Tomino.Test.Editor.Helper
+﻿using Tomino.Model;
+
+namespace Tomino.Test.Editor.Helper
 {
     public enum StubPieceType
     {

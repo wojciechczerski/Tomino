@@ -1,7 +1,8 @@
 ﻿using System;
+using Tomino.Shared;
 using UnityEngine;
 
-namespace Tomino
+namespace Tomino.Model
 {
     public static class Settings
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Tomino
+namespace Tomino.Model
 {
     public class Score
     {

@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Tomino.Shared;
 
-namespace Tomino
+namespace Tomino.Model
 {
     /// <summary>
     /// A piece is a collection of blocks that all move together on the board.

@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Tomino.Shared;
 
-namespace Tomino
+namespace Tomino.Model
 {
     public class BalancedRandomPieceProvider : IPieceProvider
     {

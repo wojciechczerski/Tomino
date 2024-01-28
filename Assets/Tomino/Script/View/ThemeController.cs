@@ -1,3 +1,4 @@
+using Tomino.Model;
 using UnityEngine;
 
 namespace Tomino.View

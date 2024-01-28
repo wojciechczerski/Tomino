@@ -1,16 +1,18 @@
-﻿using Tomino;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelView : MonoBehaviour
+namespace Tomino.View
 {
-    public Text level;
-    public Text lines;
-    public Game game;
-
-    internal void Update()
+    public class LevelView : MonoBehaviour
     {
-        level.text = game.Level.Number.ToString();
-        lines.text = game.Level.Lines.ToString();
+        public Text level;
+        public Text lines;
+        public Game game;
+
+        internal void Update()
+        {
+            level.text = game.Level.Number.ToString();
+            lines.text = game.Level.Lines.ToString();
+        }
     }
 }

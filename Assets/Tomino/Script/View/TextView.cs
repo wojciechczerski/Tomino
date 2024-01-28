@@ -1,16 +1,18 @@
-using Tomino.View;
 using UnityEngine;
 using UnityEngine.UI;
 
-[ExecuteAlways]
-public class TextView : MonoBehaviour
+namespace Tomino.View
 {
-    public ThemeProvider themeProvider;
-    public Text text;
-    public ThemeColorName colorName;
-
-    private void Update()
+    [ExecuteAlways]
+    public class TextView : MonoBehaviour
     {
-        text.color = themeProvider.currentTheme.GetColor(colorName);
+        public ThemeProvider themeProvider;
+        public Text text;
+        public ThemeColorName colorName;
+
+        private void Update()
+        {
+            text.color = themeProvider.currentTheme.GetColor(colorName);
+        }
     }
 }

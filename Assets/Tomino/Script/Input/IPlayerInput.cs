@@ -1,4 +1,6 @@
-﻿namespace Tomino
+﻿using Tomino.Model;
+
+namespace Tomino.Input
 {
     public interface IPlayerInput
     {
