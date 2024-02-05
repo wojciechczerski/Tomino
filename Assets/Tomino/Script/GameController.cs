@@ -20,6 +20,8 @@ namespace Tomino
 
         internal void Awake()
         {
+            Application.targetFrameRate = 60;
+
             HandlePlayerSettings();
             Settings.changedEvent += HandlePlayerSettings;
         }
