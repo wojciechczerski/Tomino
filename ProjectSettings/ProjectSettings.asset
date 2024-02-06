@@ -159,7 +159,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Standalone: com.wojciechczerski.tomino
-    iPhone: com.wojciechczerski.tomino
+    iPhone: com.wojciechczerski.Tomino
   buildNumber:
     Standalone: 0
     VisionOS: 0
