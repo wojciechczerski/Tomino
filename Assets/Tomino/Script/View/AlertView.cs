@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Tomino.Model;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Pool;
-using UnityEngine.UI;
+using Text = UnityEngine.UI.Text;
 
 namespace Tomino.View
 {
@@ -11,6 +12,7 @@ namespace Tomino.View
         public Text titleText;
         public RectTransform buttonsContainer;
         public GameObject buttonPrefab;
+        public LocalizationProvider localizationProvider;
 
         private ObjectPool<AlertButtonView> _buttonPool;
         private readonly List<AlertButtonView> _buttons = new ();
@@ -21,18 +23,18 @@ namespace Tomino.View
             Hide();
         }
 
-        public void SetTitle(string text)
+        public void SetTitle(string textID)
         {
-            titleText.text = text;
+            titleText.text = localizationProvider.currentLocalization.GetLocalizedTextForID(textID);
         }
 
-        public void AddButton(string text, UnityAction onClickAction, UnityAction pointerDownAction)
+        public void AddButton(string textID, UnityAction onClickAction, UnityAction pointerDownAction)
         {
             var alertButton = _buttonPool.Get();
             alertButton.PointerHandler.onPointerDown.AddListener(pointerDownAction);
             alertButton.Button.onClick.AddListener(onClickAction);
             alertButton.Button.onClick.AddListener(Hide);
-            alertButton.Text.text = text;
+            alertButton.Text.text = localizationProvider.currentLocalization.GetLocalizedTextForID(textID);
             alertButton.RectTransform.SetSiblingIndex(buttonsContainer.childCount - 1);
         }
 

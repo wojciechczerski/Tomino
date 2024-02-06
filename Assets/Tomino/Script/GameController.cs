@@ -74,8 +74,8 @@ namespace Tomino
 
         private void OnGameFinished()
         {
-            alertView.SetTitle(Text.GameFinished);
-            alertView.AddButton(Text.PlayAgain, _game.Start, audioPlayer.PlayNewGameClip);
+            alertView.SetTitle(TextID.GameFinished);
+            alertView.AddButton(TextID.PlayAgain, _game.Start, audioPlayer.PlayNewGameClip);
             alertView.Show();
         }
 
@@ -86,10 +86,10 @@ namespace Tomino
 
         private void ShowPauseView()
         {
-            alertView.SetTitle(Text.GamePaused);
-            alertView.AddButton(Text.Resume, _game.Resume, audioPlayer.PlayResumeClip);
-            alertView.AddButton(Text.NewGame, _game.Start, audioPlayer.PlayNewGameClip);
-            alertView.AddButton(Text.Settings, ShowSettingsView, audioPlayer.PlayResumeClip);
+            alertView.SetTitle(TextID.GamePaused);
+            alertView.AddButton(TextID.Resume, _game.Resume, audioPlayer.PlayResumeClip);
+            alertView.AddButton(TextID.NewGame, _game.Start, audioPlayer.PlayNewGameClip);
+            alertView.AddButton(TextID.Settings, ShowSettingsView, audioPlayer.PlayResumeClip);
             alertView.Show();
         }
 

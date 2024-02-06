@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d0d1bfea2ad44ef82277d3233634563, type: 3}
   m_Name: EnglishLocalization
   m_EditorClassIdentifier: 
+  nextPiece: next
+  score: score
+  lines: lines
+  level: level
   gameFinished: GAME FINISHED
   gamePaused: GAME PAUSED
   playAgain: PLAY AGAIN

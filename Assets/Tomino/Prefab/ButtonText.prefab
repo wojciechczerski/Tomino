@@ -93,5 +93,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   themeProvider: {fileID: 11400000, guid: f986fc615d5af435ca420b0435fb1eb3, type: 2}
+  localizationProvider: {fileID: 11400000, guid: 5c12802c28b2946a194b8fb31bbfa4ef,
+    type: 2}
   text: {fileID: 4033013436533807675}
   colorName: 9
+  textID: 

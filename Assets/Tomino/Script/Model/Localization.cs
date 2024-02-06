@@ -4,6 +4,10 @@ namespace Tomino.Model
 {
     public static class TextID
     {
+        public const string NextPiece = "next";
+        public const string Score = "score";
+        public const string Lines = "lines";
+        public const string Level = "level";
         public const string GameFinished = "game-finished";
         public const string GamePaused = "game-paused";
         public const string PlayAgain = "play-again";
@@ -23,6 +27,10 @@ namespace Tomino.Model
     [CreateAssetMenu(fileName = "Localization", menuName = "Tomino/Localization", order = 3)]
     public class Localization : ScriptableObject
     {
+        public string nextPiece = "next";
+        public string score = "score";
+        public string lines = "lines";
+        public string level = "level";
         public string gameFinished = "GAME FINISHED";
         public string gamePaused = "GAME PAUSED";
         public string playAgain = "PLAY AGAIN";
@@ -42,6 +50,10 @@ namespace Tomino.Model
         {
             return textID switch
             {
+                TextID.NextPiece => nextPiece,
+                TextID.Score => score,
+                TextID.Lines => lines,
+                TextID.Level => level,
                 TextID.GameFinished => gameFinished,
                 TextID.GamePaused => gamePaused,
                 TextID.PlayAgain => playAgain,
@@ -56,7 +68,7 @@ namespace Tomino.Model
                 TextID.SummerTheme => summerTheme,
                 TextID.TealTheme => tealTheme,
                 TextID.Close => close,
-                _ => "not-localized"
+                _ => "<null>"
             };
         }
     }

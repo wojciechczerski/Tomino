@@ -454,10 +454,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toggle: {fileID: 8196112202881682246}
   label: {fileID: 1650549484200881523}
+  textID: 
   backgroundImage: {fileID: 3647100290389868051}
   borderImage: {fileID: 4414125325283196816}
   iconImage: {fileID: 3860056472348517699}
   themeProvider: {fileID: 11400000, guid: f986fc615d5af435ca420b0435fb1eb3, type: 2}
+  localizationProvider: {fileID: 11400000, guid: 5c12802c28b2946a194b8fb31bbfa4ef,
+    type: 2}
 --- !u!1 &8220074667993349284
 GameObject:
   m_ObjectHideFlags: 0
