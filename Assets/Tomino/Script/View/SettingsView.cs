@@ -25,10 +25,7 @@ namespace Tomino.View
 
         internal void Awake()
         {
-            titleText.text = Model.Text.Settings;
-
             musicToggle.isOn = Settings.MusicEnabled;
-            musicToggle.GetComponentInChildren<Text>().text = Model.Text.Music;
             musicToggle.onValueChanged.AddListener(musicEnabled =>
             {
                 Settings.MusicEnabled = musicEnabled;
@@ -36,21 +33,17 @@ namespace Tomino.View
             });
 
             screenButtonsToggle.isOn = Settings.ScreenButtonsEnabled;
-            screenButtonsToggle.GetComponentInChildren<Text>().text = Model.Text.ScreenButtons;
             screenButtonsToggle.onValueChanged.AddListener(screenButtonsEnabled =>
             {
                 Settings.ScreenButtonsEnabled = screenButtonsEnabled;
                 PlayToggleAudioClip(screenButtonsEnabled);
             });
 
-            themeText.text = Model.Text.Theme;
+            ConfigureThemeToggle(defaultThemeToggle, Settings.ThemeType.Default);
+            ConfigureThemeToggle(autumnThemeToggle, Settings.ThemeType.Autumn);
+            ConfigureThemeToggle(summerThemeToggle, Settings.ThemeType.Summer);
+            ConfigureThemeToggle(tealThemeToggle, Settings.ThemeType.Teal);
 
-            ConfigureThemeToggle(defaultThemeToggle, Settings.ThemeType.Default, Model.Text.DefaultTheme);
-            ConfigureThemeToggle(autumnThemeToggle, Settings.ThemeType.Autumn, Model.Text.AutumnTheme);
-            ConfigureThemeToggle(summerThemeToggle, Settings.ThemeType.Summer, Model.Text.SummerTheme);
-            ConfigureThemeToggle(tealThemeToggle, Settings.ThemeType.Teal, Model.Text.TealTheme);
-
-            closeButton.GetComponentInChildren<Text>().text = Model.Text.Close;
             closeButton.onClick.AddListener(() =>
             {
                 Hide();
@@ -88,10 +81,9 @@ namespace Tomino.View
             }
         }
 
-        private void ConfigureThemeToggle(Toggle themeToggle, Settings.ThemeType themeType, string themeName)
+        private void ConfigureThemeToggle(Toggle themeToggle, Settings.ThemeType themeType)
         {
             themeToggle.isOn = Settings.Theme == themeType;
-            themeToggle.GetComponentInChildren<Text>().text = themeName;
             themeToggle.onValueChanged.AddListener(toggleEnabled =>
             {
                 Settings.Theme = themeType;
